@@ -19,7 +19,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      localization={{
+        signIn: {
+          start: {
+            title: "Entrar no Lucas FII Research",
+            subtitle: "Bem-vindo de volta! Faça login para continuar"
+          }
+        },
+        signUp: {
+          start: {
+            title: "Criar conta no Lucas FII Research",
+            subtitle: "Crie sua conta para acessar o painel administrativo"
+          }
+        }
+      }}
+    >
       <html lang="pt-BR">
         <body className={mulish.className}>
           <Toaster />
