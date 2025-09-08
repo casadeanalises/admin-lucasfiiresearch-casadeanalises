@@ -83,6 +83,12 @@ const nextConfig = {
       use: 'null-loader'
     });
 
+    // Otimizações para reduzir erros de build
+    config.optimization = {
+      ...config.optimization,
+      moduleIds: 'deterministic',
+    };
+
     return config;
   },
 
@@ -90,9 +96,6 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    optimizeCss: true
-  },
 
 
   typescript: {
@@ -101,7 +104,13 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true
   },
-  staticPageGenerationTimeout: 1000,
+  staticPageGenerationTimeout: 60,
+  
+  experimental: {
+    optimizeCss: true,
+    workerThreads: false,
+    cpus: 1
+  },
 
   compiler: {
     styledComponents: true
