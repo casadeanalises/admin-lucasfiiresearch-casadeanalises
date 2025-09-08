@@ -8,26 +8,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    // Primeiro verifica se há autenticação via Clerk
-    try {
-      const { auth } = await import("@clerk/nextjs/server");
-      const authResult = await auth();
-      if (authResult.userId) {
-        console.log("Usuário autenticado via Clerk:", authResult.userId);
-        return NextResponse.json({
-          isAdmin: true,
-          email: "admin@clerk.com", // Você pode buscar o email real do Clerk se necessário
-          type: "clerk",
-          admin: {
-            email: "admin@clerk.com"
-          }
-        });
-      }
-    } catch (clerkError) {
-      console.log("Clerk não disponível, verificando sistema personalizado");
-    }
-
-    // Se não for Clerk, verifica sistema personalizado
+    // Verifica sistema personalizado
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_OPTIONS.name)?.value;
 
@@ -58,7 +39,6 @@ export async function GET() {
     return NextResponse.json({
       isAdmin: true,
       email: admin.email,
-      type: "custom",
       admin: {
         email: admin.email
       }

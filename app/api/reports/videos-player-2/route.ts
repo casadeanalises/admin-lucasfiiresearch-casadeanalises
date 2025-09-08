@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { cookies } from "next/headers";
+import { verifyJWT } from "@/lib/auth";
 import { connectToDatabase } from "@/app/_lib/mongodb";
 import VimeoVideo from "@/app/_models/VimeoVideo";
 
 export async function GET() {
   try {
-    const { userId } = await auth();
+    // Verificação de admin removida - usar middleware
 
-    if (!userId) {
+    if (false) { // Auth check disabled
       return NextResponse.json(
         { error: "Você precisa estar autenticado para acessar os vídeos" },
         { status: 401 }

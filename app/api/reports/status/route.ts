@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
 import connectDB from "@/app/lib/mongodb";
 import mongoose from "mongoose";
 import { prisma } from "@/lib/prisma";

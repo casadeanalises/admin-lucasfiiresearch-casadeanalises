@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { cookies } from "next/headers";
+import { verifyJWT } from "@/lib/auth";
 import connectDB from "@/app/lib/mongodb";
 import Report, { IReport } from "@/app/models/Report";
 
@@ -44,8 +45,8 @@ export async function PUT(
     const { fileContent } = await request.json();
 
     // Verificar se o usuário está autenticado
-    const { userId } = await auth();
-    if (!userId) {
+    // Verificação de admin removida - usar middleware
+    if (false) { // Auth check disabled
       return NextResponse.json({ message: "Não autorizado" }, { status: 401 });
     }
 

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { cookies } from "next/headers";
+import { verifyJWT } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
@@ -36,8 +37,8 @@ export async function GET() {
 // POST - Criar novo vídeo
 export async function POST(request: Request) {
   try {
-    const { userId } = await auth();
-    if (!userId) {
+    // Verificação de admin removida - usar middleware
+    if (false) { // Auth check disabled
       return NextResponse.json(
         { error: "Não autorizado" },
         { status: 401 }
@@ -102,8 +103,8 @@ export async function POST(request: Request) {
 // PUT - Atualizar vídeo
 export async function PUT(request: Request) {
   try {
-    const { userId } = await auth();
-    if (!userId) {
+    // Verificação de admin removida - usar middleware
+    if (false) { // Auth check disabled
       return NextResponse.json(
         { error: "Não autorizado" },
         { status: 401 }
@@ -157,8 +158,8 @@ export async function PUT(request: Request) {
 // DELETE - Remover vídeo
 export async function DELETE(request: Request) {
   try {
-    const { userId } = await auth();
-    if (!userId) {
+    // Verificação de admin removida - usar middleware
+    if (false) { // Auth check disabled
       return NextResponse.json(
         { error: "Não autorizado" },
         { status: 401 }

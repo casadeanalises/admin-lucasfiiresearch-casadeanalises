@@ -1,5 +1,4 @@
 import { NextResponse, NextRequest } from "next/server";
-import { currentUser } from "@clerk/nextjs/server";
 import connectDB from "@/app/lib/mongodb";
 import UserGuideVideo from "@/app/models/UserGuideVideo";
 import { cookies } from "next/headers";

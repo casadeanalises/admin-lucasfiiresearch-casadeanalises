@@ -12,10 +12,7 @@ const ADMIN_PROTECTED_ROUTES = [
 const ADMIN_PUBLIC_ROUTES = [
   "/api/admin/login",
   "/admin/login",
-  "/admin/clerk-login",
-  "/admin/clerk-register",
-  "/",
-  "/api/__clerk"
+  "/"
 ];
 
 export async function middleware(request: NextRequest) {
@@ -31,18 +28,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Primeiro, tenta verificar autenticação com Clerk (se disponível)
-  try {
-    const { auth } = await import("@clerk/nextjs/server");
-    const authResult = await auth();
-    if (authResult.userId) {
-      return NextResponse.next();
-    }
-  } catch (error) {
-    console.log("Clerk não disponível, usando sistema personalizado");
-  }
-
-  // Se não estiver autenticado com Clerk, verifica sistema personalizado
+  // Verifica sistema personalizado
   const token = request.cookies.get(COOKIE_OPTIONS.name)?.value;
 
   if (!token) {

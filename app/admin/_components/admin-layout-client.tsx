@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Home, FileText, BarChart3, Settings, PlayCircle, Menu, LogOut, Lock, BookOpen, Bell, ChevronLeft, ChevronRight, User, Calendar, Clock } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import { useAuth, useUser } from "@clerk/nextjs";
 
 interface AdminLayoutClientProps {
   children: React.ReactNode;
@@ -88,12 +87,9 @@ const menuItems = [
 export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
   const pathname = usePathname();
   const [adminEmail, setAdminEmail] = useState<string>("");
-  const [authType, setAuthType] = useState<"clerk" | "custom" | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const { isSignedIn, isLoaded, signOut } = useAuth();
-  const { user } = useUser();
   
   const scrollMenu = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -112,24 +108,13 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        // Primeiro verifica se está logado via Clerk
-        if (isLoaded && isSignedIn && user) {
-          setAuthType("clerk");
-          // Busca o email real do usuário do Clerk
-          const userEmail = user.emailAddresses?.[0]?.emailAddress || user.primaryEmailAddress?.emailAddress || "admin@clerk.com";
-          setAdminEmail(userEmail);
-          setIsLoading(false);
-          return;
-        }
-
-        // Se não for Clerk, verifica sistema personalizado
+        // Verifica sistema personalizado
         const response = await fetch("/api/admin/check-access", {
           credentials: "include",
         });
         if (response.ok) {
           const data = await response.json();
           if (data.isAdmin) {
-            setAuthType(data.type || "custom");
             setAdminEmail(data.email);
           }
         }
@@ -140,39 +125,26 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
       }
     };
 
-    if (isLoaded) {
-      fetchAdminData();
-    }
-  }, [isLoaded, isSignedIn, user]);
+    fetchAdminData();
+  }, []);
 
   const handleLogout = async () => {
     try {
-      console.log("Iniciando logout... Tipo de auth:", authType);
+      console.log("Iniciando logout...");
+      const response = await fetch("/api/admin/logout", {
+        method: "POST",
+        credentials: "include",
+      });
       
-      if (authType === "clerk") {
-        // Logout do Clerk
-        console.log("Fazendo logout do Clerk...");
-        if (signOut) {
-          await signOut();
-          console.log("Logout do Clerk realizado com sucesso");
-        }
-      } else if (authType === "custom") {
-        // Logout do sistema personalizado
-        console.log("Fazendo logout do sistema personalizado...");
-        const response = await fetch("/api/admin/logout", {
-          method: "POST",
-          credentials: "include",
-        });
-        console.log("Resposta do logout personalizado:", response.status);
+      if (!response.ok) {
+        throw new Error("Erro ao fazer logout");
       }
-
-      // Força redirecionamento imediato
-      console.log("Redirecionando para /");
-      window.location.href = "/";
       
+      console.log("Logout realizado com sucesso");
+      window.location.href = "/";
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
-      // Mesmo em caso de erro, força redirecionamento
+      // Mesmo com erro, redireciona para o login
       window.location.href = "/";
     }
   };
@@ -205,11 +177,6 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
               {!isLoading && adminEmail && (
                 <div className="text-sm text-gray-600">
                   <span>{adminEmail}</span>
-                  {authType && (
-                    <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                      {authType === "clerk" ? "Clerk" : "Sistema"}
-                    </span>
-                  )}
                 </div>
               )}
               <button
@@ -292,11 +259,6 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 {!isLoading && adminEmail && (
                   <div className="px-4 py-2 text-sm text-gray-600 border-t border-gray-200">
                     <span>{adminEmail}</span>
-                    {authType && (
-                      <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                        {authType === "clerk" ? "Clerk" : "Sistema"}
-                      </span>
-                    )}
                   </div>
                 )}
                 <button

@@ -1,5 +1,4 @@
 import { NextResponse, NextRequest } from "next/server";
-import { currentUser } from "@clerk/nextjs/server";
 import connectDB from "@/app/lib/mongodb";
 import HomeVideo from "@/app/models/HomeVideo";
 import { cookies } from "next/headers";
@@ -8,27 +7,12 @@ import { verifyJWT } from "@/lib/auth";
 
 async function isAdmin() {
   try {
-   
-    const user = await currentUser();
-    if (user) {
-      const adminEmail = process.env.ADMIN_EMAIL;
-      if (!adminEmail) return false;
-
-      const userEmail = user.emailAddresses[0]?.emailAddress;
-      if (!userEmail) return false;
-
-      if (userEmail.toLowerCase() === adminEmail.toLowerCase()) {
-        return true;
-      }
-    }
-
-    
     const cookieStore = cookies();
     const token = cookieStore.get("admin_token")?.value;
 
     if (token) {
       const payload = await verifyJWT(token);
-      return !!payload;
+      return payload?.type === 'admin';
     }
 
     return false;
