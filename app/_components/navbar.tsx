@@ -353,7 +353,7 @@ const Navbar = () => {
     </>
   );
 
-  if (pathname === "/admin/login") return null;
+  if (pathname === "/") return null;
 
   return (
     <>

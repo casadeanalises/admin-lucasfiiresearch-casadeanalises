@@ -9,7 +9,14 @@ const ADMIN_PROTECTED_ROUTES = [
 ];
 
 // Lista de rotas admin que são públicas
-const ADMIN_PUBLIC_ROUTES = ["/api/admin/login"];
+const ADMIN_PUBLIC_ROUTES = [
+  "/api/admin/login",
+  "/admin/login",
+  "/admin/clerk-login",
+  "/admin/clerk-register",
+  "/",
+  "/api/__clerk"
+];
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -20,20 +27,26 @@ export async function middleware(request: NextRequest) {
   }
 
   // Se for uma rota pública de admin, permite o acesso
-  if (ADMIN_PUBLIC_ROUTES.includes(pathname)) {
+  if (ADMIN_PUBLIC_ROUTES.some(route => pathname.startsWith(route))) {
     return NextResponse.next();
   }
 
-  // Verifica se tem token de autenticação
+  // Primeiro, tenta verificar autenticação com Clerk (se disponível)
+  try {
+    const { auth } = await import("@clerk/nextjs/server");
+    const authResult = await auth();
+    if (authResult.userId) {
+      return NextResponse.next();
+    }
+  } catch (error) {
+    console.log("Clerk não disponível, usando sistema personalizado");
+  }
+
+  // Se não estiver autenticado com Clerk, verifica sistema personalizado
   const token = request.cookies.get(COOKIE_OPTIONS.name)?.value;
 
   if (!token) {
-    // Se for a página inicial e não tiver token, permite o acesso (página de login)
-    if (pathname === "/") {
-      return NextResponse.next();
-    }
-    
-    // Se não tiver token, redireciona para a página inicial (login)
+    // Se não tiver token, redireciona para a página inicial (que agora é a página de login)
     return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -47,7 +60,7 @@ export async function middleware(request: NextRequest) {
     // Se o token for válido, permite o acesso
     return NextResponse.next();
   } catch (error) {
-    // Se o token for inválido, redireciona para a página inicial (login)
+    // Se o token for inválido, redireciona para a página inicial (que agora é a página de login)
     return NextResponse.redirect(new URL("/", request.url));
   }
 }
@@ -65,3 +78,4 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico|public).*)",
   ],
 };
+

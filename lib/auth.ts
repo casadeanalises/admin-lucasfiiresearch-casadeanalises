@@ -1,6 +1,5 @@
 import * as jose from "jose";
 import { cookies } from "next/headers";
-import { auth } from "@clerk/nextjs";
 
 // Chave secreta para assinar os tokens JWT (convertida para Uint8Array para jose)
 const secretKey = new TextEncoder().encode(
@@ -61,4 +60,46 @@ export const COOKIE_OPTIONS = {
   path: "/",
 };
 
-export { auth };
+// Função para verificar autenticação usando Clerk ou sistema personalizado
+export async function checkAuthentication() {
+  // Primeiro, tenta verificar com Clerk
+  try {
+    const { auth } = await import("@clerk/nextjs/server");
+    const authResult = await auth();
+    if (authResult.userId) {
+      return { type: 'clerk', userId: authResult.userId, authenticated: true };
+    }
+  } catch (error) {
+    console.log('Clerk não disponível ou não autenticado');
+  }
+
+  // Se Clerk não estiver disponível, usa o sistema personalizado
+  const isAuth = await isAuthenticated();
+  if (isAuth) {
+    const payload = await getAuthPayload();
+    return { type: 'custom', payload, authenticated: true };
+  }
+
+  return { authenticated: false };
+}
+
+// Função para verificar se é admin usando qualquer sistema
+export async function isAdmin() {
+  const authResult = await checkAuthentication();
+  
+  if (!authResult.authenticated) {
+    return false;
+  }
+
+  if (authResult.type === 'clerk') {
+    // Para Clerk, você pode configurar roles/permissions aqui
+    // Por enquanto, assumindo que qualquer usuário autenticado no Clerk é admin
+    return true;
+  }
+
+  if (authResult.type === 'custom') {
+    return authResult.payload?.type === 'admin';
+  }
+
+  return false;
+}

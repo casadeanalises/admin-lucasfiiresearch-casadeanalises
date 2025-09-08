@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { User, LogOut } from "lucide-react";
+import { useAuth, SignOutButton, useUser } from "@clerk/nextjs";
 
 export function AdminInfo() {
   const [adminEmail, setAdminEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>("");
+  const [authType, setAuthType] = useState<'clerk' | 'custom' | null>(null);
+  const { isSignedIn } = useAuth();
+  const { user } = useUser();
 
   const handleLogout = async () => {
     try {
@@ -14,7 +18,7 @@ export function AdminInfo() {
         method: "POST",
         credentials: "include",
       });
-      window.location.href = "/admin/login";
+      window.location.href = "/"; // Volta para página inicial
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
     }
@@ -24,6 +28,16 @@ export function AdminInfo() {
     const checkAdmin = async () => {
       try {
         setError("");
+        
+        // Primeiro verifica se está autenticado com Clerk
+        if (isSignedIn && user) {
+          setAdminEmail(user.primaryEmailAddress?.emailAddress || "Usuário Clerk");
+          setAuthType('clerk');
+          setIsLoading(false);
+          return;
+        }
+        
+        // Se não estiver com Clerk, verifica sistema personalizado
         const res = await fetch("/api/admin/check-access");
         const data = await res.json();
         
@@ -31,6 +45,7 @@ export function AdminInfo() {
         
         if (data.admin?.email) {
           setAdminEmail(data.admin.email);
+          setAuthType('custom');
         } else {
           setError("Email não encontrado");
         }
@@ -43,7 +58,7 @@ export function AdminInfo() {
     };
 
     checkAdmin();
-  }, []);
+  }, [isSignedIn, user]);
 
   if (isLoading) {
     return (
@@ -82,18 +97,29 @@ export function AdminInfo() {
           <User className="h-5 w-5" />
         </div>
         <div className="flex flex-col">
-          <span className="text-xs text-white/60">Administrador</span>
+          <span className="text-xs text-white/60">
+            Administrador {authType === 'clerk' ? '(Clerk)' : '(Sistema)'}
+          </span>
           <span className="text-sm">{adminEmail}</span>
         </div>
       </div>
 
-      <button
-        onClick={handleLogout}
-        className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white transition-all hover:bg-white/10"
-      >
-        <LogOut className="h-5 w-5" />
-        <span>Sair</span>
-      </button>
+      {authType === 'clerk' ? (
+        <SignOutButton signOutOptions={{ redirectUrl: "/" }}>
+          <button className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white transition-all hover:bg-white/10">
+            <LogOut className="h-5 w-5" />
+            <span>Sair (Clerk)</span>
+          </button>
+        </SignOutButton>
+      ) : (
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white transition-all hover:bg-white/10"
+        >
+          <LogOut className="h-5 w-5" />
+          <span>Sair (Sistema)</span>
+        </button>
+      )}
     </div>
   );
 } 
