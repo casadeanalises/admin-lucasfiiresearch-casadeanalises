@@ -160,7 +160,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
               <img src="/logo.png" alt="Logo" className="h-10 w-10" />
               <div>
                 <h1 className="text-xl font-bold text-blue-700">Painel Administrativo</h1>
-                <p className="text-sm text-gray-500">Gerencie todos os aspectos do sistema | admin: v1.2.1</p>
+                <p className="text-sm text-gray-500">Gerencie todos os aspectos do sistema | admin: v2.4.2</p>
               </div>
             </div>
 
