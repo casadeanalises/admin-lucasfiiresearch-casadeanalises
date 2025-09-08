@@ -102,9 +102,7 @@ const nextConfig = {
     ignoreDuringBuilds: true
   },
   staticPageGenerationTimeout: 1000,
-  output: 'standalone',
 
- 
   compiler: {
     styledComponents: true
   },
