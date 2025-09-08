@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @map("_id")
+  email         String         @unique
+  name          String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id                  String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId              String
+  stripeCustomerId    String?
+  stripeSubscriptionId String?
+  planType            String   // "basic", "annualbasic", "etfs_wallet" - tipos de plano disponíveis
+  status              String   // "active", "cancelled", "expired"
+  startDate           DateTime @default(now())
+  endDate             DateTime?
+  price               Float
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id])
+}
+
+model Report {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String?
+  author        String
+  date          String
+  time          String
+  code          String
+  type          String
+  thumbnail     String
+  premium       Boolean  @default(false)
+  tags          String[]
+  month         String
+  year          String
+  videoId       String?
+  url           String?
+  pageCount     Int?
+  dividendYield String?
+  price         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  DEPOSIT
+  INVESTMENT
+}
+
+enum TransactionCategory {
+  SALARY
+  INVESTMENT
+  FOOD
+  TRANSPORT
+  TRANSPORTATION
+  HOUSING
+  UTILITIES
+  UTILITY
+  ENTERTAINMENT
+  HEALTH
+  EDUCATION
+  OTHER
+}
+
+enum TransactionPaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  CASH
+  BANK_TRANSFER
+  BANK_SLIP
+  PIX
+  OTHER
+}
+
+model Transaction {
+  id            String                  @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String
+  name          String
+  amount        Float
+  type          TransactionType
+  category      TransactionCategory
+  paymentMethod TransactionPaymentMethod
+  date          DateTime
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+}
+
+// Você pode adicionar mais modelos conforme necessário 
