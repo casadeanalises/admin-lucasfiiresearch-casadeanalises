@@ -44,7 +44,7 @@ export async function PUT(
     const { fileContent } = await request.json();
 
     // Verificar se o usuário está autenticado
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
       return NextResponse.json({ message: "Não autorizado" }, { status: 401 });
     }

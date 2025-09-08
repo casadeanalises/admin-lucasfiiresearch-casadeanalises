@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
@@ -24,7 +24,7 @@ export async function GET() {
 // POST - Criar novo PDF
 export async function POST(request: Request) {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
       return NextResponse.json(
         { error: "Não autorizado" },
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
 // PUT - Atualizar PDF
 export async function PUT(request: Request) {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
       return NextResponse.json(
         { error: "Não autorizado" },
@@ -117,7 +117,7 @@ export async function PUT(request: Request) {
 // DELETE - Remover PDF
 export async function DELETE(request: Request) {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
       return NextResponse.json(
         { error: "Não autorizado" },

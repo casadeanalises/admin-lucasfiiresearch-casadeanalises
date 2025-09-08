@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { connectToDatabase } from "@/app/_lib/mongodb";
 import VimeoVideo from "@/app/_models/VimeoVideo";
 

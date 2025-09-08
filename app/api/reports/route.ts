@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   try {
     // Verificar se o usuário está autenticado
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
       return NextResponse.json({ message: "Não autorizado" }, { status: 401 });
     }
