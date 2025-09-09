@@ -150,120 +150,210 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800">
+    <div className="min-h-screen bg-blue-900">
       {/* Header Principal */}
-      <header className="fixed top-0 left-0 right-0 z-30 bg-white shadow-lg">
+      <header className="fixed top-0 left-0 right-0 z-30 bg-blue-800 shadow-lg">
         <div className="max-w-[1920px] mx-auto">
-          {/* Logo e Info */}
-          <div className="flex items-center justify-between px-4 py-2 border-b">
-            <div className="flex items-center space-x-3">
-              <img src="/logo.png" alt="Logo" className="h-10 w-10" />
-              <div>
-                <h1 className="text-xl font-bold text-blue-700">Painel Administrativo</h1>
-                <p className="text-sm text-gray-500">Gerencie todos os aspectos do sistema | admin: v2.4.2</p>
+          {/* Logo e Navegação */}
+          <div className="flex items-center justify-between px-6 py-4">
+            {/* Logo */}
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3">
+                <img src="/logo.png" alt="Logo" className="h-10 w-10" />
+                <div>
+                  <h1 className="text-xl font-bold text-white">LUCAS FII RESEARCH</h1>
+                  <p className="text-xs text-blue-200">ADMINISTRATIVO</p>
+                </div>
               </div>
             </div>
 
             {/* Menu Mobile Toggle */}
             <button
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-lg hover:bg-blue-700 text-white"
               onClick={() => setShowMobileMenu(!showMobileMenu)}
             >
-              <Menu className="h-6 w-6 text-blue-700" />
+              <Menu className="h-6 w-6" />
             </button>
+
+            {/* Navegação Desktop */}
+            <div className="hidden lg:flex items-center space-x-8">
+              <Link
+                href="/admin"
+                className={`px-4 py-2 rounded-lg text-white font-medium transition-colors ${
+                  pathname === "/admin" ? "bg-blue-700" : "hover:bg-blue-700"
+                }`}
+              >
+                Home
+              </Link>
+              <div className="relative group">
+                <button className="px-4 py-2 rounded-lg text-white font-medium hover:bg-blue-700 transition-colors flex items-center space-x-1">
+                  <span>Gerenciar Conteúdo</span>
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <Link href="/admin/reports" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Relatório Semanal
+                    </Link>
+                    <Link href="/admin/relevant-facts" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Fatos Relevantes
+                    </Link>
+                    <Link href="/admin/educational" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Material Educacional
+                    </Link>
+                    <Link href="/admin/etf-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      ETFs
+                    </Link>
+                    <Link href="/admin/lowcost-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Low Cost
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className="relative group">
+                <button className="px-4 py-2 rounded-lg text-white font-medium hover:bg-blue-700 transition-colors flex items-center space-x-1">
+                  <span>Gerenciar Vídeos</span>
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <Link href="/admin/home-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Teses de Investimento
+                    </Link>
+                    <Link href="/admin/user-guide-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Guia do Usuário
+                    </Link>
+                    <Link href="/admin/reports-videos-player-2" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Vídeos Player 2
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className="relative group">
+                <button className="px-4 py-2 rounded-lg text-white font-medium hover:bg-blue-700 transition-colors flex items-center space-x-1">
+                  <span>Gerenciar Sistema</span>
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <Link href="/admin/notifications" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Notificações
+                    </Link>
+                    <Link href="/admin/fix-auth" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Gerenciar Administradores
+                    </Link>
+                    <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Cronograma de Atualizações
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Perfil e Logout */}
             <div className="hidden lg:flex items-center space-x-4">
+              <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
+                <User className="h-5 w-5 text-white" />
+              </div>
               {!isLoading && adminEmail && (
-                <div className="text-sm text-gray-600">
-                  <span>{adminEmail}</span>
-                </div>
+                <span className="text-white font-medium">{adminEmail}</span>
               )}
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+                className="p-2 text-white hover:bg-blue-700 rounded-lg transition-colors"
               >
                 <LogOut className="h-5 w-5" />
-                <span>Sair</span>
               </button>
             </div>
           </div>
 
-          {/* Menu Desktop com Scroll */}
-          <div className="hidden lg:flex items-center px-4 relative py-1">
-            <button
-              onClick={() => scrollMenu('left')}
-              className="absolute left-0 z-10 p-2 bg-white hover:bg-gray-100 rounded-full shadow-md"
-            >
-              <ChevronLeft className="h-5 w-5 text-blue-700" />
-            </button>
-            
-            <div 
-              ref={scrollContainerRef}
-              className="flex-1 overflow-x-auto scrollbar-hide py-2 px-8"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                WebkitOverflowScrolling: 'touch'
-              }}
-            >
-              <nav className="flex items-center space-x-2 min-w-max">
-                {menuItems.map((item) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 whitespace-nowrap
-                        ${isActive 
-                          ? "bg-blue-100 text-blue-700" 
-                          : "text-gray-600 hover:bg-gray-100 hover:text-blue-600"}`}
-                    >
-                      <span>{item.icon}</span>
-                      <span>{item.title}</span>
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
-
-            <button
-              onClick={() => scrollMenu('right')}
-              className="absolute right-0 z-10 p-2 bg-white hover:bg-gray-100 rounded-full shadow-md"
-            >
-              <ChevronRight className="h-5 w-5 text-blue-700" />
-            </button>
-          </div>
-
           {/* Menu Mobile Dropdown */}
           {showMobileMenu && (
-            <div className="lg:hidden border-t border-gray-200">
+            <div className="lg:hidden border-t border-blue-700">
               <nav className="px-4 py-2 space-y-1">
-                {menuItems.map((item) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2
-                        ${isActive 
-                          ? "bg-blue-100 text-blue-700" 
-                          : "text-gray-600 hover:bg-gray-100 hover:text-blue-600"}`}
-                      onClick={() => setShowMobileMenu(false)}
-                    >
-                      <span>{item.icon}</span>
-                      <span>{item.title}</span>
-                    </Link>
-                  );
-                })}
+                <Link
+                  href="/admin"
+                  className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    pathname === "/admin" ? "bg-blue-700 text-white" : "text-white hover:bg-blue-700"
+                  }`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/admin/reports"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Relatório Semanal
+                </Link>
+                <Link
+                  href="/admin/relevant-facts"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Fatos Relevantes
+                </Link>
+                <Link
+                  href="/admin/educational"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Material Educacional
+                </Link>
+                <Link
+                  href="/admin/etf-videos"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  ETFs
+                </Link>
+                <Link
+                  href="/admin/lowcost-videos"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Low Cost
+                </Link>
+                <Link
+                  href="/admin/home-videos"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Teses de Investimento
+                </Link>
+                <Link
+                  href="/admin/user-guide-videos"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Guia do Usuário
+                </Link>
+                <Link
+                  href="/admin/notifications"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Notificações
+                </Link>
+                <Link
+                  href="/admin/fix-auth"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Gerenciar Administradores
+                </Link>
                 {!isLoading && adminEmail && (
-                  <div className="px-4 py-2 text-sm text-gray-600 border-t border-gray-200">
+                  <div className="px-4 py-2 text-sm text-blue-200 border-t border-blue-700">
                     <span>{adminEmail}</span>
                   </div>
                 )}
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center space-x-2 px-4 py-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+                  className="w-full flex items-center space-x-2 px-4 py-2 rounded-lg text-white hover:bg-blue-700 transition-colors"
                 >
                   <LogOut className="h-5 w-5" />
                   <span>Sair</span>
@@ -275,11 +365,9 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
       </header>
 
       {/* Conteúdo Principal */}
-      <main className="pt-32 px-4 pb-8">
+      <main className="pt-24 px-6 pb-12">
         <div className="max-w-[1920px] mx-auto">
-          <div className="bg-white rounded-xl shadow-xl p-6 backdrop-blur-lg bg-opacity-95 mt-10">
-            {children}
-          </div>
+          {children}
         </div>
       </main>
 
