@@ -57,35 +57,37 @@ export default function AdminNotificationsPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold">Notificações</h1>
-          <span className="inline-block bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full">{notifications.length}</span>
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
+      <div className="max-w-4xl mx-auto py-10 px-4">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold text-white">Notificações</h1>
+            <span className="inline-block bg-white/20 text-white text-sm font-semibold px-3 py-1 rounded-full">{notifications.length}</span>
+          </div>
+          <div className="flex gap-2">
+            <Link href="/admin/notifications/new">
+              <Button className="bg-white text-blue-900 hover:bg-blue-50">Adicionar Notificação</Button>
+            </Link>
+            <Button variant="destructive" onClick={handleDeleteAll} disabled={deletingAll || notifications.length === 0}>
+              {deletingAll ? 'Excluindo tudo...' : 'Excluir Todas'}
+            </Button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <Link href="/admin/notifications/new">
-            <Button>Adicionar Notificação</Button>
-          </Link>
-          <Button variant="destructive" onClick={handleDeleteAll} disabled={deletingAll || notifications.length === 0}>
-            {deletingAll ? 'Excluindo tudo...' : 'Excluir Todas'}
-          </Button>
-        </div>
-      </div>
-      <div className="mb-6 p-3 bg-red-50 border-l-4 border-red-400 text-red-800 rounded">
-        <strong>Aviso:</strong> Para evitar acúmulo de notificações na caixa dos usuários, recomenda-se remover/excluir todas as notificações a cada 1 mês.
-      </div>
-      <div className="mb-6 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 rounded">
-        <strong>Dica:</strong> Antes de enviar uma notificação, sempre verifique o titulo, descrição, tipo, icone e link da notificação!
-      </div>
-      {loading ? (
-        <div className="text-center text-gray-500 py-8">Carregando...</div>
-      ) : notifications.length === 0 ? (
-        <div className="text-center text-gray-500 py-8">Nenhuma notificação encontrada.</div>
-      ) : (
-        <ul className="space-y-4">
-          {notifications.map((n) => (
-            <li key={n._id} className="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row sm:items-center gap-4 border border-gray-100">
+        <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-6 border border-white/20">
+          <div className="mb-6 p-3 bg-red-50 border-l-4 border-red-400 text-red-800 rounded">
+            <strong>Aviso:</strong> Para evitar acúmulo de notificações na caixa dos usuários, recomenda-se remover/excluir todas as notificações a cada 1 mês.
+          </div>
+          <div className="mb-6 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 rounded">
+            <strong>Dica:</strong> Antes de enviar uma notificação, sempre verifique o titulo, descrição, tipo, icone e link da notificação!
+          </div>
+          {loading ? (
+            <div className="text-center text-gray-500 py-8">Carregando...</div>
+          ) : notifications.length === 0 ? (
+            <div className="text-center text-gray-500 py-8">Nenhuma notificação encontrada.</div>
+          ) : (
+            <ul className="space-y-4">
+              {notifications.map((n) => (
+                <li key={n._id} className="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row sm:items-center gap-4 border border-gray-100">
               {n.imageUrl && (
                 <img src={n.imageUrl} alt="" className="w-16 h-16 object-cover rounded-md" />
               )}
@@ -104,10 +106,12 @@ export default function AdminNotificationsPage() {
                   {deleting === n._id ? 'Excluindo...' : 'Excluir'}
                 </Button>
               </div>
-            </li>
-          ))}
-        </ul>
-      )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

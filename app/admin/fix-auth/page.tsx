@@ -54,14 +54,15 @@ export default function FixAuthPage() {
   };
 
   return (
-    <div className="mx-auto max-w-md space-y-6 p-8">
-      <div className="rounded-lg border bg-white p-6 shadow-sm">
-        <h1 className="mb-4 text-2xl font-bold text-gray-900">
-        Gerenciar administradores
-        </h1>
-        <p className="mb-6 text-gray-600">
-         Informe o email e senha do administrador
-        </p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 flex items-center justify-center p-8">
+      <div className="mx-auto max-w-md space-y-6">
+        <div className="rounded-2xl border border-white/20 bg-white/95 backdrop-blur-xl p-6 shadow-2xl">
+          <h1 className="mb-4 text-3xl font-bold text-gray-900">
+          Gerenciar Administradores
+          </h1>
+          <p className="mb-6 text-gray-600">
+           Informe o email e senha do administrador
+          </p>
 
         <div className="space-y-4">
           <div>
@@ -105,12 +106,13 @@ export default function FixAuthPage() {
           >
             {message}
           </div>
-        )}
-      </div>
+          )}
+        </div>
 
-      <div className="text-center text-sm text-gray-500">
-        Após o login e restauração da autenticação da limpeza de cookies, você poderá gerenciar conteudos e administradores 
-        normalmente.
+        <div className="text-center text-sm text-white/80">
+          Após o login e restauração da autenticação da limpeza de cookies, você poderá gerenciar conteúdos e administradores 
+          normalmente.
+        </div>
       </div>
     </div>
   );
