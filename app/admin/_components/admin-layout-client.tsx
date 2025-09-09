@@ -71,7 +71,7 @@ const menuItems = [
     isNew: false,
   },
   {
-    title: "Vídeos Player 2",
+    title: "Relatório Semanal Player 2",
     href: "/admin/reports-videos-player-2",
     icon: <PlayCircle className="h-5 w-5" />,
     isNew: false,
@@ -199,24 +199,34 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                     <Link href="/admin/relevant-facts" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Fatos Relevantes
                     </Link>
-                    <Link href="/admin/educational" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Material Educacional
-                    </Link>
                     <Link href="/admin/etf-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       ETFs
+                    </Link>
+                    <Link href="/admin/home-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Teses de Investimento
                     </Link>
                     <Link href="/admin/lowcost-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Low Cost
                     </Link>
+                    <Link href="/admin/educational" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Material Educacional
+                    </Link>
+                    <Link href="/admin/reports-videos-player-2" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Relatório Semanal Player 2
+                    </Link>
+                    <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Cronograma de Atualizações
+                    </Link>
                   </div>
                 </div>
               </div>
-              <div className="relative group">
+
+              {/* <div className="relative group">
                 <button className="px-4 py-2 rounded-lg text-white font-medium hover:bg-blue-700 transition-colors flex items-center space-x-1">
                   <span>Gerenciar Vídeos</span>
                   <ChevronRight className="h-4 w-4" />
                 </button>
-                {/* Dropdown Menu */}
+                
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="py-2">
                     <Link href="/admin/home-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
@@ -226,11 +236,12 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                       Guia do Usuário
                     </Link>
                     <Link href="/admin/reports-videos-player-2" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Vídeos Player 2
+                      Relatório Semanal Player 2
                     </Link>
                   </div>
                 </div>
-              </div>
+              </div> */}
+
               <div className="relative group">
                 <button className="px-4 py-2 rounded-lg text-white font-medium hover:bg-blue-700 transition-colors flex items-center space-x-1">
                   <span>Gerenciar Sistema</span>
@@ -245,9 +256,9 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                     <Link href="/admin/fix-auth" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Gerenciar Administradores
                     </Link>
-                    <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    {/* <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Cronograma de Atualizações
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>

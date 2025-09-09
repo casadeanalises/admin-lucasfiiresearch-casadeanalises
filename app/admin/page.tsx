@@ -69,7 +69,7 @@ export default function AdminDashboard() {
       isNew: false,
     },
     {
-      title: "Vídeos Player 2",
+      title: "Relatório Semanal Player 2",
       description: "Gerencie os Vídeos do Relatório Semanal",
       icon: <PlayCircle className="h-8 w-8" />,
       href: "/admin/reports-videos-player-2",
@@ -78,7 +78,7 @@ export default function AdminDashboard() {
     },
     {
       title: "Cronograma de Atualizações",
-      description: "Gerencie o cronograma de atualizações (Uso somente pelo desenvolvedor)",
+      description: "Gerencie o cronograma de desenvolvimento da plataforma",
       icon: <Calendar className="h-8 w-8" />,
       href: "/admin/update-schedule",
       color: "cyan",
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
     },
     {
       title: "Gerenciar Administradores",
-      description: "Restaurar Autenticação",
+      description: "Adicionar e Restaurar Acesso",
       icon: <User className="h-8 w-8" />,
       href: "/admin/fix-auth",
       color: "blue-dark",
