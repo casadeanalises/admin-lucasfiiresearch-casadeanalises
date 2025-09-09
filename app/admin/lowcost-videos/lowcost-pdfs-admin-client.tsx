@@ -135,8 +135,8 @@ export default function LowcostPDFsAdminClient() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold">PDFs Lowcost</h2>
-          <p className="text-gray-600">Gerencie os PDFs da carteira lowcost</p>
+          {/* <h2 className="text-2xl font-bold">PDFs Lowcost</h2>
+          <p className="text-gray-600">Gerencie os PDFs da carteira lowcost</p> */}
         </div>
         <Button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2">
           <PlusIcon className="h-4 w-4" />

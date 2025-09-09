@@ -61,7 +61,7 @@ export default function FixAuthPage() {
           Gerenciar Administradores
           </h1>
           <p className="mb-6 text-gray-600">
-           Informe o email e senha do administrador
+           Informe o email e senha do administrador logado
           </p>
 
         <div className="space-y-4">
