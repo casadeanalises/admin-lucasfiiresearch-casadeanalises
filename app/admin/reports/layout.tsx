@@ -19,34 +19,39 @@ export default async function AdminLayout({
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="border-b bg-white shadow-sm">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between py-6">
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
+       
+        {/* <div className="bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-2xl">
+          <div className="container mx-auto px-6">
+            <div className="flex items-center justify-between py-8">
               <div>
-                <h1 className="bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-2xl font-bold text-transparent">
+                <h1 className="text-4xl font-bold text-white mb-2">
                   Painel Administrativo
                 </h1>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="text-white/80 text-lg">
                   Gerencie seus relatórios e conteúdos
                 </p>
               </div>
             </div>
 
-            <div className="mt-4 flex">
+           
+            <div className="mt-6 flex">
               <Link
                 href="/admin/reports"
-                className="flex items-center gap-2 rounded-t-lg border-b-2 border-blue-600 bg-blue-50 px-6 py-3 text-sm font-medium text-blue-800 transition-colors hover:bg-blue-100"
+                className="group flex items-center gap-3 rounded-xl bg-white/20 backdrop-blur-sm px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:bg-white/30 hover:shadow-lg border border-white/30"
               >
-                <FileText className="h-4 w-4" />
+                <FileText className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                 Gerenciar Conteúdo
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="container mx-auto px-4 py-8">
-          <div className="rounded-lg bg-white p-6 shadow-sm">{children}</div>
+        {/* Content Area Premium */}
+        <div className="container mx-auto px-6 py-12">
+          <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            {children}
+          </div>
         </div>
       </div>
     </>

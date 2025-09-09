@@ -19,7 +19,7 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="border-b bg-white shadow-sm">
+      {/* <div className="border-b bg-white shadow-sm">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-6">
             <div>
@@ -33,7 +33,7 @@ export default async function AdminLayout({
             
           </div>
         </div>
-      </div>
+      </div> */}
 
       {children}
     </div>
