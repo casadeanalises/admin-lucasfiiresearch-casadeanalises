@@ -135,7 +135,7 @@ export function UpdateScheduleAdminClient() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-48">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -150,7 +150,7 @@ export function UpdateScheduleAdminClient() {
                 resetForm();
                 setIsDialogOpen(true);
               }}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
               Nova Atualização
@@ -266,54 +266,54 @@ export function UpdateScheduleAdminClient() {
         {items.map((item) => (
           <div
             key={item._id}
-            className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-blue-500/30 hover:shadow-blue-500/10"
+            className="group relative overflow-hidden rounded-xl bg-white border border-gray-200 p-6 shadow-lg transition-all duration-300 hover:border-blue-300 hover:shadow-lg hover:-translate-y-1"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1 space-y-3">
                 <div className="flex items-center gap-3">
                   <div className={`rounded-lg p-2 ${item.status === 'planned'
-                    ? 'bg-blue-500/20'
+                    ? 'bg-blue-50'
                     : item.status === 'in_progress'
-                      ? 'bg-amber-500/20'
+                      ? 'bg-amber-50'
                       : item.status === 'paused'
-                        ? 'bg-orange-500/20'
+                        ? 'bg-orange-50'
                         : item.status === 'completed'
-                          ? 'bg-emerald-500/20'
-                          : 'bg-red-500/20'
+                          ? 'bg-emerald-50'
+                          : 'bg-red-50'
                     }`}>
                     <Calendar className={`h-5 w-5 ${item.status === 'planned'
-                      ? 'text-blue-400'
+                      ? 'text-blue-600'
                       : item.status === 'in_progress'
-                        ? 'text-amber-400'
+                        ? 'text-amber-600'
                         : item.status === 'paused'
-                          ? 'text-orange-400'
+                          ? 'text-orange-600'
                           : item.status === 'completed'
-                            ? 'text-emerald-400'
-                            : 'text-red-400'
+                            ? 'text-emerald-600'
+                            : 'text-red-600'
                       }`} />
                   </div>
-                  <div className="flex items-center text-sm text-slate-400">
+                  <div className="flex items-center text-sm text-gray-500">
                     <Calendar className="h-4 w-4 mr-1" />
                     {new Date(item.date).toLocaleDateString('pt-BR')}
                   </div>
                 </div>
-                <h3 className="text-lg font-medium text-white line-clamp-2">
+                <h3 className="text-lg font-medium text-gray-900 line-clamp-2">
                   {item.title}
                 </h3>
-                <p className="text-sm text-slate-400 line-clamp-2">
+                <p className="text-sm text-gray-600 line-clamp-2">
                   {item.description}
                 </p>
                 <div className="flex items-center gap-2">
                   <span
                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${item.status === 'planned'
-                      ? 'bg-blue-500/20 text-blue-300'
+                      ? 'bg-blue-100 text-blue-700'
                       : item.status === 'in_progress'
-                        ? 'bg-amber-500/20 text-amber-300'
+                        ? 'bg-amber-100 text-amber-700'
                         : item.status === 'paused'
-                          ? 'bg-orange-500/20 text-orange-300'
+                          ? 'bg-orange-100 text-orange-700'
                           : item.status === 'completed'
-                            ? 'bg-emerald-500/20 text-emerald-300'
-                            : 'bg-red-500/20 text-red-300'
+                            ? 'bg-emerald-100 text-emerald-700'
+                            : 'bg-red-100 text-red-700'
                       }`}
                   >
                     {item.status === 'planned'
@@ -326,7 +326,7 @@ export function UpdateScheduleAdminClient() {
                             ? 'Concluído'
                             : 'Cancelado'}
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-slate-700/50 px-2.5 py-0.5 text-xs font-medium text-slate-300">
+                  <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
                     {item.category}
                   </span>
                 </div>
@@ -337,7 +337,7 @@ export function UpdateScheduleAdminClient() {
               <Button
                 variant="outline"
                 onClick={() => handleEdit(item)}
-                className="flex-1 bg-white/5"
+                className="flex-1 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:border-blue-300"
               >
                 <Pencil className="h-4 w-4 mr-2" />
                 Editar
@@ -346,7 +346,7 @@ export function UpdateScheduleAdminClient() {
                 variant="outline"
                 size="icon"
                 onClick={() => handleDelete(item._id)}
-                className="bg-white/5 text-red-400 hover:text-red-300"
+                className="bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 hover:border-red-300"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
