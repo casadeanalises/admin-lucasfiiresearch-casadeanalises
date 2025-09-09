@@ -115,8 +115,8 @@ function AdminLoginContent() {
               Entrar
             </button>
           ) : (
-            <div className="w-full max-w-md mx-auto">
-              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20">
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 w-full max-w-md mx-4">
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   {error && (
                     <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200 backdrop-blur-sm">
