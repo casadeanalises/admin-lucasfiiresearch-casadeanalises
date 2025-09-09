@@ -2,9 +2,9 @@ import { cookies } from "next/headers";
 import { verifyJWT } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Video, ChevronLeft } from "lucide-react";
+import { Home, ChevronLeft } from "lucide-react";
 
-export default async function AdminLayout({
+export default async function HomeVideosLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -26,7 +26,7 @@ export default async function AdminLayout({
             <div className="flex items-center justify-between py-8">
               <div>
                 <h1 className="text-4xl font-bold text-white mb-2">
-                  Relatorio Semanal Player 2
+                  Tese de Investimento
                 </h1>
                 <p className="text-white/80 text-lg">
                   Gerencie vídeos

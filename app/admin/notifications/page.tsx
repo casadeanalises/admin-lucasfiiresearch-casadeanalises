@@ -57,23 +57,23 @@ export default function AdminNotificationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
-      <div className="max-w-4xl mx-auto py-10 px-4">
+    <div className="p-8">
+      <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-bold text-white">Notificações</h1>
-            <span className="inline-block bg-white/20 text-white text-sm font-semibold px-3 py-1 rounded-full">{notifications.length}</span>
+            <h1 className="text-3xl font-bold text-gray-900">Total de Notificações</h1>
+            <span className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full">{notifications.length}</span>
           </div>
           <div className="flex gap-2">
             <Link href="/admin/notifications/new">
-              <Button className="bg-white text-blue-900 hover:bg-blue-50">Adicionar Notificação</Button>
+              <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700">Adicionar Notificação</Button>
             </Link>
             <Button variant="destructive" onClick={handleDeleteAll} disabled={deletingAll || notifications.length === 0}>
               {deletingAll ? 'Excluindo tudo...' : 'Excluir Todas'}
             </Button>
           </div>
         </div>
-        <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-6 border border-white/20">
+        <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
           <div className="mb-6 p-3 bg-red-50 border-l-4 border-red-400 text-red-800 rounded">
             <strong>Aviso:</strong> Para evitar acúmulo de notificações na caixa dos usuários, recomenda-se remover/excluir todas as notificações a cada 1 mês.
           </div>

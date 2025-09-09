@@ -874,11 +874,11 @@ const ReportsAdminClient = ({
   return (
     <div className="mb-12">
       <Toaster position="top-right" />
-      <div className="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
+      {/* <div className="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
         <h2 className="text-2xl font-bold text-blue-800">
           Área Administrativa
         </h2>
-      </div>
+      </div> */}
 
     
       <div className="mb-8 border-b border-gray-200">

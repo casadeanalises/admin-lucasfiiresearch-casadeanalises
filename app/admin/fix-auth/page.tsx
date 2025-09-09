@@ -54,9 +54,9 @@ export default function FixAuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 flex items-center justify-center p-8">
+    <div className="p-8">
       <div className="mx-auto max-w-md space-y-6">
-        <div className="rounded-2xl border border-white/20 bg-white/95 backdrop-blur-xl p-6 shadow-2xl">
+        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
           <h1 className="mb-4 text-3xl font-bold text-gray-900">
           Gerenciar Administradores
           </h1>

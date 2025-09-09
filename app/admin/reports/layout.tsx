@@ -21,31 +21,21 @@ export default async function AdminLayout({
     <>
       <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
        
-        {/* <div className="bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-2xl">
+        <div className="bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-2xl">
           <div className="container mx-auto px-6">
             <div className="flex items-center justify-between py-8">
               <div>
                 <h1 className="text-4xl font-bold text-white mb-2">
-                  Painel Administrativo
+                  Relatório Semanal
                 </h1>
                 <p className="text-white/80 text-lg">
-                  Gerencie seus relatórios e conteúdos
+                  Gerencie Videos e PDFs
                 </p>
               </div>
             </div>
 
-           
-            <div className="mt-6 flex">
-              <Link
-                href="/admin/reports"
-                className="group flex items-center gap-3 rounded-xl bg-white/20 backdrop-blur-sm px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:bg-white/30 hover:shadow-lg border border-white/30"
-              >
-                <FileText className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
-                Gerenciar Conteúdo
-              </Link>
-            </div>
           </div>
-        </div> */}
+        </div>
 
         {/* Content Area Premium */}
         <div className="container mx-auto px-6 py-12">

@@ -11,7 +11,7 @@ export default async function ReportsPage() {
 
   return (
     <div className="p-8">
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Gerenciar Relatórios
         </h1>
@@ -23,7 +23,7 @@ export default async function ReportsPage() {
            Gerenciar Vídeos Player 2
           </Link>
         </p>
-      </div>
+      </div> */}
 
       <ReportsAdminClient adminEmail={adminEmail} />
     </div>
