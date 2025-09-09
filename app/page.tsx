@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { Eye, EyeOff } from "lucide-react";
 
 const hideScrollbarStyle = `
   ::-webkit-scrollbar {
@@ -21,6 +22,8 @@ function AdminLoginContent() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -80,91 +83,114 @@ function AdminLoginContent() {
   return (
     <>
       <style jsx global>{hideScrollbarStyle}</style>
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-blue-800 relative">
-        <div className="flex min-h-screen items-center justify-center px-4">
-          <div className="w-full max-w-md">
-            <div className="relative overflow-hidden rounded-2xl bg-white/10 p-8 shadow-2xl backdrop-blur-xl">
-              <div className="absolute -left-32 -top-32 h-64 w-64 rounded-full bg-blue-500 opacity-20 blur-3xl" />
-              <div className="absolute -bottom-32 -right-32 h-64 w-64 rounded-full bg-blue-400 opacity-20 blur-3xl" />
-              
-              <div className="relative">
-                <div className="text-center">
-                  <div className="mb-6 flex justify-center">
-                    <div className="relative">
-                      <div className="absolute -inset-0.5 rounded-full bg-blue-500 opacity-75 blur-sm animate-pulse" />
-                      <div className="absolute -inset-1 rounded-full bg-blue-400 opacity-50 blur-md animate-pulse [animation-delay:0.2s]" />
-                      <div className="absolute -inset-1.5 rounded-full bg-blue-300 opacity-25 blur-lg animate-pulse [animation-delay:0.4s]" />
-                      
-                      <div className="relative h-24 w-24 overflow-hidden rounded-full bg-white p-2 shadow-xl ring-2 ring-white/50">
-                        <Image
-                          src="/logo.png"
-                          alt="Logo"
-                          width={120}
-                          height={120}
-                          className="h-full w-full object-contain"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <h2 className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent">
-                    Área Administrativa
-                  </h2>
-                  <p className="mt-2 text-sm text-white/60">
-                    Faça login para acessar o painel administrativo
-                  </p>
-                </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 flex items-center justify-center px-4">
+        <div className="text-center">
+          {/* Logo */}
+          <div className="mb-12 flex justify-center">
+            <div className="relative">
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={200}
+                height={200}
+                className="h-48 w-48 object-contain"
+              />
+            </div>
+          </div>
+          
+          {/* Title */}
+          <h1 className="text-6xl font-bold text-white mb-2">
+            RESEARCH
+          </h1>
+          <p className="text-lg text-white/80 mb-16">
+            ADMINISTRATIVO
+          </p>
 
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          {/* Login Button */}
+          {!showLoginForm ? (
+            <button
+              onClick={() => setShowLoginForm(true)}
+              className="bg-white text-blue-900 px-12 py-4 rounded-xl text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
+            >
+              Entrar
+            </button>
+          ) : (
+            <div className="w-full max-w-md mx-auto">
+              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   {error && (
-                    <div className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-200 backdrop-blur-sm">
+                    <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200 backdrop-blur-sm">
                       {error}
                     </div>
                   )}
 
                   <div className="space-y-5">
+                    {/* Email Field */}
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-white/80"
+                        className="block text-sm font-medium text-white/90 mb-2"
                       >
                         Email
                       </label>
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        className="mt-1 block w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:bg-white/10 focus:outline-none focus:ring-4 focus:ring-blue-500/10"
-                        placeholder="seu@email.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
+                      <div className="relative">
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          required
+                          className="w-full bg-transparent border-0 border-b-2 border-white/30 px-0 py-3 text-white placeholder:text-white/50 focus:border-white focus:outline-none transition-all duration-200"
+                          placeholder="seu@email.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2">
+                          <div className="h-6 w-6 rounded-full bg-yellow-400/20 flex items-center justify-center">
+                            <div className="h-3 w-3 rounded-full bg-yellow-400 border border-white/30" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
+                    {/* Password Field */}
                     <div>
                       <label
                         htmlFor="password"
-                        className="block text-sm font-medium text-white/80"
+                        className="block text-sm font-medium text-white/90 mb-2"
                       >
                         Senha
                       </label>
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        required
-                        className="mt-1 block w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:bg-white/10 focus:outline-none focus:ring-4 focus:ring-blue-500/10"
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
+                      <div className="relative">
+                        <input
+                          id="password"
+                          name="password"
+                          type={showPassword ? "text" : "password"}
+                          required
+                          className="w-full bg-transparent border-0 border-b-2 border-white/30 px-0 py-3 pr-8 text-white placeholder:text-white/50 focus:border-white focus:outline-none transition-all duration-200"
+                          placeholder="••••••••"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition-colors duration-200"
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
 
+                  {/* Login Button */}
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-2.5 text-sm font-medium text-white shadow-lg transition-all hover:from-blue-500 hover:to-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-75"
+                    className="relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-3.5 text-sm font-semibold text-white shadow-xl transition-all duration-200 hover:from-blue-500 hover:to-blue-600 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-400/50 disabled:cursor-not-allowed disabled:opacity-75 transform hover:scale-[1.02]"
                   >
                     {isLoading ? (
                       <>
@@ -172,14 +198,22 @@ function AdminLoginContent() {
                         <span className="opacity-0">Entrando...</span>
                       </>
                     ) : (
-                      "Entrar com Email"
+                      "Entrar"
                     )}
                   </button>
-                </form>
 
+                  {/* Back Button */}
+                  <button
+                    type="button"
+                    onClick={() => setShowLoginForm(false)}
+                    className="w-full text-white/70 hover:text-white transition-colors duration-200 text-sm"
+                  >
+                    ← Voltar
+                  </button>
+                </form>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>
