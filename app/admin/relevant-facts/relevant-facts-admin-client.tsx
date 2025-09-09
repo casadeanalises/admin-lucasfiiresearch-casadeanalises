@@ -135,13 +135,13 @@ export default function RelevantFactsAdminClient() {
   if (loading) {
     return (
       <div className="text-center py-12">
-        <div className="mx-auto h-16 w-16 rounded-full bg-[#172039] flex items-center justify-center mb-4">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2563eb] border-t-transparent"></div>
+        <div className="mx-auto h-16 w-16 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-600 border-t-transparent"></div>
         </div>
-        <h3 className="text-lg font-semibold text-white mb-2">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">
           Carregando Fatos Relevantes...
         </h3>
-        <p className="text-gray-400">
+        <p className="text-gray-600">
           Aguarde enquanto preparamos os documentos para você
         </p>
       </div>
@@ -152,26 +152,26 @@ export default function RelevantFactsAdminClient() {
     <>
       <div className="space-y-6">
         {/* Cabeçalho com Busca e Botão Adicionar */}
-        <div className="rounded-2xl bg-[#0c1424] p-6 shadow-lg border border-[#1c3276]/30">
+        <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 shadow-lg border border-blue-200">
           <div className="flex flex-col gap-4 lg:flex-row items-center">
             {/* Busca */}
             <div className="relative flex-grow">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <Search className="h-5 w-5 text-gray-400" />
+                <Search className="h-5 w-5 text-gray-500" />
               </div>
               <input
                 type="text"
                 placeholder="Buscar por título ou descrição..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="block w-full rounded-xl border border-[#1c3276] bg-[#172039] py-3 pl-10 pr-10 text-white placeholder-gray-400 focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]/20 transition-all"
+                className="block w-full rounded-xl border border-gray-300 bg-white py-3 pl-10 pr-10 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all"
               />
               {search && (
                 <button
                   className="absolute inset-y-0 right-0 flex items-center pr-3"
                   onClick={() => setSearch("")}
                 >
-                  <X className="h-5 w-5 text-gray-400 hover:text-gray-300 transition-colors" />
+                  <X className="h-5 w-5 text-gray-500 hover:text-gray-700 transition-colors" />
                 </button>
               )}
             </div>
@@ -183,7 +183,7 @@ export default function RelevantFactsAdminClient() {
                 setFormData({ title: '', description: '', pdfUrl: '' });
                 setIsDialogOpen(true);
               }}
-              className="flex items-center gap-2 bg-[#2563eb] hover:bg-[#2563eb]/90 text-white px-6"
+              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl"
             >
               <Plus className="h-5 w-5" />
               Adicionar Fato Relevante
@@ -196,17 +196,17 @@ export default function RelevantFactsAdminClient() {
           {filteredFacts.slice(0, visibleCount).map((fact) => (
             <Card
               key={fact.id}
-              className="group relative overflow-hidden rounded-2xl border border-[#1c3276]/30 bg-[#0c1424] p-6 transition-all hover:border-[#2563eb]/30 hover:bg-[#131b2e]"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-blue-300 hover:shadow-lg hover:-translate-y-1"
             >
               <div className="flex items-start gap-4">
-                <div className="rounded-xl border border-[#1c3276]/30 bg-[#172039] p-2">
-                  <FileText className="h-6 w-6 text-[#2563eb]" />
+                <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
+                  <FileText className="h-6 w-6 text-blue-600" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white group-hover:text-[#2563eb] transition-colors">
+                  <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
                     {fact.title}
                   </h3>
-                  <p className="mt-2 text-sm text-gray-400 line-clamp-2">
+                  <p className="mt-2 text-sm text-gray-600 line-clamp-2">
                     {fact.description}
                   </p>
                   <div className="mt-4 flex items-center gap-2 text-xs text-gray-500">
@@ -218,14 +218,14 @@ export default function RelevantFactsAdminClient() {
                   <div className="mt-4 flex items-center gap-2">
                     <Button
                       onClick={() => handleEdit(fact)}
-                      className="flex-1 bg-[#172039] text-white hover:bg-[#1c2847] border border-[#2563eb]/20 hover:border-[#2563eb]/40"
+                      className="flex-1 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:border-blue-300 transition-all"
                     >
                       Editar
                     </Button>
                     <Button
                       onClick={() => handleDelete(fact.id)}
                       variant="destructive"
-                      className="flex-1"
+                      className="flex-1 bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 hover:border-red-300"
                     >
                       Excluir
                     </Button>
@@ -242,7 +242,7 @@ export default function RelevantFactsAdminClient() {
             <Button
               onClick={() => setVisibleCount((prev) => prev + 6)}
               variant="outline"
-              className="px-6"
+              className="px-6 py-3 border-blue-300 text-blue-700 hover:bg-blue-50 hover:border-blue-400 transition-all"
             >
               Carregar Mais
             </Button>
@@ -252,9 +252,9 @@ export default function RelevantFactsAdminClient() {
 
       {/* Modal de Adicionar/Editar */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="bg-[#0c1424] border border-[#1c3276]/30">
+        <DialogContent className="bg-white border border-gray-200">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold text-white">
+            <DialogTitle className="text-xl font-semibold text-gray-900">
               {editingFact ? "Editar Fato Relevante" : "Novo Fato Relevante"}
             </DialogTitle>
           </DialogHeader>
@@ -266,7 +266,7 @@ export default function RelevantFactsAdminClient() {
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
                 }
-                className="bg-[#172039] border-[#1c3276] text-white placeholder-gray-400 focus:border-[#2563eb] focus:ring-[#2563eb]/20"
+                className="bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
               />
             </div>
             <div>
@@ -276,7 +276,7 @@ export default function RelevantFactsAdminClient() {
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
                 }
-                className="bg-[#172039] border-[#1c3276] text-white placeholder-gray-400 focus:border-[#2563eb] focus:ring-[#2563eb]/20"
+                className="bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
               />
             </div>
             <div>
@@ -286,7 +286,7 @@ export default function RelevantFactsAdminClient() {
                 onChange={(e) =>
                   setFormData({ ...formData, pdfUrl: e.target.value })
                 }
-                className="bg-[#172039] border-[#1c3276] text-white placeholder-gray-400 focus:border-[#2563eb] focus:ring-[#2563eb]/20"
+                className="bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
               />
             </div>
             <DialogFooter>
@@ -294,13 +294,13 @@ export default function RelevantFactsAdminClient() {
                 type="button"
                 variant="outline"
                 onClick={() => setIsDialogOpen(false)}
-                className="bg-[#172039] text-white hover:bg-[#1c2847] border-[#1c3276]"
+                className="bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-300"
               >
                 Cancelar
               </Button>
               <Button
                 type="submit"
-                className="bg-[#2563eb] hover:bg-[#2563eb]/90 text-white"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
               >
                 {editingFact ? "Salvar Alterações" : "Criar"}
               </Button>
