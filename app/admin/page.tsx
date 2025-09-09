@@ -176,75 +176,82 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="space-y-6 p-6">
-      {/* <div className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 p-6 shadow-lg">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold text-white sm:text-3xl">
-              Painel Administrativo
-            </h1>
-            <p className="mt-2 text-blue-100">
-              Gerencie todos os aspectos do sistema
-            </p>
-          </div>
-          <div className="flex items-center justify-end gap-4">
-            <AdminInfo />
-          </div>
-        </div>
-      </div> */}
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {adminAreas.map((area) => (
+    <div className="space-y-8">
+      {/* Título da Seção */}
+      <h2 className="text-3xl font-bold text-white mt-8">
+        Gerenciar Sistema
+      </h2>
+      
+      {/* Cards */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {adminAreas.map((area, index) => (
           <Link
             key={area.title}
             href={area.href}
-            className={`group relative overflow-hidden rounded-xl bg-white p-6 transition-all hover:shadow-lg ${area.href === "#"
-              ? "cursor-not-allowed opacity-60"
-              : "hover:scale-[1.02]"
-              }`}
+            className={`group relative overflow-hidden rounded-xl bg-white p-6 transition-all duration-300 hover:shadow-xl ${
+              area.href === "#"
+                ? "cursor-not-allowed opacity-60"
+                : "hover:scale-105 hover:shadow-2xl"
+            }`}
+            style={{
+              animationDelay: `${index * 100}ms`,
+            }}
           >
+            {/* Background Gradient */}
             <div
-              className={`absolute inset-0 bg-gradient-to-br opacity-[0.08] ${getGradientClass(
+              className={`absolute inset-0 bg-gradient-to-br opacity-5 group-hover:opacity-10 transition-opacity duration-300 ${getGradientClass(
                 area.color
               )}`}
             />
 
+            {/* Icon Container */}
             <div className="relative mb-4">
               <div
-                className={`absolute inset-0 rounded-full blur-xl opacity-20 ${area.color === "blue"
-                  ? "bg-blue-500"
-                  : area.color === "indigo"
-                    ? "bg-indigo-500"
-                    : area.color === "purple"
-                      ? "bg-purple-500"
-                      : area.color === "cyan"
-                        ? "bg-cyan-500"
-                        : area.color === "orange"
-                          ? "bg-orange-500"
-                          : "bg-slate-500"
-                  }`}
+                className={`absolute inset-0 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-all duration-300 ${
+                  area.color === "blue"
+                    ? "bg-blue-500"
+                    : area.color === "indigo"
+                      ? "bg-indigo-500"
+                      : area.color === "purple"
+                        ? "bg-purple-500"
+                        : area.color === "cyan"
+                          ? "bg-cyan-500"
+                          : area.color === "orange"
+                            ? "bg-orange-500"
+                            : area.color === "red"
+                              ? "bg-red-500"
+                              : area.color === "green"
+                                ? "bg-green-500"
+                                : area.color === "yellow"
+                                  ? "bg-yellow-500"
+                                  : "bg-slate-500"
+                }`}
               />
-              <div className={`relative inline-flex rounded-xl p-3 ${getIconClass(area.color)}`}>
+              <div className={`relative inline-flex rounded-xl p-3 shadow-md group-hover:scale-110 transition-transform duration-300 ${getIconClass(area.color)}`}>
                 {area.icon}
               </div>
             </div>
 
-            <div className="relative">
-              <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+            {/* Content */}
+            <div className="relative space-y-2">
+              <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900 group-hover:text-gray-800 transition-colors duration-300">
                 {area.title}
                 {area.isNew && (
-                  <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
+                  <span className="inline-flex items-center rounded-full bg-blue-500 px-2 py-1 text-xs font-semibold text-white">
                     Em breve
                   </span>
                 )}
               </h3>
-              <p className="mt-2 text-sm text-gray-600">{area.description}</p>
+              <p className="text-sm text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                {area.description}
+              </p>
             </div>
 
+            {/* Bottom Accent */}
             {!area.isNew && (
-              <div className="absolute bottom-0 left-0 h-1 w-full">
+              <div className="absolute bottom-0 left-0 h-1 w-full overflow-hidden rounded-b-xl">
                 <div
-                  className={`h-full w-full transform bg-gradient-to-r opacity-80 ${getProgressClass(
+                  className={`h-full w-full bg-gradient-to-r opacity-80 group-hover:opacity-100 transition-opacity duration-300 ${getProgressClass(
                     area.color
                   )}`}
                 />
