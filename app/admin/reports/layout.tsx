@@ -19,9 +19,9 @@ export default async function AdminLayout({
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
-       
-        <div className="bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-2xl">
+      <div className="min-h-screen" style={{ backgroundColor: '#1f40af' }}>
+
+        <div className="bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-2xl">
           <div className="container mx-auto px-6">
             <div className="flex items-center justify-between py-8">
               <div>
@@ -38,11 +38,11 @@ export default async function AdminLayout({
         </div>
 
         {/* Content Area Premium */}
-        <div className="container mx-auto px-6 py-12">
-          <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-            {children}
-          </div>
-        </div>
+        {/* <div className="container mx-auto px-6 py-12">
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 overflow-hidden"> */}
+        {children}
+        {/* </div> */}
+        {/* </div> */}
       </div>
     </>
   );

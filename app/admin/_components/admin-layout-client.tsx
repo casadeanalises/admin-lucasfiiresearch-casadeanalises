@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, FileText, BarChart3, Settings, PlayCircle, Menu, LogOut, Lock, BookOpen, Bell, ChevronLeft, ChevronRight, User, Calendar, Clock } from "lucide-react";
+import { Home, FileText, BarChart3, Settings, PlayCircle, Menu, LogOut, Lock, BookOpen, Bell, ChevronLeft, ChevronRight, User, Calendar, Clock, Key } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 interface AdminLayoutClientProps {
@@ -66,8 +66,14 @@ const menuItems = [
   },
   {
     title: "Gerenciar Administradores",
-    href: "/admin/fix-auth",
+    href: "/admin/admins",
     icon: <User className="h-5 w-5" />,
+    isNew: false,
+  },
+  {
+    title: "Restaurar Autenticação",
+    href: "/admin/fix-auth",
+    icon: <Key className="h-5 w-5" />,
     isNew: false,
   },
   {
@@ -90,14 +96,14 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
+
   const scrollMenu = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const scrollAmount = 200;
-      const newScrollLeft = direction === 'left' 
+      const newScrollLeft = direction === 'left'
         ? scrollContainerRef.current.scrollLeft - scrollAmount
         : scrollContainerRef.current.scrollLeft + scrollAmount;
-      
+
       scrollContainerRef.current.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth'
@@ -135,11 +141,11 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
         method: "POST",
         credentials: "include",
       });
-      
+
       if (!response.ok) {
         throw new Error("Erro ao fazer logout");
       }
-      
+
       console.log("Logout realizado com sucesso");
       window.location.href = "/";
     } catch (error) {
@@ -179,9 +185,8 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
             <div className="hidden lg:flex items-center space-x-8">
               <Link
                 href="/admin"
-                className={`px-4 py-2 rounded-lg text-white font-medium transition-colors ${
-                  pathname === "/admin" ? "bg-blue-700" : "hover:bg-blue-700"
-                }`}
+                className={`px-4 py-2 rounded-lg text-white font-medium transition-colors ${pathname === "/admin" ? "bg-blue-700" : "hover:bg-blue-700"
+                  }`}
               >
                 Home
               </Link>
@@ -253,12 +258,16 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                     <Link href="/admin/notifications" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Notificações
                     </Link>
-                    <Link href="/admin/fix-auth" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <Link href="/admin/admins" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Gerenciar Administradores
                     </Link>
+                    <Link href="/admin/fix-auth" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Restaurar Autenticação
+                    </Link>
+
                     {/* <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Cronograma de Atualizações
-                    </Link> */}
+                        Cronograma de Atualizações
+                      </Link> */}
                   </div>
                 </div>
               </div>
@@ -287,9 +296,8 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
               <nav className="px-4 py-2 space-y-1">
                 <Link
                   href="/admin"
-                  className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    pathname === "/admin" ? "bg-blue-700 text-white" : "text-white hover:bg-blue-700"
-                  }`}
+                  className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${pathname === "/admin" ? "bg-blue-700 text-white" : "text-white hover:bg-blue-700"
+                    }`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Home
@@ -352,6 +360,13 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 </Link>
                 <Link
                   href="/admin/fix-auth"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Restaurar Autenticação
+                </Link>
+                <Link
+                  href="/admin/admins"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
                   onClick={() => setShowMobileMenu(false)}
                 >
