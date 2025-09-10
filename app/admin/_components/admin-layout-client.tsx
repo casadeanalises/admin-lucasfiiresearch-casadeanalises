@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Home, FileText, BarChart3, Settings, PlayCircle, Menu, LogOut, Lock, BookOpen, Bell, ChevronLeft, ChevronRight, User, Calendar, Clock, Key } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { AdminFooter } from "./admin-footer";
 
 interface AdminLayoutClientProps {
   children: React.ReactNode;
@@ -398,19 +399,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
       </main>
 
       {/* === Footer === */}
-
-      {/* <footer className="fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 backdrop-blur-sm border-t border-gray-200 py-2">
-        <div className="max-w-[1920px] mx-auto px-4 flex items-center justify-between">
-          <Link
-            href="/admin/fix-auth"
-            className="flex items-center space-x-2 text-sm text-gray-600 hover:text-blue-600"
-          >
-            <Lock className="h-4 w-4" />
-            <span>Restaurar Autenticação</span>
-          </Link>
-          <span className="text-xs text-gray-400">admin v1.2.1</span>
-        </div>
-      </footer> */}
+      <AdminFooter />
 
       <style jsx global>{`
         .scrollbar-hide::-webkit-scrollbar {
