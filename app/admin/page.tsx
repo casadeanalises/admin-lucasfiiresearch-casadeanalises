@@ -178,21 +178,23 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-8">
       {/* Título da Seção */}
-      <h2 className="text-3xl font-bold text-white mt-8">
+      {/* <h2 className="text-3xl font-bold text-white mt-8">
         Gerenciar Sistema
-      </h2>
-      
+      </h2> */}
+
+      <br />
+
+
       {/* Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {adminAreas.map((area, index) => (
           <Link
             key={area.title}
             href={area.href}
-            className={`group relative overflow-hidden rounded-xl bg-white p-6 transition-all duration-300 hover:shadow-xl ${
-              area.href === "#"
+            className={`group relative overflow-hidden rounded-xl bg-white p-6 transition-all duration-300 hover:shadow-xl ${area.href === "#"
                 ? "cursor-not-allowed opacity-60"
                 : "hover:scale-105 hover:shadow-2xl"
-            }`}
+              }`}
             style={{
               animationDelay: `${index * 100}ms`,
             }}
@@ -207,8 +209,7 @@ export default function AdminDashboard() {
             {/* Icon Container */}
             <div className="relative mb-4">
               <div
-                className={`absolute inset-0 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-all duration-300 ${
-                  area.color === "blue"
+                className={`absolute inset-0 rounded-xl blur-lg opacity-20 group-hover:opacity-30 transition-all duration-300 ${area.color === "blue"
                     ? "bg-blue-500"
                     : area.color === "indigo"
                       ? "bg-indigo-500"
@@ -225,7 +226,7 @@ export default function AdminDashboard() {
                                 : area.color === "yellow"
                                   ? "bg-yellow-500"
                                   : "bg-slate-500"
-                }`}
+                  }`}
               />
               <div className={`relative inline-flex rounded-xl p-3 shadow-md group-hover:scale-110 transition-transform duration-300 ${getIconClass(area.color)}`}>
                 {area.icon}
