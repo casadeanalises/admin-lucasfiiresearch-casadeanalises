@@ -256,14 +256,14 @@ export default function EtfVideosAdminClient() {
       <Toaster position="top-right" />
 
       <div className="flex items-center justify-between">
-        <div>
+        {/* <div>
           <h1 className="text-2xl font-bold text-gray-900">
             Gerenciar Vídeos de ETFs
           </h1>
           <p className="mt-1 text-sm text-gray-500">
             Adicione e gerencie os vídeos relacionados a ETFs
           </p>
-        </div>
+        </div> */}
 
         <button
           onClick={() => {

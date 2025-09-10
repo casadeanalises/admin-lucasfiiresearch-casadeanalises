@@ -112,7 +112,7 @@ export default function EtfPDFsAdminClient() {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-8">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold">PDFs da Carteira de ETFs</h2>
+        {/* <h2 className="text-xl font-semibold">PDFs da Carteira de ETFs</h2> */}
         <button
           onClick={() => {
             resetForm();

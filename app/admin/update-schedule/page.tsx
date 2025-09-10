@@ -10,30 +10,34 @@ export const metadata: Metadata = {
 
 export default function UpdateScheduleAdminPage() {
   return (
-    <div className="container mx-auto py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-500">
-          Gerenciar Cronograma de Atualizações
-        </h1>
-        <p className="text-slate-400 mt-2">
-          Adicione, edite ou remova atualizações e documentos do cronograma.
-        </p>
+    <div className="p-8">
+      <div className="container mx-auto">
+        {/* <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Gerenciar Cronograma de Atualizações
+          </h1>
+          <p className="text-gray-600">
+            Adicione, edite ou remova atualizações e documentos do cronograma.
+          </p>
+        </div> */}
+
+        <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+          <Tabs defaultValue="schedule" className="space-y-6">
+            <TabsList>
+              <TabsTrigger value="schedule">Atualizações</TabsTrigger>
+              <TabsTrigger value="pdfs">Documentos</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="schedule">
+              <UpdateScheduleAdminClient />
+            </TabsContent>
+
+            <TabsContent value="pdfs">
+              <PDFAdminClient />
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
-
-      <Tabs defaultValue="schedule" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="schedule">Atualizações</TabsTrigger>
-          <TabsTrigger value="pdfs">Documentos</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="schedule">
-          <UpdateScheduleAdminClient />
-        </TabsContent>
-
-        <TabsContent value="pdfs">
-          <PDFAdminClient />
-        </TabsContent>
-      </Tabs>
     </div>
   );
 }

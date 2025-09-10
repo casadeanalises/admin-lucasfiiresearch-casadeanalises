@@ -13,8 +13,18 @@ export default async function HomeVideosPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <HomeVideosAdminClient />
+    <div className="p-8">
+      <div className="container mx-auto">
+        <div className="mb-8">
+          {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Gerenciar Teses de Investimento
+          </h1> */}
+          {/* <p className="text-gray-600">
+            Adicione, edite ou remova vídeos de teses de investimento
+          </p> */}
+        </div>
+        <HomeVideosAdminClient />
+      </div>
     </div>
   );
 }

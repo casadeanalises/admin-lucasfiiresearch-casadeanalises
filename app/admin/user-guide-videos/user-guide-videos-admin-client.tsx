@@ -231,17 +231,17 @@ export default function UserGuideVideosAdminClient() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-100 rounded-lg">
+          {/* <div className="p-2 bg-blue-100 rounded-lg">
             <HelpCircle className="h-6 w-6 text-blue-600" />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <h2 className="text-xl font-semibold text-gray-900">
               Vídeos do Guia do Usuário
             </h2>
             <p className="text-sm text-gray-600">
               {videos.length} vídeo{videos.length !== 1 ? "s" : ""} cadastrado{videos.length !== 1 ? "s" : ""}
             </p>
-          </div>
+          </div> */}
         </div>
         <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
           <DialogTrigger asChild>

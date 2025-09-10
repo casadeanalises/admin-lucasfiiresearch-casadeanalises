@@ -7,23 +7,23 @@ export default async function ReportsPage() {
   const cookieStore = cookies();
   const token = cookieStore.get("admin_token")?.value;
   const decoded = token ? await verifyJWT(token) : null;
-  const adminEmail = decoded?.email || "";
+  const adminEmail = (decoded?.email as string) ?? "";
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">
+    <div className="p-8">
+      {/* <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Gerenciar Relatórios
         </h1>
-        <p className="mt-1 text-sm text-gray-600">
+        <p className="text-gray-600 mb-4">
           Adicione e gerencie PDFs e vídeos de análises
         </p>
-        <p className="mt-1 text-sm text-gray-600"> 
-          <Link href="/admin/reports-videos-player-2" className="text-blue-500 hover:text-blue-600">
-           Gereciar Videos Player 2
+        <p className="text-gray-600"> 
+          <Link href="/admin/reports-videos-player-2" className="text-blue-600 hover:text-blue-700 transition-colors font-medium">
+           Gerenciar Vídeos Player 2
           </Link>
         </p>
-      </div>
+      </div> */}
 
       <ReportsAdminClient adminEmail={adminEmail} />
     </div>

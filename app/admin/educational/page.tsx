@@ -38,20 +38,20 @@ export default function AdminEducationalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div className="p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Gerenciar Artigos Educacionais</h1>
+          {/* <h1 className="text-3xl font-bold text-gray-900">Gerenciar Artigos Educacionais</h1> */}
           <Link
             href="/admin/educational/new"
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
           >
             <Plus className="w-5 h-5 mr-2" />
             Novo Artigo
           </Link>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
