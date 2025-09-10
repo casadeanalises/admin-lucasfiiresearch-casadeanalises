@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { toast } from "sonner";
+import { toast, Toaster } from "react-hot-toast";
 import { Button } from "@/app/_components/ui/button";
 import {
   Dialog,
@@ -231,6 +231,7 @@ export default function VideosAdminClient({ adminEmail }: VideosAdminClientProps
 
   return (
     <div className="space-y-4 sm:space-y-6 md:space-y-8">
+      <Toaster position="top-right" />
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button

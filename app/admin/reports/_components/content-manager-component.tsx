@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { FileText, User, Calendar, Download, ChevronDown, ChevronRight, Search, CalendarRange, X } from "lucide-react";
 import {
   Select,
@@ -264,6 +264,7 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
 
   return (
     <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg p-4 sm:p-6">
+      <Toaster position="top-right" />
       <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="p-2 sm:p-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">

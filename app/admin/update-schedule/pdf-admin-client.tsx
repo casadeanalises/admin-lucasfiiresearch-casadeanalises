@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/app/_components/ui/dialog";
-import { toast } from "sonner";
+import { toast, Toaster } from "react-hot-toast";
 
 interface PDF {
   _id: string;
@@ -138,6 +138,7 @@ export function PDFAdminClient() {
 
   return (
     <div>
+      <Toaster position="top-right" />
       <div className="mb-6">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>

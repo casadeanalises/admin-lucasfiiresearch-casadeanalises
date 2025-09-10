@@ -244,14 +244,7 @@ const ReportsAdminClient = ({
 
       const result = await response.json();
 
-      toast.success("PDF adicionado com sucesso!", {
-        duration: 4000,
-        icon: "📄",
-        style: {
-          background: "#4CAF50",
-          color: "#fff",
-        },
-      });
+      toast.success("PDF salvo com sucesso!");
 
      
       resetForm();
@@ -465,14 +458,7 @@ const ReportsAdminClient = ({
           throw new Error("Erro ao salvar vídeo");
         }
 
-        toast.success("Vídeo adicionado com sucesso!", {
-          duration: 4000,
-          icon: "🎥",
-          style: {
-            background: "#4CAF50",
-            color: "#fff",
-          },
-        });
+        toast.success("Vídeo salvo com sucesso!");
       }
 
      
@@ -700,14 +686,7 @@ const ReportsAdminClient = ({
         throw new Error(`Erro ao atualizar PDF: ${response.status} ${response.statusText}`);
       }
 
-      toast.success("PDF atualizado com sucesso!", {
-        duration: 4000,
-        icon: "📄",
-        style: {
-          background: "#4CAF50",
-          color: "#fff",
-        },
-      });
+      toast.success("PDF atualizado com sucesso!");
       resetForm();
       
      
@@ -782,14 +761,7 @@ const ReportsAdminClient = ({
         throw new Error(`Erro ao atualizar vídeo: ${response.status} ${response.statusText}`);
       }
 
-      toast.success("Vídeo atualizado com sucesso!", {
-        duration: 4000,
-        icon: "🎥",
-        style: {
-          background: "#4CAF50",
-          color: "#fff",
-        },
-      });
+      toast.success("Vídeo atualizado com sucesso!");
       resetVideoForm();
       
       

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Image as ImageIcon, User, Link as LinkIcon, FileText, AlertCircle, Bold, Italic, List, Heading, Loader2 } from "lucide-react";
+import { toast, Toaster } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import type { IEducational } from "@/app/models/Educational";
 
@@ -141,10 +142,12 @@ export default function ArticleForm({ params }: { params: { action: string; slug
         throw new Error("Erro ao salvar artigo");
       }
 
+      toast.success(isEdit ? "Artigo atualizado com sucesso!" : "Artigo adicionado com sucesso!");
       router.push('/admin/educational');
     } catch (error) {
       console.error("Erro ao salvar artigo:", error);
       setError("Erro ao salvar artigo. Por favor, tente novamente.");
+      toast.error(isEdit ? "Erro ao atualizar artigo" : "Erro ao adicionar artigo");
     } finally {
       setIsLoading(false);
     }
@@ -152,6 +155,7 @@ export default function ArticleForm({ params }: { params: { action: string; slug
 
   return (
     <div className="p-3 sm:p-4 md:p-6 lg:p-8">
+      <Toaster position="top-right" />
       <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
         {/* Header Section */}
         <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between gap-3 sm:gap-4 md:gap-6">

@@ -136,7 +136,7 @@ const EtfAdminClient = ({
       const apiUrl = activeTab === "pdf" ? "/api/etf-pdfs" : "/api/etf-videos";
 
       // Preparar dados para envio
-      const dataToSend = {
+      const dataToSend = activeTab === "pdf" ? {
         title: currentData.title,
         description: currentData.description,
         author: currentData.author || "Lucas FII",
@@ -146,11 +146,13 @@ const EtfAdminClient = ({
         type: activeTab,
         premium: currentData.premium || false,
         tags: currentData.tags || [],
-        ...(activeTab === "pdf" && { pageCount: currentData.pageCount || 1 }),
-        ...(activeTab === "video" && { 
-          videoId: currentData.videoId,
-          url: currentData.url 
-        }),
+        pageCount: currentData.pageCount || 1,
+        fileUrl: currentData.url 
+      } : {
+        title: currentData.title,
+        description: currentData.description,
+        videoId: currentData.videoId,
+        pdfUrl: currentData.url || null
       };
 
       const response = await fetch(apiUrl, {
@@ -219,8 +221,8 @@ const EtfAdminClient = ({
       const apiUrl = activeTab === "pdf" ? "/api/etf-pdfs" : "/api/etf-videos";
 
       // Preparar dados para envio
-      const dataToSend = {
-        _id: editingItem.id,
+      const dataToSend = activeTab === "pdf" ? {
+        id: editingItem.id,
         title: currentData.title,
         description: currentData.description,
         author: currentData.author || "Lucas FII",
@@ -230,11 +232,14 @@ const EtfAdminClient = ({
         type: activeTab,
         premium: currentData.premium || false,
         tags: currentData.tags || [],
-        ...(activeTab === "pdf" && { pageCount: currentData.pageCount || 1 }),
-        ...(activeTab === "video" && { 
-          videoId: currentData.videoId,
-          url: currentData.url 
-        }),
+        pageCount: currentData.pageCount || 1,
+        fileUrl: currentData.url 
+      } : {
+        id: editingItem.id,
+        title: currentData.title,
+        description: currentData.description,
+        videoId: currentData.videoId,
+        pdfUrl: currentData.url || null
       };
 
       const response = await fetch(apiUrl, {

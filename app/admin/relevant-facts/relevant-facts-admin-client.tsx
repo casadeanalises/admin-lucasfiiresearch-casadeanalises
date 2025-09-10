@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/app/_components/ui/button";
-import { toast } from "sonner";
-import { Toaster } from "sonner";
+import { toast, Toaster } from "react-hot-toast";
 import { FileText, Search, Plus, Edit2, Trash2, Loader2, RefreshCw, X } from "lucide-react";
 
 interface RelevantFact {

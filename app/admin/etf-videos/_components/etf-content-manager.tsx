@@ -84,18 +84,18 @@ const EtfContentManager = ({ onEdit, activeTab, filterByType }: EtfContentManage
           id: video._id,
           title: video.title,
           description: video.description,
-          author: video.author || "Lucas FII",
-          date: video.date || new Date(video.createdAt).toISOString().split('T')[0],
-          time: video.time || new Date(video.createdAt).toLocaleTimeString("pt-BR"),
-          code: video.code || "N/D",
+          author: "Lucas FII", // Campo fixo
+          date: new Date(video.createdAt).toISOString().split('T')[0],
+          time: new Date(video.createdAt).toLocaleTimeString("pt-BR"),
+          code: "N/D", // Campo fixo
           type: "video",
           thumbnail: video.thumbnail || "",
-          premium: video.premium || false,
-          tags: video.tags || [],
-          month: video.month || "",
-          year: video.year || "",
+          premium: false, // Campo fixo
+          tags: [], // Campo fixo
+          month: "", // Campo fixo
+          year: "", // Campo fixo
           videoId: video.videoId || "",
-          url: video.url || "",
+          url: video.pdfUrl || "", // Usar pdfUrl se existir
           createdAt: video.createdAt
         }))
       ];
