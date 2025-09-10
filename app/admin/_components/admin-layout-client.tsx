@@ -199,6 +199,9 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 {/* Dropdown Menu */}
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="py-2">
+                    <Link href="/admin/notifications" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Notificações
+                    </Link>
                     <Link href="/admin/reports" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Relatório Semanal
                     </Link>
@@ -256,9 +259,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 {/* Dropdown Menu */}
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="py-2">
-                    <Link href="/admin/notifications" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Notificações
-                    </Link>
+
                     <Link href="/admin/admins" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Gerenciar Administradores
                     </Link>
@@ -302,6 +303,13 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Home
+                </Link>
+                <Link
+                  href="/admin/notifications"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Notificações
                 </Link>
                 <Link
                   href="/admin/reports"
@@ -352,13 +360,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 >
                   Guia do Usuário
                 </Link>
-                <Link
-                  href="/admin/notifications"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Notificações
-                </Link>
+
                 <Link
                   href="/admin/fix-auth"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
