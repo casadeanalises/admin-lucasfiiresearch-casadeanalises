@@ -168,7 +168,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
               <div className="flex items-center space-x-3">
                 <img src="/logo.png" alt="Logo" className="h-10 w-10" />
                 <div>
-                  <h1 className="text-xl font-bold text-white">LUCAS FII RESEARCH</h1>
+                  <h1 className="text-xl font-bold text-white">RESEARCH</h1>
                   <p className="text-xs text-blue-200">ADMINISTRATIVO</p>
                 </div>
               </div>
@@ -291,9 +291,9 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
 
             {/* Perfil e Logout */}
             <div className="hidden lg:flex items-center space-x-4">
-              <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
+              {/* <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
                 <User className="h-5 w-5 text-white" />
-              </div>
+              </div> */}
               {!isLoading && adminEmail && (
                 <span className="text-white font-medium">{adminEmail}</span>
               )}

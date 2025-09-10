@@ -30,28 +30,27 @@ export function AdminFooter() {
               </div>
             </div> */}
 
-            {/* Center Section - Brand */}
-            <div className="flex items-center gap-2 text-sm text-white/70">
+            {/* Left Section - DevRocha (menor) */}
+            <div className="flex items-center gap-1 text-xs text-white/60">
               <span>Desenvolvido por</span>
-              
               <Link
                 href="https://www.devrocha.com.br"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-white hover:text-blue-300 transition-colors duration-200"
+                className="flex items-center gap-1 text-white/80 hover:text-blue-300 transition-colors duration-200"
               >
                 <span className="font-medium">DevRocha</span>
                 <ExternalLink className="h-3 w-3" />
               </Link>
             </div>
 
-            {/* Right Section - Version & User */}
-            <div className="flex items-center gap-4 text-sm text-white/70">
-              <div className="flex items-center gap-2">
-                <span className="hidden xs:inline">Site: v1.5.2</span>
-                <span className="xs:hidden">v1.5.2</span>
-              </div>
+            {/* Center Section - Version */}
+            <div className="flex items-center gap-2 text-sm text-white/70">
+              <span className="font-medium">Site: v1.5.2</span>
             </div>
+
+            {/* Right Section - Empty for balance */}
+            <div className="w-24"></div>
           </div>
 
           {/* Bottom Section - Copyright */}

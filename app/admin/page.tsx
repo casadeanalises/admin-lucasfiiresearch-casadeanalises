@@ -72,7 +72,7 @@ export default function AdminDashboard() {
       color: "blue",
       isNew: false,
     },
-  
+
     {
       title: "Teses de Investimento",
       description: "Gerencie os Vídeos",
@@ -90,8 +90,8 @@ export default function AdminDashboard() {
       color: "green",
       isNew: false,
     },
-  
-    
+
+
     {
       title: "Material Educacional",
       description: "Gerencie o Material Educacional",
@@ -100,10 +100,10 @@ export default function AdminDashboard() {
       color: "slate",
       isNew: false,
     },
- 
-  
-   
-  
+
+
+
+
     {
       title: "Cronograma de Atualizações",
       description: "Gerencie o cronograma de desenvolvimento da plataforma",
@@ -141,7 +141,10 @@ export default function AdminDashboard() {
   return (
     <div className="p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
-        {/* Header Section */}
+        {/* === Header Section === */}
+
+        <br />
+
         <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
           <div className="p-2 sm:p-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
             <Home className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
@@ -168,8 +171,8 @@ export default function AdminDashboard() {
               key={area.title}
               href={area.href}
               className={`group relative overflow-hidden rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 p-4 sm:p-6 transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:shadow-xl ${area.href === "#"
-                  ? "cursor-not-allowed opacity-60"
-                  : "hover:scale-105"
+                ? "cursor-not-allowed opacity-60"
+                : "hover:scale-105"
                 }`}
               style={{
                 animationDelay: `${index * 50}ms`,
