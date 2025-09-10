@@ -36,7 +36,7 @@ export default async function NotificationsLayout({
           </div>
         </div>
 
-        {/* Content Area Premium */}
+        
         <div className="container mx-auto px-6 py-12">
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             {children}
