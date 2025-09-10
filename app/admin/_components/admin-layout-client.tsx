@@ -199,33 +199,47 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 {/* Dropdown Menu */}
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="py-2">
+
                     <Link href="/admin/notifications" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Notificações
                     </Link>
+
                     <Link href="/admin/reports" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Relatório Semanal
                     </Link>
-                    <Link href="/admin/relevant-facts" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Fatos Relevantes
-                    </Link>
+
                     <Link href="/admin/etf-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       ETFs
                     </Link>
-                    <Link href="/admin/home-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Teses de Investimento
-                    </Link>
+
                     <Link href="/admin/lowcost-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Low Cost
                     </Link>
-                    <Link href="/admin/educational" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Material Educacional
+
+                    <Link href="/admin/relevant-facts" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Fatos Relevantes
                     </Link>
+
                     <Link href="/admin/reports-videos-player-2" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Relatório Semanal Player 2
                     </Link>
+
+                    <Link href="/admin/home-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Teses de Investimento
+                    </Link>
+
+                    <Link href="/admin/user-guide-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Guia do Usuário
+                    </Link>
+
+                    <Link href="/admin/educational" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Material Educacional
+                    </Link>
+
                     <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Cronograma de Atualizações
                     </Link>
+
                   </div>
                 </div>
               </div>
@@ -311,6 +325,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 >
                   Notificações
                 </Link>
+
                 <Link
                   href="/admin/reports"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
@@ -318,20 +333,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 >
                   Relatório Semanal
                 </Link>
-                <Link
-                  href="/admin/relevant-facts"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Fatos Relevantes
-                </Link>
-                <Link
-                  href="/admin/educational"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Material Educacional
-                </Link>
+
                 <Link
                   href="/admin/etf-videos"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
@@ -339,6 +341,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 >
                   ETFs
                 </Link>
+
                 <Link
                   href="/admin/lowcost-videos"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
@@ -346,6 +349,23 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 >
                   Low Cost
                 </Link>
+
+                <Link
+                  href="/admin/relevant-facts"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Fatos Relevantes
+                </Link>
+
+                <Link
+                  href="/admin/reports-videos-player-2"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Relatório Semanal Player 2
+                </Link>
+
                 <Link
                   href="/admin/home-videos"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
@@ -353,6 +373,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 >
                   Teses de Investimento
                 </Link>
+
                 <Link
                   href="/admin/user-guide-videos"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
@@ -362,12 +383,21 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 </Link>
 
                 <Link
-                  href="/admin/fix-auth"
+                  href="/admin/educational"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  Restaurar Autenticação
+                  Material Educacional
                 </Link>
+
+                <Link
+                  href="/admin/update-schedule"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Cronograma de Atualizações
+                </Link>
+
                 <Link
                   href="/admin/admins"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
@@ -375,6 +405,15 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 >
                   Gerenciar Administradores
                 </Link>
+
+                <Link
+                  href="/admin/fix-auth"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Restaurar Autenticação
+                </Link>
+
                 {!isLoading && adminEmail && (
                   <div className="px-4 py-2 text-sm text-blue-200 border-t border-blue-700">
                     <span>{adminEmail}</span>

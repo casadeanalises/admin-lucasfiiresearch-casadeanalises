@@ -12,6 +12,7 @@ export default function AdminDashboard() {
       color: "red",
       isNew: false,
     },
+
     {
       title: "Relatório Semanal",
       description: "Gerencie PDFs e Vídeos",
@@ -25,30 +26,7 @@ export default function AdminDashboard() {
       color: "indigo",
       isNew: false,
     },
-    {
-      title: "Fatos Relevantes",
-      description: "Gerencie os PDFs",
-      icon: <FileText className="h-6 w-6 sm:h-8 sm:w-8" />,
-      href: "/admin/relevant-facts",
-      color: "indigo",
-      isNew: false,
-    },
-    {
-      title: "Teses de Investimento",
-      description: "Gerencie os Vídeos",
-      icon: <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />,
-      href: "/admin/home-videos",
-      color: "purple",
-      isNew: false,
-    },
-    {
-      title: "Material Educacional",
-      description: "Gerencie o Material Educacional",
-      icon: <BookOpen className="h-6 w-6 sm:h-8 sm:w-8" />,
-      href: "/admin/educational",
-      color: "slate",
-      isNew: false,
-    },
+
     {
       title: "ETFs",
       description: "Gerencie PDFs e Vídeos",
@@ -62,6 +40,7 @@ export default function AdminDashboard() {
       color: "yellow",
       isNew: false,
     },
+
     {
       title: "Low Cost",
       description: "Gerencie PDFs e Vídeos",
@@ -75,14 +54,16 @@ export default function AdminDashboard() {
       color: "orange",
       isNew: false,
     },
+
     {
-      title: "Guia do Usuário",
-      description: "Gerencie os Vídeos",
-      icon: <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />,
-      href: "/admin/user-guide-videos",
-      color: "green",
+      title: "Fatos Relevantes",
+      description: "Gerencie os PDFs",
+      icon: <FileText className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/relevant-facts",
+      color: "indigo",
       isNew: false,
     },
+
     {
       title: "Relatório Semanal Player 2",
       description: "Gerencie os Vídeos do Relatório Semanal",
@@ -91,6 +72,38 @@ export default function AdminDashboard() {
       color: "blue",
       isNew: false,
     },
+  
+    {
+      title: "Teses de Investimento",
+      description: "Gerencie os Vídeos",
+      icon: <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/home-videos",
+      color: "purple",
+      isNew: false,
+    },
+
+    {
+      title: "Guia do Usuário",
+      description: "Gerencie os Vídeos",
+      icon: <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/user-guide-videos",
+      color: "green",
+      isNew: false,
+    },
+  
+    
+    {
+      title: "Material Educacional",
+      description: "Gerencie o Material Educacional",
+      icon: <BookOpen className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/educational",
+      color: "slate",
+      isNew: false,
+    },
+ 
+  
+   
+  
     {
       title: "Cronograma de Atualizações",
       description: "Gerencie o cronograma de desenvolvimento da plataforma",
