@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast, Toaster } from 'react-hot-toast';
 import { Button } from '@/app/_components/ui/button';
 import Link from 'next/link';
 import { ArrowLeft, Plus, Save, AlertTriangle } from 'lucide-react';
@@ -54,9 +55,11 @@ export default function NovaNotificacaoPage() {
         body: JSON.stringify({ ...form, global: true }),
       });
       if (!res.ok) throw new Error('Erro ao criar notificação');
+      toast.success('Notificação criada com sucesso!');
       router.push('/admin/notifications');
     } catch (err: any) {
       setError(err.message || 'Erro desconhecido');
+      toast.error('Erro ao criar notificação');
     } finally {
       setLoading(false);
     }
@@ -64,6 +67,7 @@ export default function NovaNotificacaoPage() {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
+      <Toaster position="top-right" />
       <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">

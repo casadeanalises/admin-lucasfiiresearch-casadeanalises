@@ -100,14 +100,14 @@ export default function AdminDashboard() {
       color: "blue-dark",
       isNew: false,
     },
-    {
-      title: "Configurações",
-      description: "Gerencie as configurações do sistema ",
-      icon: <Settings className="h-6 w-6 sm:h-8 sm:w-8" />,
-      href: "#",
-      color: "slate",
-      isNew: true,
-    },
+    // {
+    //   title: "Configurações",
+    //   description: "Gerencie as configurações do sistema ",
+    //   icon: <Settings className="h-6 w-6 sm:h-8 sm:w-8" />,
+    //   href: "#",
+    //   color: "slate",
+    //   isNew: true,
+    // },
   ];
 
   return (

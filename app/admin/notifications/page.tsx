@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { toast, Toaster } from 'react-hot-toast';
 import { Button } from '@/app/_components/ui/button';
 import { Badge } from '@/app/_components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/app/_components/ui/card';
@@ -89,8 +90,9 @@ export default function AdminNotificationsPage() {
       const res = await fetch(`/api/notifications/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Erro ao excluir');
       setNotifications(notifications.filter(n => n._id !== id));
+      toast.success('Notificação excluída com sucesso!');
     } catch {
-      alert('Erro ao excluir notificação');
+      toast.error('Erro ao excluir notificação');
     } finally {
       setDeleting(null);
     }
@@ -103,8 +105,9 @@ export default function AdminNotificationsPage() {
       const res = await fetch('/api/notifications', { method: 'DELETE' });
       if (!res.ok) throw new Error('Erro ao excluir todas as notificações');
       setNotifications([]);
+      toast.success('Todas as notificações foram excluídas com sucesso!');
     } catch {
-      alert('Erro ao excluir todas as notificações');
+      toast.error('Erro ao excluir todas as notificações');
     } finally {
       setDeletingAll(false);
     }
@@ -112,6 +115,7 @@ export default function AdminNotificationsPage() {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
+      <Toaster position="top-right" />
       <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
         {/* Header Section */}
         <br />
