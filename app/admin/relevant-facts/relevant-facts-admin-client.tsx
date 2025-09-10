@@ -504,7 +504,7 @@ function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) 
             style={{ color: 'white' }}
           />
         </div>
-      </div>
+        </div>
 
       {/* Table */}
       <div className="overflow-hidden rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm">
@@ -541,7 +541,7 @@ function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) 
                       <div className="flex items-center gap-2 xs:gap-3">
                         <div className="h-8 w-8 xs:h-10 xs:w-10 sm:h-12 sm:w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
                           <FileText className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-white" />
-                        </div>
+                </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-xs xs:text-sm sm:text-base font-medium text-white truncate">
                             {item.title}
@@ -553,9 +553,9 @@ function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) 
                             <p className="text-xs text-white/50">
                               {new Date(item.createdAt).toLocaleDateString("pt-BR")}
                             </p>
-                          </div>
-                        </div>
-                      </div>
+                  </div>
+                </div>
+              </div>
                     </td>
                     <td className="px-2 xs:px-3 sm:px-4 md:px-6 py-3 xs:py-4 hidden sm:table-cell">
                       <p className="text-xs xs:text-sm text-white/60">
@@ -589,4 +589,4 @@ function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) 
       </div>
             </div>
   );
-}
+} 

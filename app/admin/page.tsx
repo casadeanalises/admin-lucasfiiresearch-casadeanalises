@@ -15,7 +15,12 @@ export default function AdminDashboard() {
     {
       title: "Relatório Semanal",
       description: "Gerencie PDFs e Vídeos",
-      icon: <FileText className="h-6 w-6 sm:h-8 sm:w-8" />,
+      icon: (
+        <div className="flex items-center gap-1">
+          <FileText className="h-6 w-6 sm:h-8 sm:w-8" />
+          <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />
+        </div>
+      ),
       href: "/admin/reports",
       color: "indigo",
       isNew: false,
@@ -47,7 +52,12 @@ export default function AdminDashboard() {
     {
       title: "ETFs",
       description: "Gerencie PDFs e Vídeos",
-      icon: <FileText className="h-6 w-6 sm:h-8 sm:w-8" />,
+      icon: (
+        <div className="flex items-center gap-1">
+          <FileText className="h-6 w-6 sm:h-8 sm:w-8" />
+          <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />
+        </div>
+      ),
       href: "/admin/etf-videos",
       color: "yellow",
       isNew: false,
@@ -55,7 +65,12 @@ export default function AdminDashboard() {
     {
       title: "Low Cost",
       description: "Gerencie PDFs e Vídeos",
-      icon: <FileText className="h-6 w-6 sm:h-8 sm:w-8" />,
+      icon: (
+        <div className="flex items-center gap-1">
+          <FileText className="h-6 w-6 sm:h-8 sm:w-8" />
+          <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />
+        </div>
+      ),
       href: "/admin/lowcost-videos",
       color: "orange",
       isNew: false,
