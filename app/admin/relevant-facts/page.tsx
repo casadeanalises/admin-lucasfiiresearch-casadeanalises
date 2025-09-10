@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function RelevantFactsAdminPage() {
   return (
     <div className="p-3 sm:p-4 md:p-6 lg:p-8">
-      {/* <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 md:space-y-8"> */}
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
 
         <br />
 
@@ -32,7 +32,7 @@ export default function RelevantFactsAdminPage() {
         </div>
 
         <RelevantFactsAdminClient />
-      {/* </div> */}
+      </div>
     </div>
   );
 } 

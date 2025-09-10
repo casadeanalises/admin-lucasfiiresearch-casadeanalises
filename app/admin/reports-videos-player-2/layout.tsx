@@ -38,9 +38,7 @@ export default async function AdminLayout({
 
         {/* Content Area Premium */}
         <div className="container mx-auto px-6 py-12">
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 overflow-hidden">
-            {children}
-          </div>
+          {children}
         </div>
       </div>
     </>
