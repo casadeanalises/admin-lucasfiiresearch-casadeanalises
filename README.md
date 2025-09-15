@@ -1,328 +1,598 @@
-<div align="center">
-  <img src="./docs/lucasfii_banner_logo.png" alt="CasaDeAnálises Banner" width="100%" />
-
-# Lucas FII Research - CasaDeAnálises 📊
-
- <!-- <p align="center">
-    Plataforma profissional de análise de Fundos Imobiliários
-    <br />
-    <a href="https://casadeanalises.com.br"><strong>www.casadeanalises.com.br »</strong></a>
-    <br />
-    <br />
-    <a href="https://youtube.com/@lucasfiis">YouTube</a>
-    ·
-    <a href="https://github.com/DevRocha">GitHub</a>
-    ·
-    <a href="https://lucasfii.com.br">Website</a>
-  </p> -->
-
-![Next.js](https://img.shields.io/badge/Next.js-14-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
-![Tailwind](https://img.shields.io/badge/Tailwind-3.0-38bdf8)
+# 🏠 Lucas FII Research - Casa de Análises | ADMINISTRATIVO
 
 
-</div>
+Sistema administrativo completo para gerenciamento de conteúdo educacional e financeiro da plataforma Lucas FII Research.
 
----
+## 📋 Índice
 
-First, run the development server:
+- [Visão Geral](#-visão-geral)
+- [Tecnologias](#-tecnologias)
+- [Pré-requisitos](#-pré-requisitos)
+- [Instalação](#-instalação)
+- [Configuração](#-configuração)
+- [Executando o Projeto](#-executando-o-projeto)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Sistema Admin](#-sistema-admin)
+- [APIs](#-apis)
+- [Autenticação](#-autenticação)
+- [Banco de Dados](#-banco-de-dados)
+- [Funcionalidades](#-funcionalidades)
+- [Deploy](#-deploy)
+- [Contribuição](#-contribuição)
 
-### Instalação
+## 🎯 Visão Geral
 
+O **Casa de Análises** é um painel administrativo moderno desenvolvido em Next.js 14 para gerenciar todo o conteúdo da plataforma Lucas FII Research. O sistema oferece uma interface intuitiva e responsiva para administradores gerenciarem:
+
+- 📊 **Relatórios Semanais** (PDFs e Vídeos)
+- 📰 **Notificações** do sistema
+- 📚 **Material Educacional** 
+- 🎥 **Vídeos** (YouTube/Vimeo)
+- 📄 **PDFs** de análises
+- 📈 **ETFs** e **Low Cost** investments
+- 📅 **Cronogramas de Atualização**
+- 👥 **Usuários Administradores**
+
+## 🛠 Tecnologias
+
+### Frontend
+- **Next.js 14** - Framework React com App Router
+- **React 18** - Biblioteca de interface
+- **TypeScript** - Tipagem estática
+- **Tailwind CSS** - Framework CSS utilitário
+- **Lucide React** - Ícones modernos
+- **Radix UI** - Componentes acessíveis
+- **React Hot Toast** - Sistema de notificações
+
+### Backend
+- **Next.js API Routes** - API serverless
+- **MongoDB** - Banco de dados NoSQL
+- **Prisma** - ORM para MongoDB
+- **JWT** - Autenticação com tokens
+- **bcryptjs** - Hash de senhas
+
+### Ferramentas
+- **ESLint** - Linter de código
+- **Prettier** - Formatador de código
+- **Husky** - Git hooks
+- **Docker** - Containerização
+
+## 📋 Pré-requisitos
+
+- **Node.js** 18.17 ou superior
+- **npm** ou **yarn**
+- **MongoDB** (local ou Atlas)
+- **Git**
+
+## 🚀 Instalação
+
+1.  **Instale as dependências**
 ```bash
-npm ci
-# or
 npm install
+# ou
+yarn install
 ```
 
+2. **Configure as variáveis de ambiente**
+```bash
+cp .env.example .env.local
+```
+
+3. **Configure o banco de dados**
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+## ⚙️ Configuração
+
+### Variáveis de Ambiente (.env.local)
+
+```env
+# Banco de Dados
+DATABASE_URL="mongodb://localhost:27017"
+# ou para MongoDB Atlas:
+# DATABASE_URL="mongodb+srv://usuario:senha@cluster.mongodb.net"
+
+# JWT
+JWT_SECRET="seu-jwt-secret-super-seguro"
+
+# Next.js
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="seu-nextauth-secret"
+
+# APIs Externas (opcional)
+YOUTUBE_API_KEY="sua-youtube-api-key"
+VIMEO_ACCESS_TOKEN="seu-vimeo-token"
+```
+
+### Configuração do MongoDB
+
+O projeto usa **MongoDB** como banco principal com as seguintes coleções:
+
+- `etf_pdfs` - PDFs de ETFs
+- `etf_videos` - Vídeos de ETFs  
+- `lowcost_pdfs` - PDFs Low Cost
+- `lowcost_videos` - Vídeos Low Cost
+- `home_videos` - Vídeos do Teses de Investimento
+- `reports` - Relatórios semanais
+- `notifications` - Notificações do sistema
+- `educational` - Material educacional
+- `relevant_facts` - Fatos relevantes
+- `update_schedule` - Cronogramas
+- `admins` - Administradores
+
+## ▶️ Executando o Projeto
+
+### Desenvolvimento
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse: `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
----
-
-## 🔍 Funcionalidades Principais
-
-- 📊 Dashboard interativo
-- 📈 Análise de FIIs
-- 💰 Sistema de assinatura
-- 📱 Design responsivo
-- 🔒 Autenticação segura
-- 📄 Relatórios detalhados
-
-## 🧪 Testes
-
+### Produção
 ```bash
-# Execute os testes unitários
-pnpm test
-
-# Execute os testes e2e
-pnpm test:e2e
+npm run build
+npm start
+# ou
+yarn build
+yarn start
 ```
 
-## 📦 Deploy
-
-O projeto está configurado para deploy na Vercel:
-
+### Docker
 ```bash
-pnpm build
-vercel deploy
+docker-compose up -d
 ```
 
-## 🔐 Segurança
+## 📁 Estrutura do Projeto
 
-- Autenticação gerenciada pelo Clerk
-- Pagamentos processados pelo Stripe
-- Dados sensíveis protegidos por variáveis de ambiente
-- HTTPS forçado em produção
-
-## 🛠 Tecnologias e Bibliotecas
-
-### Core
-
-- [Next.js 14](https://nextjs.org/) - Framework React com SSR
-- [React](https://reactjs.org/) - Biblioteca JavaScript para UI
-- [TypeScript](https://www.typescriptlang.org/) - Superset JavaScript tipado
-- [Node.js](https://nodejs.org/) - Runtime JavaScript
-
-### Estilização
-
-- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utilitário
-- [Shadcn/ui](https://ui.shadcn.com/) - Componentes reutilizáveis
-- [Lucide Icons](https://lucide.dev/) - Ícones modernos
-- [AOS](https://michalsnik.github.io/aos/) - Animate On Scroll
-
-### Banco de Dados
-
-- [PostgreSQL](https://www.postgresql.org/) - Banco de dados relacional
-- [Prisma](https://www.prisma.io/) - ORM para Node.js e TypeScript
-
-### Autenticação e Pagamentos
-
-- [Clerk](https://clerk.dev/) - Autenticação e gerenciamento de usuários
-- [Stripe](https://stripe.com/) - Processamento de pagamentos
-
-### Desenvolvimento
-
-- [ESLint](https://eslint.org/) - Linter JavaScript/TypeScript
-- [Prettier](https://prettier.io/) - Formatador de código
-- [Axios](https://axios-http.com/) - Cliente HTTP
-- [React Hook Form](https://react-hook-form.com/) - Gerenciamento de formulários
-- [Zod](https://zod.dev/) - Validação de schema TypeScript
-
-`
-├── .eslintignore
-├── .eslintrc.json
-├── .gitignore
-├── .husky
-    ├── commit-msg
-    └── pre-commit
-├── .lintstagedrc.json
-├── .prettierrc.json
-├── README.md
-├── app
-    ├── (home)
-    │   └── page.tsx
-    ├── _actions
-    │   └── upsert-transaction
-    │   │   ├── index.ts
-    │   │   └── schema.ts
-    ├── _components
-    │   ├── add-transaction-button.tsx
-    │   ├── footer.tsx
-    │   ├── money-input.tsx
-    │   ├── navbar.tsx
-    │   ├── ui
-    │   │   ├── alert-dialog.tsx
-    │   │   ├── badge.tsx
-    │   │   ├── button.tsx
-    │   │   ├── calendar.tsx
-    │   │   ├── card.tsx
-    │   │   ├── chart.tsx
-    │   │   ├── data-table.tsx
-    │   │   ├── date-picker.tsx
-    │   │   ├── dialog.tsx
-    │   │   ├── form.tsx
-    │   │   ├── input.tsx
-    │   │   ├── label.tsx
-    │   │   ├── popover.tsx
-    │   │   ├── progress.tsx
-    │   │   ├── scroll-area.tsx
-    │   │   ├── select.tsx
-    │   │   ├── sonner.tsx
-    │   │   ├── table.tsx
-    │   │   └── tooltip.tsx
-    │   └── upsert-transaction-dialog.tsx
-    ├── _constants
-    │   └── transactions.ts
-    ├── _data
-    │   ├── can-user-add-transaction
-    │   │   └── index.ts
-    │   ├── get-current-month-transactions
-    │   │   └── index.ts
-    │   └── get-dashboard
-    │   │   ├── index.ts
-    │   │   └── types.ts
-    ├── _lib
-    │   ├── prisma.ts
-    │   └── utils.ts
-    ├── _utils
-    │   └── currency.ts
-    ├── api
-    │   ├── webhook
-    │   │   └── route.ts
-    │   └── webhooks
-    │   │   └── stripe
-    │   │       └── route.ts
-    ├── dashboard
-    │   ├── _actions
-    │   │   └── generate-ai-report
-    │   │   │   ├── index.ts
-    │   │   │   └── schema.ts
-    │   ├── _components
-    │   │   ├── ai-report-button.tsx
-    │   │   ├── expenses-per-category.tsx
-    │   │   ├── last-transactions.tsx
-    │   │   ├── percentage-item.tsx
-    │   │   ├── summary-card.tsx
-    │   │   ├── summary-cards.tsx
-    │   │   ├── time-select.tsx
-    │   │   └── transactions-pie-chart.tsx
-    │   └── page.tsx
-    ├── favicon.ico
-    ├── globals.css
-    ├── layout.tsx
-    ├── reports
-    │   ├── _actions
-    │   │   └── delete-transaction
-    │   │   │   ├── index.ts
-    │   │   │   └── schema.ts
-    │   ├── _columns
-    │   │   └── index.tsx
-    │   ├── _components
-    │   │   ├── delete-transaction-button.tsx
-    │   │   ├── edit-transaction-button.tsx
-    │   │   └── type-badge.tsx
-    │   └── page.tsx
-    ├── subscription
-    │   ├── _actions
-    │   │   └── create-stripe-checkout
-    │   │   │   └── index.ts
-    │   ├── _components
-    │   │   ├── acquire-plan-button.tsx
-    │   │   └── subscription-toast.tsx
-    │   └── page.tsx
-    └── webhook
-    │   └── route.ts
-├── components.json
-├── docker-compose.yml
-├── middleware.ts
-├── next.config.mjs
-├── package-lock.json
-├── package.json
-├── postcss.config.mjs
-├── prisma
-    ├── migrations
-    │   ├── 20241030145404_init_db
-    │   │   └── migration.sql
-    │   ├── 20241030180457_add_user_id_to_transaction
-    │   │   └── migration.sql
-    │   └── migration_lock.toml
-    └── schema.prisma
-├── public
-    ├── bank-slip.svg
-    ├── bank-transfer.svg
-    ├── credit-card.svg
-    ├── debit-card.svg
-    ├── file.svg
-    ├── globe.svg
-    ├── login.png
-    ├── logo.svg
-    ├── money.svg
-    ├── next.svg
-    ├── other.svg
-    ├── pix.svg
-    ├── vercel.svg
-    └── window.svg
-├── tailwind.config.ts
-└── tsconfig.json
-`
-
-### Hospedagem e Deploy
-
-- [Vercel](https://vercel.com/) - Plataforma de hospedagem
-- [PlanetScale](https://planetscale.com/) - Banco de dados serverless
-
-### Ferramentas de Desenvolvimento
-
-- [pnpm](https://pnpm.io/) - Gerenciador de pacotes
-- [Git](https://git-scm.com/) - Controle de versão
-
-## 👥 Contribuição & Desenvolvedor
-
-### Desenvolvedor Principal
-
-- **(DevRocha)**
-
-  - Website: [devrocha.com.br](https://www.devrocha.com.br)
-  - GitHub: [github.com/DevRocha](https://github.com/devrocha-oficial)
-  - LinkedIn: [linkedin.com/in/DevRocha](https://www.linkedin.com/company/DevRocha/)
-
-- **Alan Rocha**
-
-  - Portfolio: [alanrocha.vercel.app](https://alanrocha.vercel.app)
-  - GitHub: [github.com/AlanRocha](https://github.com/alanrochagomes)
-  - LinkedIn: [linkedin.com/in/AlanRocha](https://www.linkedin.com/in/alan-rocha-gomes/)
-
-  Desenvolvido por DevRocha
-
-### Repositório do Projeto
-
-- GitHub: [github.com/DevRocha/casadeanalises-lucasfii](https://github.com/alanrochagomes/casadeanalises-lucasfii)
-
-
-## Configuração do Ambiente
-
-### Variáveis de Ambiente
-
-1. Copie o arquivo `.env.example` para `.env`:
-```bash
-cp .env.example .env
+```
+admin-lucasfiiresearch-casadeanalises/
+├── app/                          # App Router (Next.js 14)
+│   ├── admin/                    # Páginas administrativas
+│   │   ├── notifications/        # Gerenciar notificações
+│   │   ├── reports/              # Relatórios semanais
+│   │   ├── etf-videos/           # ETFs (PDFs + Vídeos)
+│   │   ├── lowcost-videos/       # Low Cost (PDFs + Vídeos)
+│   │   ├── home-videos/          # Vídeos da home
+│   │   ├── educational/          # Material educacional
+│   │   ├── relevant-facts/       # Fatos relevantes
+│   │   ├── update-schedule/      # Cronogramas
+│   │   └── admins/               # Gerenciar admins
+│   ├── api/                      # API Routes
+│   │   ├── admin/                # APIs de administração
+│   │   ├── notifications/        # APIs de notificações
+│   │   ├── etf-pdfs/             # APIs de ETFs PDFs
+│   │   ├── etf-videos/           # APIs de ETFs Vídeos
+│   │   └── ...                   # Outras APIs
+│   ├── _components/              # Componentes globais
+│   ├── _lib/                     # Utilitários
+│   └── _models/                  # Modelos TypeScript
+├── lib/                          # Bibliotecas e configurações
+│   ├── auth.ts                   # Autenticação JWT
+│   ├── auth-admin.ts             # Auth específica para admin
+│   ├── mongodb.ts                # Conexão MongoDB
+│   └── prisma.ts                 # Cliente Prisma
+├── prisma/                       # Schema do banco
+│   └── schema.prisma             # Modelos Prisma
+├── public/                       # Arquivos estáticos
+└── docs/                         # Documentação
 ```
 
-2. Configure as seguintes variáveis no arquivo `.env`:
+## 🔐 Sistema Admin
 
-- `MONGODB_URI`: URL de conexão com o MongoDB
-- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Chave pública do Clerk (autenticação)
-- `CLERK_SECRET_KEY`: Chave secreta do Clerk
-- `NEXT_PUBLIC_API_BASE_URL`: URL base da API (http://localhost:3000 para desenvolvimento)
-- `ADMIN_EMAIL`: Email do administrador do sistema
+### Autenticação
+- **JWT Tokens** para sessões seguras
+- **Cookies httpOnly** para armazenamento
+- **Middleware** de proteção de rotas
+- **Hash bcrypt** para senhas
 
+### Painel Principal
+O dashboard admin oferece acesso a:
 
+1. **📊 Relatório Semanal** - Gerenciar PDFs e vídeos semanais
+2. **🔔 Notificações** - Sistema de notificações push
+3. **📚 Material Educacional** - Artigos e conteúdo educativo
+4. **🎥 Vídeos** - Gerenciar vídeos YouTube/Vimeo
+5. **📄 PDFs** - Upload e gerenciamento de documentos
+6. **📈 ETFs** - Conteúdo específico de ETFs
+7. **💰 Low Cost** - Investimentos de baixo custo
+8. **📅 Cronogramas** - Agendamento de conteúdo
+9. **👥 Administradores** - Gerenciar usuários admin
 
-- ## 📝 Licença
+### Interface
+- **Design Glassmorphism** - Visual moderno e profissional
+- **Responsivo** - Funciona em mobile, tablet e desktop
+- **Tema Azul** - Cor principal #1f40af
+- **Componentes Reutilizáveis** - Shadcn/ui + Radix UI
+- **Toast Notifications** - Feedback visual para ações
+
+## 🔌 APIs
+
+### Estrutura das APIs
+
+Todas as APIs seguem o padrão RESTful:
+
+```
+GET    /api/[resource]           # Listar recursos
+POST   /api/[resource]           # Criar recurso
+PUT    /api/[resource]           # Atualizar recurso
+DELETE /api/[resource]/[id]      # Excluir recurso
+```
+
+### Principais Endpoints
+
+#### 📊 Relatórios
+```typescript
+GET    /api/reports              # Listar relatórios
+POST   /api/reports              # Criar relatório
+PUT    /api/reports              # Atualizar relatório
+DELETE /api/reports/[id]         # Excluir relatório
+
+GET    /api/reports/pdfs         # Listar PDFs
+POST   /api/reports/pdfs         # Criar PDF
+PUT    /api/reports/pdfs         # Atualizar PDF
+DELETE /api/reports/pdfs/[id]    # Excluir PDF
+
+GET    /api/reports/videos       # Listar vídeos
+POST   /api/reports/videos       # Criar vídeo
+PUT    /api/reports/videos       # Atualizar vídeo
+DELETE /api/reports/videos/[id]  # Excluir vídeo
+```
+
+#### 🔔 Notificações
+```typescript
+GET    /api/notifications        # Listar notificações
+POST   /api/notifications        # Criar notificação
+PUT    /api/notifications/[id]   # Atualizar notificação
+DELETE /api/notifications/[id]   # Excluir notificação
+DELETE /api/notifications        # Excluir todas
+```
+
+#### 📈 ETFs
+```typescript
+GET    /api/etf-pdfs             # Listar PDFs de ETFs
+POST   /api/etf-pdfs             # Criar PDF de ETF
+PUT    /api/etf-pdfs             # Atualizar PDF de ETF
+DELETE /api/etf-pdfs/[id]        # Excluir PDF de ETF
+
+GET    /api/etf-videos           # Listar vídeos de ETFs
+POST   /api/etf-videos           # Criar vídeo de ETF
+PUT    /api/etf-videos           # Atualizar vídeo de ETF
+DELETE /api/etf-videos/[id]      # Excluir vídeo de ETF
+```
+
+#### 👥 Administradores
+```typescript
+GET    /api/admin/list           # Listar admins
+POST   /api/admin/create         # Criar admin
+PUT    /api/admin/update/[id]    # Atualizar admin
+DELETE /api/admin/delete/[id]    # Excluir admin
+POST   /api/admin/login          # Login admin
+POST   /api/admin/logout         # Logout admin
+```
+
+### Autenticação de APIs
+
+Todas as APIs administrativas requerem autenticação:
+
+```typescript
+// Headers obrigatórios
+{
+  "Authorization": "Bearer <jwt-token>",
+  "Content-Type": "application/json"
+}
+
+// Ou via cookie
+{
+  "Cookie": "admin_token=<jwt-token>"
+}
+```
+
+### Estrutura de Resposta
+
+```typescript
+// Sucesso
+{
+  "success": true,
+  "data": { ... },
+  "message": "Operação realizada com sucesso"
+}
+
+// Erro
+{
+  "success": false,
+  "error": "Mensagem de erro",
+  "code": "ERROR_CODE"
+}
+```
+
+## 🔐 Autenticação
+
+### Sistema de Login
+
+1. **Credenciais** - Email e senha
+2. **Validação** - Verificação no banco de dados
+3. **JWT Token** - Geração de token seguro
+4. **Cookie** - Armazenamento httpOnly
+5. **Middleware** - Proteção de rotas
+
+### Fluxo de Autenticação
+
+```typescript
+// 1. Login
+POST /api/admin/login
+{
+  "email": "admin@lucasfii.com",
+  "password": "senha123"
+}
+
+// 2. Resposta
+{
+  "success": true,
+  "token": "jwt-token-here",
+  "admin": {
+    "id": "admin-id",
+    "email": "admin@lucasfii.com",
+    "name": "Admin Name"
+  }
+}
+
+// 3. Uso do token
+Authorization: Bearer jwt-token-here
+```
+
+### Middleware de Proteção
+
+```typescript
+// lib/auth-admin.ts
+export async function checkAdminAuth() {
+  const token = cookies().get("admin_token")?.value;
+  const decoded = await verifyJWT(token);
+  return { isAdmin: true, adminId: decoded.sub };
+}
+```
+
+## 🗄️ Banco de Dados
+
+### MongoDB Collections
+
+#### 📊 Relatórios
+```typescript
+// reports
+{
+  _id: ObjectId,
+  title: string,
+  description: string,
+  author: string,
+  date: string,
+  time: string,
+  code: string,
+  type: "pdf" | "video",
+  thumbnail: string,
+  premium: boolean,
+  tags: string[],
+  month: string,
+  year: string,
+  videoId?: string,
+  url?: string,
+  pageCount?: number,
+  dividendYield?: string,
+  price?: string,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### 🔔 Notificações
+```typescript
+// notifications
+{
+  _id: ObjectId,
+  title: string,
+  description: string,
+  type: "video" | "pdf" | "noticia" | "anuncio" | "release",
+  imageUrl: string,
+  link?: string,
+  global: boolean,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### 📈 ETFs
+```typescript
+// etf_videos
+{
+  _id: ObjectId,
+  title: string,
+  description: string,
+  videoId: string,
+  thumbnail: string,
+  active: boolean,
+  order: number,
+  pdfUrl?: string,
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// etf_pdfs
+{
+  _id: ObjectId,
+  title: string,
+  description: string,
+  fileUrl: string,
+  pageCount: number,
+  active: boolean,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### 👥 Administradores
+```typescript
+// admins
+{
+  _id: ObjectId,
+  email: string,
+  password: string, // hashed
+  name: string,
+  role: "admin" | "super_admin",
+  active: boolean,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+### Conexão MongoDB
+
+```typescript
+// lib/mongodb.ts
+import { MongoClient } from "mongodb";
+
+const client = new MongoClient(process.env.MONGODB_URI!, {
+  connectTimeoutMS: 20000,
+  socketTimeoutMS: 45000,
+  serverSelectionTimeoutMS: 20000,
+  maxPoolSize: 10,
+  retryWrites: true,
+  retryReads: true
+});
+
+export async function connectToDatabase() {
+  const client = await clientPromise;
+  const db = client.db();
+  return { client, db };
+}
+```
+
+## ⚡ Funcionalidades
+
+### 🎨 Interface Moderna
+- **Glassmorphism Design** - Visual moderno com transparências
+- **Responsivo** - Funciona em todos os dispositivos
+- **Tema Azul** - Cor principal #1f40af
+- **Animações Suaves** - Transições fluidas
+- **Componentes Reutilizáveis** - Shadcn/ui + Radix UI
+
+### 📱 Responsividade
+- **Mobile First** - Design otimizado para mobile
+- **Breakpoints Customizados** - xs, sm, md, lg, xl, 2xl
+- **Componentes Adaptativos** - Tabelas, formulários, cards
+- **Navegação Intuitiva** - Menu responsivo
+
+### 🔔 Sistema de Notificações
+- **Toast Messages** - Feedback visual para ações
+- **Posicionamento** - top-right por padrão
+- **Tipos** - Sucesso, erro, aviso, info
+- **Auto-dismiss** - Desaparecimento automático
+- **Stack** - Múltiplas notificações empilhadas
+
+### 📊 Gerenciamento de Conteúdo
+- **CRUD Completo** - Criar, ler, atualizar, excluir
+- **Upload de Arquivos** - PDFs e imagens
+- **Integração YouTube** - Extração automática de IDs
+- **Integração Vimeo** - Suporte a vídeos Vimeo
+- **Thumbnails Automáticos** - Geração de miniaturas
+- **Busca e Filtros** - Sistema de pesquisa avançada
+
+### 🔐 Segurança
+- **JWT Authentication** - Tokens seguros
+- **Password Hashing** - bcrypt para senhas
+- **Route Protection** - Middleware de autenticação
+- **Input Validation** - Validação de dados
+- **CORS** - Configuração de segurança
+
+### 📈 Performance
+- **Server-Side Rendering** - Next.js SSR
+- **Static Generation** - Páginas estáticas quando possível
+- **Image Optimization** - Next.js Image component
+- **Code Splitting** - Carregamento otimizado
+- **Caching** - Cache de API e assets
+
+## 🚀 Deploy
+
+### Vercel (Recomendado)
+
+1. **Conecte o repositório** no Vercel
+2. **Configure as variáveis de ambiente**
+3. **Deploy automático** a cada push
+
+```bash
+# Variáveis de ambiente no Vercel
+DATABASE_URL=mongodb+srv://...
+JWT_SECRET=seu-jwt-secret
+NEXTAUTH_URL=https://seu-dominio.vercel.app
+```
+
+### Docker
+
+```dockerfile
+# Dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017/
+    depends_on:
+      - mongo
+  
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
+```
+
+### Variáveis de Ambiente para Produção
+
+```env
+# Produção
+NODE_ENV=production
+DATABASE_URL=mongodb+srv://usuario:senha@cluster.mongodb.net/
+JWT_SECRET=jwt-secret-super-seguro-para-producao
+NEXTAUTH_URL=https://admin.lucasfii.com
+NEXTAUTH_SECRET=nextauth-secret-para-producao
+
+# APIs Externas
+YOUTUBE_API_KEY=sua-youtube-api-key
+VIMEO_ACCESS_TOKEN=seu-vimeo-token
+```
+
+### Estrutura de Commits
+
+```
+feat: adicionar nova funcionalidade
+fix: corrigir bug
+docs: atualizar documentação
+style: formatação de código
+refactor: refatoração de código
+test: adicionar testes
+chore: tarefas de manutenção
+```
+
+## 📄 Licença
 
 © 2025 Lucas FII Research L&L Consultoria Financeira. Todos os direitos reservados.

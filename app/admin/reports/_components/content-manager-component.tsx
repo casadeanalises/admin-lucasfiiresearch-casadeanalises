@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { FileText, User, Calendar, Download, ChevronDown, ChevronRight, Search, CalendarRange, X } from "lucide-react";
 import {
   Select,
@@ -263,15 +263,27 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
   };
 
   return (
-    <div className="rounded-lg bg-white p-3 sm:p-4 shadow-md">
-      <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <h3 className="text-lg font-semibold text-blue-800">
-          Gerenciar {activeTab === "pdf" ? "PDFs" : "Vídeos"}
-        </h3>
-        <div className="flex flex-col sm:flex-row gap-2">
+    <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg p-4 sm:p-6">
+      <Toaster position="top-right" />
+      <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="p-2 sm:p-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+            {activeTab === "pdf" ? (
+              <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            ) : (
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            )}
+          </div>
+          <h3 className="text-lg sm:text-xl font-semibold text-white">
+            Gerenciar {activeTab === "pdf" ? "PDFs" : "Vídeos"}
+          </h3>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <button
             onClick={() => fetchItems()}
-            className="inline-flex items-center justify-center rounded-md bg-blue-50 px-3 py-1.5 text-sm text-blue-700 hover:bg-blue-100 w-full sm:w-auto"
+            className="inline-flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 px-3 sm:px-4 py-2 text-sm font-medium text-white transition-all duration-200 w-full sm:w-auto"
           >
             <svg className="mr-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -280,7 +292,7 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
           </button>
           <button
             onClick={onSetAddMode}
-            className="inline-flex items-center justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700 w-full sm:w-auto"
+            className="inline-flex items-center justify-center rounded-lg bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 px-3 sm:px-4 py-2 text-sm font-medium text-white transition-all duration-200 w-full sm:w-auto"
           >
             <svg className="mr-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -290,29 +302,29 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
         </div>
       </div>
 
-      <div className="mb-4 space-y-2">
-        <div className="text-xs text-gray-500 italic">
+      <div className="mb-4 sm:mb-6 space-y-3 sm:space-y-4">
+        <div className="text-xs sm:text-sm text-white/60 italic">
           Ordenado por data (mais recente primeiro)
         </div>
 
         <div className="relative">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-white/60" />
           <Input
             placeholder="Buscar por título..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="pl-9 bg-white text-gray-800 border-gray-200 text-sm h-9"
+            className="pl-10 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder-white/50 text-sm h-10 focus:ring-2 focus:ring-white/30 focus:border-transparent"
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
           <Select value={filterYear} onValueChange={handleYearChange}>
-            <SelectTrigger className="h-9 bg-white text-gray-800 border-gray-200 text-sm">
+            <SelectTrigger className="h-10 bg-white/10 backdrop-blur-sm border-white/20 text-white text-sm focus:ring-2 focus:ring-white/30 focus:border-transparent">
               <SelectValue placeholder="Ano" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white/95 backdrop-blur-sm border-white/20">
               {years.map((year) => (
-                <SelectItem key={year.value} value={year.value}>
+                <SelectItem key={year.value} value={year.value} className="text-gray-800 hover:bg-white/80">
                   {year.label}
                 </SelectItem>
               ))}
@@ -320,12 +332,12 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
           </Select>
 
           <Select value={filterMonth} onValueChange={handleMonthChange}>
-            <SelectTrigger className="h-9 bg-white text-gray-800 border-gray-200 text-sm">
+            <SelectTrigger className="h-10 bg-white/10 backdrop-blur-sm border-white/20 text-white text-sm focus:ring-2 focus:ring-white/30 focus:border-transparent">
               <SelectValue placeholder="Mês" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white/95 backdrop-blur-sm border-white/20">
               {months.map((month) => (
-                <SelectItem key={month.value} value={month.value}>
+                <SelectItem key={month.value} value={month.value} className="text-gray-800 hover:bg-white/80">
                   {month.label}
                 </SelectItem>
               ))}
@@ -333,40 +345,40 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
           </Select>
 
           <Select value={sortOrder} onValueChange={handleSortOrderChange}>
-            <SelectTrigger className="h-9 bg-white text-gray-800 border-gray-200 text-sm">
+            <SelectTrigger className="h-10 bg-white/10 backdrop-blur-sm border-white/20 text-white text-sm focus:ring-2 focus:ring-white/30 focus:border-transparent">
               <SelectValue placeholder="Ordenar por" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="newest">Mais recentes</SelectItem>
-              <SelectItem value="oldest">Mais antigos</SelectItem>
+            <SelectContent className="bg-white/95 backdrop-blur-sm border-white/20">
+              <SelectItem value="newest" className="text-gray-800 hover:bg-white/80">Mais recentes</SelectItem>
+              <SelectItem value="oldest" className="text-gray-800 hover:bg-white/80">Mais antigos</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-gray-200">
-        <table className="min-w-full divide-y divide-gray-200 bg-white">
-          <thead className="bg-gray-50">
+      <div className="overflow-hidden rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm">
+        <table className="min-w-full divide-y divide-white/10">
+          <thead className="bg-white/10 backdrop-blur-sm">
             <tr>
-              <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500">
+              <th scope="col" className="px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-white">
                 Conteúdo
               </th>
-              <th scope="col" className="hidden sm:table-cell px-3 py-2 text-left text-xs font-medium text-gray-500">
+              <th scope="col" className="hidden sm:table-cell px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-white">
                 Autor
               </th>
-              <th scope="col" className="hidden sm:table-cell px-3 py-2 text-left text-xs font-medium text-gray-500">
+              <th scope="col" className="hidden sm:table-cell px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-white">
                 Data
               </th>
-              <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500">
+              <th scope="col" className="px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-white">
                 Ações
               </th>
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-200">
+          <tbody className="divide-y divide-white/10">
             {filteredItems.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-sm text-gray-500">
+                <td colSpan={4} className="px-4 sm:px-6 py-8 sm:py-12 text-center text-sm sm:text-base text-white/70">
                   {loading ? (
                     <div className="flex items-center justify-center">
                       <svg className="mr-2 h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -378,9 +390,15 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
                   ) : (
                     <>
                       <div className="flex flex-col items-center justify-center">
-                        <FileText className="h-8 w-8 text-gray-400 mb-2" />
-                        <p>Nenhum {activeTab === "pdf" ? "PDF" : "vídeo"} encontrado</p>
-                        <p className="text-xs text-gray-400 mt-1">Tente ajustar os filtros de busca</p>
+                        {activeTab === "pdf" ? (
+                          <FileText className="h-8 w-8 sm:h-10 sm:w-10 text-white/40 mb-3" />
+                        ) : (
+                          <svg className="h-8 w-8 sm:h-10 sm:w-10 text-white/40 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                          </svg>
+                        )}
+                        <p className="text-white/80">Nenhum {activeTab === "pdf" ? "PDF" : "vídeo"} encontrado</p>
+                        <p className="text-xs sm:text-sm text-white/50 mt-1">Tente ajustar os filtros de busca</p>
                       </div>
                     </>
                   )}
@@ -388,84 +406,96 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
               </tr>
             ) : (
               filteredItems.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50">
-                  <td className="px-3 py-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex-shrink-0 w-8 h-8">
+                <tr key={item.id} className="hover:bg-white/5 transition-colors duration-200">
+                  <td className="px-3 sm:px-4 py-3">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10">
                         {item.thumbnail ? (
                           <img
                             src={item.thumbnail}
                             alt={item.title}
-                            className="w-8 h-8 rounded object-cover"
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded object-cover border border-white/20"
                           />
                         ) : (
-                          <div className="w-8 h-8 rounded bg-gray-100 flex items-center justify-center">
-                            <FileText className="h-4 w-4 text-gray-400" />
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                            {activeTab === "pdf" ? (
+                              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-white/60" />
+                            ) : (
+                              <svg className="h-4 w-4 sm:h-5 sm:w-5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                              </svg>
+                            )}
                           </div>
                         )}
                       </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">{item.title}</p>
-                        <div className="mt-0.5 sm:hidden text-xs text-gray-500 space-y-0.5">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm sm:text-base font-medium text-white truncate">{item.title}</p>
+                        <div className="mt-1 sm:hidden text-xs text-white/60 space-y-1">
                           <p className="flex items-center">
-                            <User className="inline h-3 w-3 mr-1" />
+                            <User className="inline h-3 w-3 mr-1.5" />
                             {item.author}
                           </p>
                           <p className="flex items-center">
-                            <Calendar className="inline h-3 w-3 mr-1" />
+                            <Calendar className="inline h-3 w-3 mr-1.5" />
                             {formatDate(item.createdAt)}
                           </p>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="hidden sm:table-cell px-3 py-2 text-sm text-gray-500">
+                  <td className="hidden sm:table-cell px-3 sm:px-4 py-3 text-sm text-white/70">
                     <div className="flex items-center">
-                      <User className="h-3.5 w-3.5 text-gray-400 mr-1" />
+                      <User className="h-4 w-4 text-white/50 mr-2" />
                       {item.author}
                     </div>
                   </td>
-                  <td className="hidden sm:table-cell px-3 py-2 text-sm text-gray-500">
+                  <td className="hidden sm:table-cell px-3 sm:px-4 py-3 text-sm text-white/70">
                     <div className="flex items-center">
-                      <Calendar className="h-3.5 w-3.5 text-gray-400 mr-1" />
+                      <Calendar className="h-4 w-4 text-white/50 mr-2" />
                       {formatDate(item.createdAt)}
                     </div>
                   </td>
-                  <td className="px-3 py-2">
-                    <div className="flex flex-wrap gap-1">
+                  <td className="px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       <button
                         onClick={() => onEdit(item)}
-                        className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100"
+                        className="inline-flex items-center rounded-lg bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 px-2 sm:px-3 py-1.5 text-xs font-medium text-white transition-all duration-200"
+                        title="Editar"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
+                        <span className="hidden xs:inline ml-1">Editar</span>
                       </button>
                       {item.url && (
                         <a
                           href={item.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 hover:bg-purple-100"
+                          className="inline-flex items-center rounded-lg bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/30 hover:border-purple-400/50 px-2 sm:px-3 py-1.5 text-xs font-medium text-white transition-all duration-200"
+                          title="Download"
                         >
-                          <Download className="h-3.5 w-3.5" />
+                          <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          <span className="hidden xs:inline ml-1">Download</span>
                         </a>
                       )}
                       <button
                         onClick={() => handleDelete(item.id)}
                         disabled={deletingIds.has(item.id)}
-                        className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 disabled:opacity-50"
+                        className="inline-flex items-center rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 px-2 sm:px-3 py-1.5 text-xs font-medium text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        title="Excluir"
                       >
                         {deletingIds.has(item.id) ? (
-                          <svg className="h-3.5 w-3.5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                           </svg>
                         ) : (
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                           </svg>
                         )}
+                        <span className="hidden xs:inline ml-1">Excluir</span>
                       </button>
                     </div>
                   </td>

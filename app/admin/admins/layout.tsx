@@ -1,10 +1,8 @@
 import { cookies } from "next/headers";
 import { verifyJWT } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { Home, ChevronLeft } from "lucide-react";
 
-export default async function HomeVideosLayout({
+export default async function AdminsLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -26,10 +24,10 @@ export default async function HomeVideosLayout({
             <div className="flex items-center justify-between py-8">
               <div>
                 <h1 className="text-4xl font-bold text-white mb-2">
-                  Tese de Investimento
+                  Gerenciar Administradores
                 </h1>
                 <p className="text-white/80 text-lg">
-                  Gerencie vídeos
+                  Gerencie administradores e permissões do sistema
                 </p>
               </div>
             </div>
@@ -37,10 +35,12 @@ export default async function HomeVideosLayout({
         </div>
 
         {/* Content Area Premium */}
-        <div className="container mx-auto px-6 py-12">
-          {children}
-        </div>
-      </div>
+        {/* <div className="container mx-auto px-6 py-12">
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 overflow-hidden"> */}
+            {children}
+          </div>
+        {/* </div>
+      </div> */}
     </>
   );
 }

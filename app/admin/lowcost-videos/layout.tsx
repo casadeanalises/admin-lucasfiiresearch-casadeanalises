@@ -19,14 +19,14 @@ export default async function LowcostVideosLayout({
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
-        {/* Header Premium */}
-        <div className="bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-2xl">
+      <div className="min-h-screen" style={{ backgroundColor: '#1f40af' }}>
+        {/* Header */}
+        <div className="bg-white/5 backdrop-blur-xl border-b border-white/10">
           <div className="container mx-auto px-6">
             <div className="flex items-center justify-between py-8">
               <div>
                 <h1 className="text-4xl font-bold text-white mb-2">
-              Low Cost
+                  Low Cost
                 </h1>
                 <p className="text-white/80 text-lg">
                   Gerencie Vídeos e PDFs
@@ -36,11 +36,9 @@ export default async function LowcostVideosLayout({
           </div>
         </div>
 
-        {/* Content Area Premium */}
+        {/* Content Area */}
         <div className="container mx-auto px-6 py-12">
-          <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-            {children}
-          </div>
+          {children}
         </div>
       </div>
     </>

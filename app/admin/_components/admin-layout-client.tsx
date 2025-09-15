@@ -2,8 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, FileText, BarChart3, Settings, PlayCircle, Menu, LogOut, Lock, BookOpen, Bell, ChevronLeft, ChevronRight, User, Calendar, Clock } from "lucide-react";
+import { Home, FileText, BarChart3, Settings, PlayCircle, Menu, LogOut, Lock, BookOpen, Bell, ChevronLeft, ChevronRight, User, Calendar, Clock, Key } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { AdminFooter } from "./admin-footer";
 
 interface AdminLayoutClientProps {
   children: React.ReactNode;
@@ -66,8 +67,14 @@ const menuItems = [
   },
   {
     title: "Gerenciar Administradores",
-    href: "/admin/fix-auth",
+    href: "/admin/admins",
     icon: <User className="h-5 w-5" />,
+    isNew: false,
+  },
+  {
+    title: "Restaurar Autenticação",
+    href: "/admin/fix-auth",
+    icon: <Key className="h-5 w-5" />,
     isNew: false,
   },
   {
@@ -90,14 +97,14 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
+
   const scrollMenu = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const scrollAmount = 200;
-      const newScrollLeft = direction === 'left' 
+      const newScrollLeft = direction === 'left'
         ? scrollContainerRef.current.scrollLeft - scrollAmount
         : scrollContainerRef.current.scrollLeft + scrollAmount;
-      
+
       scrollContainerRef.current.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth'
@@ -135,11 +142,11 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
         method: "POST",
         credentials: "include",
       });
-      
+
       if (!response.ok) {
         throw new Error("Erro ao fazer logout");
       }
-      
+
       console.log("Logout realizado com sucesso");
       window.location.href = "/";
     } catch (error) {
@@ -161,7 +168,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
               <div className="flex items-center space-x-3">
                 <img src="/logo.png" alt="Logo" className="h-10 w-10" />
                 <div>
-                  <h1 className="text-xl font-bold text-white">LUCAS FII RESEARCH</h1>
+                  <h1 className="text-xl font-bold text-white">RESEARCH</h1>
                   <p className="text-xs text-blue-200">ADMINISTRATIVO</p>
                 </div>
               </div>
@@ -179,9 +186,8 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
             <div className="hidden lg:flex items-center space-x-8">
               <Link
                 href="/admin"
-                className={`px-4 py-2 rounded-lg text-white font-medium transition-colors ${
-                  pathname === "/admin" ? "bg-blue-700" : "hover:bg-blue-700"
-                }`}
+                className={`px-4 py-2 rounded-lg text-white font-medium transition-colors ${pathname === "/admin" ? "bg-blue-700" : "hover:bg-blue-700"
+                  }`}
               >
                 Home
               </Link>
@@ -193,30 +199,47 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 {/* Dropdown Menu */}
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="py-2">
+
+                    <Link href="/admin/notifications" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Notificações
+                    </Link>
+
                     <Link href="/admin/reports" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Relatório Semanal
                     </Link>
-                    <Link href="/admin/relevant-facts" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Fatos Relevantes
-                    </Link>
+
                     <Link href="/admin/etf-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       ETFs
                     </Link>
-                    <Link href="/admin/home-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Teses de Investimento
-                    </Link>
+
                     <Link href="/admin/lowcost-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Low Cost
                     </Link>
-                    <Link href="/admin/educational" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Material Educacional
+
+                    <Link href="/admin/relevant-facts" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Fatos Relevantes
                     </Link>
+
                     <Link href="/admin/reports-videos-player-2" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Relatório Semanal Player 2
                     </Link>
+
+                    <Link href="/admin/home-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Teses de Investimento
+                    </Link>
+
+                    <Link href="/admin/user-guide-videos" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Guia do Usuário
+                    </Link>
+
+                    <Link href="/admin/educational" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Material Educacional
+                    </Link>
+
                     <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Cronograma de Atualizações
                     </Link>
+
                   </div>
                 </div>
               </div>
@@ -250,15 +273,17 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 {/* Dropdown Menu */}
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="py-2">
-                    <Link href="/admin/notifications" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Notificações
-                    </Link>
-                    <Link href="/admin/fix-auth" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+
+                    <Link href="/admin/admins" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                       Gerenciar Administradores
                     </Link>
+                    <Link href="/admin/fix-auth" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Restaurar Autenticação
+                    </Link>
+
                     {/* <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Cronograma de Atualizações
-                    </Link> */}
+                        Cronograma de Atualizações
+                      </Link> */}
                   </div>
                 </div>
               </div>
@@ -266,9 +291,9 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
 
             {/* Perfil e Logout */}
             <div className="hidden lg:flex items-center space-x-4">
-              <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
+              {/* <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
                 <User className="h-5 w-5 text-white" />
-              </div>
+              </div> */}
               {!isLoading && adminEmail && (
                 <span className="text-white font-medium">{adminEmail}</span>
               )}
@@ -287,61 +312,11 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
               <nav className="px-4 py-2 space-y-1">
                 <Link
                   href="/admin"
-                  className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    pathname === "/admin" ? "bg-blue-700 text-white" : "text-white hover:bg-blue-700"
-                  }`}
+                  className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${pathname === "/admin" ? "bg-blue-700 text-white" : "text-white hover:bg-blue-700"
+                    }`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Home
-                </Link>
-                <Link
-                  href="/admin/reports"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Relatório Semanal
-                </Link>
-                <Link
-                  href="/admin/relevant-facts"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Fatos Relevantes
-                </Link>
-                <Link
-                  href="/admin/educational"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Material Educacional
-                </Link>
-                <Link
-                  href="/admin/etf-videos"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  ETFs
-                </Link>
-                <Link
-                  href="/admin/lowcost-videos"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Low Cost
-                </Link>
-                <Link
-                  href="/admin/home-videos"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Teses de Investimento
-                </Link>
-                <Link
-                  href="/admin/user-guide-videos"
-                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Guia do Usuário
                 </Link>
                 <Link
                   href="/admin/notifications"
@@ -350,13 +325,95 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                 >
                   Notificações
                 </Link>
+
                 <Link
-                  href="/admin/fix-auth"
+                  href="/admin/reports"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Relatório Semanal
+                </Link>
+
+                <Link
+                  href="/admin/etf-videos"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  ETFs
+                </Link>
+
+                <Link
+                  href="/admin/lowcost-videos"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Low Cost
+                </Link>
+
+                <Link
+                  href="/admin/relevant-facts"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Fatos Relevantes
+                </Link>
+
+                <Link
+                  href="/admin/reports-videos-player-2"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Relatório Semanal Player 2
+                </Link>
+
+                <Link
+                  href="/admin/home-videos"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Teses de Investimento
+                </Link>
+
+                <Link
+                  href="/admin/user-guide-videos"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Guia do Usuário
+                </Link>
+
+                <Link
+                  href="/admin/educational"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Material Educacional
+                </Link>
+
+                <Link
+                  href="/admin/update-schedule"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Cronograma de Atualizações
+                </Link>
+
+                <Link
+                  href="/admin/admins"
                   className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Gerenciar Administradores
                 </Link>
+
+                <Link
+                  href="/admin/fix-auth"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Restaurar Autenticação
+                </Link>
+
                 {!isLoading && adminEmail && (
                   <div className="px-4 py-2 text-sm text-blue-200 border-t border-blue-700">
                     <span>{adminEmail}</span>
@@ -383,19 +440,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
       </main>
 
       {/* === Footer === */}
-
-      {/* <footer className="fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 backdrop-blur-sm border-t border-gray-200 py-2">
-        <div className="max-w-[1920px] mx-auto px-4 flex items-center justify-between">
-          <Link
-            href="/admin/fix-auth"
-            className="flex items-center space-x-2 text-sm text-gray-600 hover:text-blue-600"
-          >
-            <Lock className="h-4 w-4" />
-            <span>Restaurar Autenticação</span>
-          </Link>
-          <span className="text-xs text-gray-400">admin v1.2.1</span>
-        </div>
-      </footer> */}
+      <AdminFooter />
 
       <style jsx global>{`
         .scrollbar-hide::-webkit-scrollbar {
