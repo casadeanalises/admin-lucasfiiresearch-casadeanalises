@@ -2,9 +2,9 @@ import { cookies } from "next/headers";
 import { verifyJWT } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Video, ChevronLeft } from "lucide-react";
+import { DollarSign, ChevronLeft } from "lucide-react";
 
-export default async function AdminLayout({
+export default async function LowcostVideosLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -20,23 +20,23 @@ export default async function AdminLayout({
   return (
     <>
       <div className="min-h-screen" style={{ backgroundColor: '#1f40af' }}>
-        {/* Header Premium */}
-        <div className="bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-2xl">
+        {/* Header */}
+        <div className="bg-white/5 backdrop-blur-xl border-b border-white/10">
           <div className="container mx-auto px-6">
             <div className="flex items-center justify-between py-8">
               <div>
                 <h1 className="text-4xl font-bold text-white mb-2">
-                  Relatorio Semanal Player 2
+                  Low Cost
                 </h1>
                 <p className="text-white/80 text-lg">
-                  Gerencie vídeos
+                  Gerencie Vídeos e PDFs
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Content Area Premium */}
+        {/* Content Area */}
         <div className="container mx-auto px-6 py-12">
           {children}
         </div>

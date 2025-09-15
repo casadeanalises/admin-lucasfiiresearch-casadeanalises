@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/app/_components/ui/dialog";
-import { toast } from "sonner";
+import { toast, Toaster } from "react-hot-toast";
 
 interface PDF {
   _id: string;
@@ -131,13 +131,14 @@ export function PDFAdminClient() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-48">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
   return (
     <div>
+      <Toaster position="top-right" />
       <div className="mb-6">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
@@ -146,7 +147,7 @@ export function PDFAdminClient() {
                 resetForm();
                 setIsDialogOpen(true);
               }}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
               Novo Documento
@@ -253,27 +254,27 @@ export function PDFAdminClient() {
         {pdfs.map((pdf) => (
           <div
             key={pdf._id}
-            className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-blue-500/30 hover:shadow-blue-500/10"
+            className="group relative overflow-hidden rounded-xl bg-white border border-gray-200 p-6 shadow-lg transition-all duration-300 hover:border-blue-300 hover:shadow-lg hover:-translate-y-1"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1 space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="rounded-lg bg-blue-500/20 p-2">
-                    <FileText className="h-5 w-5 text-blue-400" />
+                  <div className="rounded-lg bg-blue-50 p-2">
+                    <FileText className="h-5 w-5 text-blue-600" />
                   </div>
-                  <div className="flex items-center text-sm text-slate-400">
+                  <div className="flex items-center text-sm text-gray-500">
                     <Calendar className="h-4 w-4 mr-1" />
                     {new Date(new Date(pdf.date).getTime() + new Date().getTimezoneOffset() * 60000).toLocaleDateString('pt-BR')}
                   </div>
                 </div>
-                <h3 className="text-lg font-medium text-white line-clamp-2">
+                <h3 className="text-lg font-medium text-gray-900 line-clamp-2">
                   {pdf.title}
                 </h3>
-                <p className="text-sm text-slate-400 line-clamp-2">
+                <p className="text-sm text-gray-600 line-clamp-2">
                   {pdf.description}
                 </p>
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center rounded-full bg-slate-700/50 px-2.5 py-0.5 text-xs font-medium text-slate-300">
+                  <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
                     {pdf.category}
                   </span>
                 </div>
@@ -284,7 +285,7 @@ export function PDFAdminClient() {
               <Button
                 asChild
                 variant="outline"
-                className="flex-1 bg-white/5"
+                className="flex-1 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:border-blue-300"
               >
                 <a
                   href={pdf.url}
@@ -300,7 +301,7 @@ export function PDFAdminClient() {
                 variant="outline"
                 size="icon"
                 onClick={() => handleEdit(pdf)}
-                className="bg-white/5"
+                className="bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:border-blue-300"
               >
                 <Pencil className="h-4 w-4" />
               </Button>
@@ -308,7 +309,7 @@ export function PDFAdminClient() {
                 variant="outline"
                 size="icon"
                 onClick={() => handleDelete(pdf._id)}
-                className="bg-white/5 text-red-400 hover:text-red-300"
+                className="bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 hover:border-red-300"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -318,11 +319,11 @@ export function PDFAdminClient() {
 
         {pdfs.length === 0 && (
           <div className="col-span-full text-center py-12">
-            <FileText className="mx-auto h-12 w-12 text-slate-400" />
-            <h3 className="mt-4 text-lg font-medium text-slate-300">
+            <FileText className="mx-auto h-12 w-12 text-gray-400" />
+            <h3 className="mt-4 text-lg font-medium text-gray-900">
               Nenhum documento disponível
             </h3>
-            <p className="mt-2 text-sm text-slate-400">
+            <p className="mt-2 text-sm text-gray-600">
               Clique em "Novo Documento" para adicionar.
             </p>
           </div>

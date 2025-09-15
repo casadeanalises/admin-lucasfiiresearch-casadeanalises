@@ -244,14 +244,7 @@ const ReportsAdminClient = ({
 
       const result = await response.json();
 
-      toast.success("PDF adicionado com sucesso!", {
-        duration: 4000,
-        icon: "📄",
-        style: {
-          background: "#4CAF50",
-          color: "#fff",
-        },
-      });
+      toast.success("PDF salvo com sucesso!");
 
      
       resetForm();
@@ -465,14 +458,7 @@ const ReportsAdminClient = ({
           throw new Error("Erro ao salvar vídeo");
         }
 
-        toast.success("Vídeo adicionado com sucesso!", {
-          duration: 4000,
-          icon: "🎥",
-          style: {
-            background: "#4CAF50",
-            color: "#fff",
-          },
-        });
+        toast.success("Vídeo salvo com sucesso!");
       }
 
      
@@ -700,14 +686,7 @@ const ReportsAdminClient = ({
         throw new Error(`Erro ao atualizar PDF: ${response.status} ${response.statusText}`);
       }
 
-      toast.success("PDF atualizado com sucesso!", {
-        duration: 4000,
-        icon: "📄",
-        style: {
-          background: "#4CAF50",
-          color: "#fff",
-        },
-      });
+      toast.success("PDF atualizado com sucesso!");
       resetForm();
       
      
@@ -782,14 +761,7 @@ const ReportsAdminClient = ({
         throw new Error(`Erro ao atualizar vídeo: ${response.status} ${response.statusText}`);
       }
 
-      toast.success("Vídeo atualizado com sucesso!", {
-        duration: 4000,
-        icon: "🎥",
-        style: {
-          background: "#4CAF50",
-          color: "#fff",
-        },
-      });
+      toast.success("Vídeo atualizado com sucesso!");
       resetVideoForm();
       
       
@@ -872,182 +844,192 @@ const ReportsAdminClient = ({
   };
 
   return (
-    <div className="mb-12">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       <Toaster position="top-right" />
-      <div className="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
-        <h2 className="text-2xl font-bold text-blue-800">
-          Área Administrativa
-        </h2>
-      </div>
-
-    
-      <div className="mb-8 border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
+      
+      {/* Tabs Navigation */}
+      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-1">
+        <nav className="flex space-x-1">
           <button
             onClick={() => setActiveTab("pdf")}
-            className={`border-b-2 px-1 pb-4 text-sm font-medium ${
+            className={`flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
               activeTab === "pdf"
-                ? "border-blue-500 text-blue-600"
-                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                ? "bg-white/20 text-white border border-white/30"
+                : "text-white/70 hover:text-white hover:bg-white/10"
             }`}
           >
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-2 h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              {activeSection === "add" ? "Adicionar PDF" : "Gerenciar PDFs"}
-            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <span className="hidden sm:inline">{activeSection === "add" ? "Adicionar PDF" : "Gerenciar PDFs"}</span>
+            <span className="sm:hidden">PDFs</span>
           </button>
           <button
             onClick={() => setActiveTab("video")}
-            className={`border-b-2 px-1 pb-4 text-sm font-medium ${
+            className={`flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
               activeTab === "video"
-                ? "border-blue-500 text-blue-600"
-                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                ? "bg-white/20 text-white border border-white/30"
+                : "text-white/70 hover:text-white hover:bg-white/10"
             }`}
           >
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-2 h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                />
-              </svg>
-              {activeSection === "add" ? "Adicionar Vídeo" : "Gerenciar Vídeos"}
-            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+            <span className="hidden sm:inline">{activeSection === "add" ? "Adicionar Vídeo" : "Gerenciar Vídeos"}</span>
+            <span className="sm:hidden">Vídeos</span>
           </button>
         </nav>
       </div>
 
-      <div className="mb-8">
-        <div className="inline-flex rounded-md shadow-sm">
-          <button
-            onClick={() => {
-              setActiveSection("add");
-              setEditingItem(null);
-           
-              if (activeTab === "pdf") {
-                resetForm();
-              } else {
-                resetVideoForm();
-              }
-            }}
-            className={`relative inline-flex items-center rounded-l-md px-4 py-2 text-sm font-medium ${
-              activeSection === "add"
-                ? "bg-blue-600 text-white"
-                : "bg-white text-gray-700 hover:bg-gray-50"
-            }`}
-            disabled={isLoading}
+      {/* Action Buttons */}
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <button
+          onClick={() => {
+            setActiveSection("add");
+            setEditingItem(null);
+         
+            if (activeTab === "pdf") {
+              resetForm();
+            } else {
+              resetVideoForm();
+            }
+          }}
+          className={`flex-1 sm:flex-none inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+            activeSection === "add"
+              ? "bg-white/20 text-white border border-white/30"
+              : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white border border-white/20"
+          }`}
+          disabled={isLoading}
+        >
+          <svg
+            className="mr-2 h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              className="mr-2 h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            ></path>
+          </svg>
+          {isLoading && activeSection === "add" ? (
+            <span className="inline-flex items-center">
+              <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Processando...
+            </span>
+          ) : (
+            "Adicionar Novo"
+          )}
+        </button>
+        <button
+          onClick={handleSwitchToManage}
+          className={`flex-1 sm:flex-none inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+            activeSection === "manage"
+              ? "bg-white/20 text-white border border-white/30"
+              : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white border border-white/20"
+          }`}
+          disabled={isLoading}
+        >
+          <svg
+            className="mr-2 h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+          {isLoading && activeSection === "manage" ? (
+            <span className="inline-flex items-center">
+              <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Carregando...
+            </span>
+          ) : (
+            "Gerenciar Existentes"
+          )}
+        </button>
+      </div>
+      
+      {isLoading && (
+        <div className="text-center py-4">
+          <div className="inline-flex items-center text-sm text-white/70">
+            <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
-            {isLoading && activeSection === "add" ? (
-              <span className="inline-flex items-center">
-                <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Processando...
-              </span>
-            ) : (
-              "Adicionar Novo"
-            )}
-          </button>
-          <button
-            onClick={handleSwitchToManage}
-            className={`relative -ml-px inline-flex items-center rounded-r-md px-4 py-2 text-sm font-medium ${
-              activeSection === "manage"
-                ? "bg-blue-600 text-white"
-                : "bg-white text-gray-700 hover:bg-gray-50"
-            }`}
-            disabled={isLoading}
-          >
-            <svg
-              className="mr-2 h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16m-7 6h7"
-              ></path>
-            </svg>
-            {isLoading && activeSection === "manage" ? (
-              <span className="inline-flex items-center">
-                <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Carregando...
-              </span>
-            ) : (
-              "Gerenciar Existentes"
-            )}
-          </button>
-        </div>
-        {isLoading && (
-          <div className="mt-2 text-sm text-blue-600">
             Carregando, por favor aguarde...
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {activeSection === "add" ? (
        
@@ -1056,423 +1038,397 @@ const ReportsAdminClient = ({
 
             // ==== Formulário para adicionar PDF ====
             
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-1">
-              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-xl font-semibold text-blue-800">
-                    {editingItem ? "Editar PDF" : "Adicionar Novo PDF"}
-                  </h3>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg p-4 sm:p-6">
+              <div className="mb-4 sm:mb-6 flex items-center justify-between">
+                <h3 className="text-lg sm:text-xl font-semibold text-white">
+                  {editingItem ? "Editar PDF" : "Adicionar Novo PDF"}
+                </h3>
+                {editingItem && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingItem(null);
+                      resetForm();
+                    }}
+                    className="inline-flex items-center rounded-md bg-white/10 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/20 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    Novo PDF
+                  </button>
+                )}
+              </div>
+                
+              {editingItem && (
+                <div className="mb-4 sm:mb-6 rounded-md bg-blue-500/20 border border-blue-400/30 p-3 sm:p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-4 w-4 sm:h-5 sm:w-5 text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3 flex-1">
+                      <p className="text-xs sm:text-sm text-blue-200">
+                        Você está editando um PDF existente. Após concluir as alterações, clique em "Atualizar PDF".
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+                
+              <form className="space-y-3 sm:space-y-4" onSubmit={editingItem ? updatePdf : handleSubmit}>
+                <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
+                  <div>
+                    <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                      Título
+                    </label>
+                    <input
+                      type="text"
+                      name="title"
+                      value={reportData.title}
+                      onChange={handleChange}
+                      className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                      placeholder="Digite o título do PDF"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                      Autor
+                    </label>
+                    <input
+                      type="text"
+                      name="author"
+                      value={reportData.author}
+                      onChange={handleChange}
+                      className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                      placeholder="Nome do autor"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                    Data
+                  </label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={reportData.date || ""}
+                    onChange={handleChange}
+                    className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                    Descrição
+                  </label>
+                  <textarea
+                    name="description"
+                    value={reportData.description ?? ""}
+                    onChange={handleChange}
+                    rows={3}
+                    className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                    placeholder="Descrição do PDF"
+                  />
+                </div>
+
+                <div className="border-t border-white/20 pt-4">
+                  <h4 className="mb-3 text-sm sm:text-base font-medium text-white">
+                    Arquivo PDF
+                  </h4>
+
+                  <div>
+                    <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                      URL do PDF
+                    </label>
+                    <div className="flex">
+                      <input
+                        type="text"
+                        name="url"
+                        value={reportData.url || ""}
+                        onChange={handleChange}
+                        placeholder="https://exemplo.com/documento.pdf"
+                        className="flex-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded-l-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                      />
+                      <button
+                        type="button"
+                        onClick={handlePasteUrl}
+                        className="bg-white/10 hover:bg-white/20 text-white border border-l-0 border-white/20 rounded-r-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm font-medium transition-all duration-200"
+                      >
+                        Colar
+                      </button>
+                    </div>
+                    <p className="mt-2 text-xs text-white/60">
+                      Por favor, informe a URL do PDF.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 pt-3 sm:pt-4">
                   {editingItem && (
                     <button
                       type="button"
                       onClick={() => {
-                        setEditingItem(null);
+                        setActiveSection("manage");
                         resetForm();
                       }}
-                      className="inline-flex items-center rounded-md bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-200"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                       </svg>
-                      Novo PDF
+                      Voltar
                     </button>
                   )}
-                </div>
-                
-                {editingItem && (
-                  <div className="mb-6 rounded-md bg-blue-50 p-4">
-                    <div className="flex">
-                      <div className="flex-shrink-0">
-                        <svg className="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                  <button
+                    type="submit"
+                    className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-transparent bg-blue-500/20 hover:bg-blue-500/30 px-4 py-2 text-sm font-medium text-white border-blue-400/30 hover:border-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all duration-200"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <span className="inline-flex items-center">
+                        <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                      </div>
-                      <div className="ml-3 flex-1 md:flex md:justify-between">
-                        <p className="text-sm text-blue-700">
-                          Você está editando um PDF existente. Após concluir as alterações, clique em "Atualizar PDF".
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                
-                <form className="space-y-4" onSubmit={editingItem ? updatePdf : handleSubmit}>
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Título
-                      </label>
-                      <input
-                        type="text"
-                        name="title"
-                        value={reportData.title}
-                        onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Autor
-                      </label>
-                      <input
-                        type="text"
-                        name="author"
-                        value={reportData.author}
-                        onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <div className="md:col-span-3">
-                      <label className="block text-sm font-medium text-gray-700">
-                        Data
-                      </label>
-                      <input
-                        type="date"
-                        name="date"
-                        value={reportData.date || ""}
-                        onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Descrição
-                    </label>
-                    <textarea
-                      name="description"
-                      value={reportData.description ?? ""}
-                      onChange={handleChange}
-                      rows={3}
-                      className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                  </div>
-
-                  <div className="border-t border-gray-200 pt-4">
-                    <h4 className="mb-2 text-sm font-medium text-gray-700">
-                      Arquivo PDF
-                    </h4>
-
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-500">
-                          Upload de arquivo
-                        </label>
-                        <div className="mt-1 rounded-md border border-dashed border-gray-300 bg-gray-50 p-4">
-                          <div className="flex flex-col items-center">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-8 w-8 text-gray-400"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                              />
-                            </svg>
-                            <p className="mt-2 text-center text-sm text-gray-500">
-                              Upload desabilitado temporariamente
-                            </p>
-                            <p className="mt-1 text-center text-xs text-gray-400">
-                              Em breve disponível
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                          URL do PDF
-                        </label>
-                        <div className="flex">
-                          <input
-                            type="text"
-                            name="url"
-                            value={reportData.url || ""}
-                            onChange={handleChange}
-                            placeholder="https://exemplo.com/documento.pdf"
-                            className="mt-1 block w-full rounded-l-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
-                          />
-                          <button
-                            type="button"
-                            onClick={handlePasteUrl}
-                            className="mt-1 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-                          >
-                            Colar
-                          </button>
-                        </div>
-                        <p className="mt-1 text-xs text-gray-500">
-                          Por favor, informe a URL do PDF.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-end">
-                    {editingItem && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setActiveSection("manage");
-                          resetForm();
-                        }}
-                        className="mr-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-                        </svg>
-                        Voltar
-                      </button>
+                        Salvando...
+                      </span>
+                    ) : (
+                      editingItem ? "Atualizar PDF" : "Salvar PDF"
                     )}
-                    <button
-                      type="submit"
-                      className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "Salvando..." : editingItem ? "Atualizar PDF" : "Salvar PDF"}
-                    </button>
-                  </div>
-                </form>
-              </div>
+                  </button>
+                </div>
+              </form>
             </div>
           ) : (
             
             // ==== Formulário para adicionar vídeo ====
           
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-1">
-              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
-                <div className="mb-6 flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-700">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-semibold text-blue-800">
-                      {editingItem ? "Editar Vídeo" : "Adicionar Novo Vídeo"}
-                    </h3>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg p-4 sm:p-6">
+              <div className="mb-4 sm:mb-6 flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="mr-3 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm border border-white/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-6 sm:w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
                   </div>
-                  {editingItem && (
-                    <div className="flex items-center space-x-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEditingItem(null);
-                          resetVideoForm();
-                        }}
-                        className="inline-flex items-center rounded-md bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  <h3 className="text-lg sm:text-xl font-semibold text-white">
+                    {editingItem ? "Editar Vídeo" : "Adicionar Novo Vídeo"}
+                  </h3>
+                </div>
+                {editingItem && (
+                  <div className="flex items-center space-x-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingItem(null);
+                        resetVideoForm();
+                      }}
+                      className="inline-flex items-center rounded-md bg-white/10 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/20 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                      Novo Vídeo
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <div className="mb-4 sm:mb-6 rounded-md bg-blue-500/20 border border-blue-400/30 p-3 sm:p-4">
+                <div className="flex">
+                  <div className="flex-shrink-0">
+                    <svg className="h-4 w-4 sm:h-5 sm:w-5 text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="ml-3 flex-1">
+                    <p className="text-xs sm:text-sm text-blue-200">
+                      {editingItem 
+                        ? "Você está editando um vídeo existente. Após concluir as alterações, clique em 'Atualizar Vídeo'."
+                        : "Preencha os campos abaixo para adicionar um novo vídeo. Todos os campos marcados com * são obrigatórios."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <form onSubmit={editingItem ? updateVideo : handleVideoSubmit} className="space-y-3 sm:space-y-4">
+                <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
+                  <div>
+                    <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                      Título <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="title"
+                      id="videoTitle"
+                      placeholder="Digite o título do vídeo"
+                      value={videoData.title || ""}
+                      onChange={(e) => {
+                        handleVideoChange(e);
+                      }}
+                      required
+                      className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                      Autor <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="author"
+                      value={videoData.author}
+                      onChange={handleVideoChange}
+                      className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                      placeholder="Nome do autor"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
+                  <div>
+                    <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                      ID do Vídeo no YouTube <span className="text-red-400">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                          <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
                         </svg>
-                        Novo Vídeo
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                <div className="mb-6 rounded-md bg-blue-50 p-4">
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <svg className="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div className="ml-3 flex-1 md:flex md:justify-between">
-                      <p className="text-sm text-blue-700">
-                        {editingItem 
-                          ? "Você está editando um vídeo existente. Após concluir as alterações, clique em 'Atualizar Vídeo'."
-                          : "Preencha os campos abaixo para adicionar um novo vídeo. Todos os campos marcados com * são obrigatórios."}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <form onSubmit={editingItem ? updateVideo : handleVideoSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Título <span className="text-red-500">*</span>
-                      </label>
+                      </div>
                       <input
                         type="text"
-                        name="title"
-                        id="videoTitle"
-                        placeholder="Digite o título do vídeo"
-                        value={videoData.title || ""}
+                        name="videoId"
+                        id="videoId"
+                        placeholder="Digite o ID do vídeo do YouTube"
+                        value={videoData.videoId || ""}
                         onChange={(e) => {
                           handleVideoChange(e);
                         }}
                         required
-                        className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 pl-10 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
                       />
                     </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Autor <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        name="author"
-                        value={videoData.author}
-                        onChange={handleVideoChange}
-                        className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        ID do Vídeo no YouTube <span className="text-red-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
-                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
-                          </svg>
-                        </div>
-                        <input
-                          type="text"
-                          name="videoId"
-                          id="videoId"
-                          placeholder="Digite o ID do vídeo do YouTube"
-                          value={videoData.videoId || ""}
-                          onChange={(e) => {
-                            handleVideoChange(e);
-                          }}
-                          required
-                          className="mt-1 block w-full rounded-md border border-gray-300 p-2 pl-10 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        />
-                      </div>
-                      <p className="mt-1 text-xs text-gray-500">Ex: QazC70mLExI</p>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        URL do PDF do Relatório
-                      </label>
-                      <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                          </svg>
-                        </div>
-                        <input
-                          type="text"
-                          name="url"
-                          value={videoData.url || ""}
-                          onChange={(e) => {
-                            handleVideoChange(e);
-                          }}
-                          placeholder="https://exemplo.com/documento.pdf"
-                          className="mt-1 block w-full rounded-md border border-gray-300 p-2 pl-10 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        />
-                      </div>
-                      <p className="mt-1 text-xs text-gray-500">Opcional. Link direto para o PDF relacionado ao vídeo</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-1">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Data <span className="text-red-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                          </svg>
-                        </div>
-                        <input
-                          type="date"
-                          name="date"
-                          value={videoData.date || ""}
-                          onChange={handleVideoChange}
-                          className="mt-1 block w-full rounded-md border border-gray-300 p-2 pl-10 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                          required
-                        />
-                      </div>
-                      <p className="mt-1 text-xs text-gray-500">Data de publicação do vídeo</p>
-                    </div>
+                    <p className="mt-2 text-xs text-white/60">Ex: QazC70mLExI</p>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Descrição
+                    <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                      URL do PDF do Relatório
                     </label>
-                    <textarea
-                      name="description"
-                      value={videoData.description ?? ""}
-                      onChange={handleVideoChange}
-                      rows={3}
-                      placeholder="Digite uma descrição detalhada para o vídeo"
-                      className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                    <p className="mt-1 text-xs text-gray-500">Forneça uma descrição clara do conteúdo do vídeo</p>
-                  </div>
-
-                  <div className="flex justify-end">
-                    {editingItem && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setActiveSection("manage");
-                          resetVideoForm();
-                        }}
-                        className="mr-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                    <div className="relative">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                          <polyline points="14 2 14 8 20 8"></polyline>
+                          <line x1="16" y1="13" x2="8" y2="13"></line>
+                          <line x1="16" y1="17" x2="8" y2="17"></line>
+                          <polyline points="10 9 9 9 8 9"></polyline>
                         </svg>
-                        Voltar
-                      </button>
-                    )}
-                    <button
-                      type="submit"
-                      className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? (
-                        <span className="inline-flex items-center">
-                          <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Salvando...
-                        </span>
-                      ) : (
-                        <>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          {editingItem ? "Atualizar Vídeo" : "Salvar Vídeo"}
-                        </>
-                      )}
-                    </button>
+                      </div>
+                      <input
+                        type="text"
+                        name="url"
+                        value={videoData.url || ""}
+                        onChange={(e) => {
+                          handleVideoChange(e);
+                        }}
+                        placeholder="https://exemplo.com/documento.pdf"
+                        className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 pl-10 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                      />
+                    </div>
+                    <p className="mt-2 text-xs text-white/60">Opcional. Link direto para o PDF relacionado ao vídeo</p>
                   </div>
-                </form>
-              </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                    Data <span className="text-red-400">*</span>
+                  </label>
+                  <div className="relative">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                    </div>
+                    <input
+                      type="date"
+                      name="date"
+                      value={videoData.date || ""}
+                      onChange={handleVideoChange}
+                      className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 pl-10 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                  <p className="mt-2 text-xs text-white/60">Data de publicação do vídeo</p>
+                </div>
+
+                <div>
+                  <label className="block text-sm sm:text-base font-medium text-white mb-2">
+                    Descrição
+                  </label>
+                  <textarea
+                    name="description"
+                    value={videoData.description ?? ""}
+                    onChange={handleVideoChange}
+                    rows={3}
+                    placeholder="Digite uma descrição detalhada para o vídeo"
+                    className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
+                  />
+                  <p className="mt-2 text-xs text-white/60">Forneça uma descrição clara do conteúdo do vídeo</p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 pt-3 sm:pt-4">
+                  {editingItem && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveSection("manage");
+                        resetVideoForm();
+                      }}
+                      className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-200"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                      </svg>
+                      Voltar
+                    </button>
+                  )}
+                  <button
+                    type="submit"
+                    className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-transparent bg-blue-500/20 hover:bg-blue-500/30 px-4 py-2 text-sm font-medium text-white border-blue-400/30 hover:border-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all duration-200"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <span className="inline-flex items-center">
+                        <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Salvando...
+                      </span>
+                    ) : (
+                      <>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        {editingItem ? "Atualizar Vídeo" : "Salvar Vídeo"}
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
             </div>
           )}
         </>

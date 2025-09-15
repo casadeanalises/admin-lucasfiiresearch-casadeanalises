@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileText, Settings, PlayCircle, BookOpen, Bell, User, Calendar } from "lucide-react";
+import { FileText, Settings, PlayCircle, BookOpen, Bell, User, Calendar, Key, Home } from "lucide-react";
 import { AdminInfo } from "./_components/admin-info";
 
 export default function AdminDashboard() {
@@ -7,251 +7,210 @@ export default function AdminDashboard() {
     {
       title: "Notificações",
       description: "Gerencie as Notificações",
-      icon: <Bell className="h-8 w-8" />,
+      icon: <Bell className="h-6 w-6 sm:h-8 sm:w-8" />,
       href: "/admin/notifications",
       color: "red",
       isNew: false,
     },
+
     {
       title: "Relatório Semanal",
       description: "Gerencie PDFs e Vídeos",
-      icon: <FileText className="h-8 w-8" />,
+      icon: (
+        <div className="flex items-center gap-1">
+          <FileText className="h-6 w-6 sm:h-8 sm:w-8" />
+          <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />
+        </div>
+      ),
       href: "/admin/reports",
       color: "indigo",
       isNew: false,
     },
-    {
-      title: "Fatos Relevantes",
-      description: "Gerencie os PDFs",
-      icon: <FileText className="h-8 w-8" />,
-      href: "/admin/relevant-facts",
-      color: "indigo",
-      isNew: false,
-    },
-    {
-      title: "Teses de Investimento",
-      description: "Gerencie os Vídeos",
-      icon: <PlayCircle className="h-8 w-8" />,
-      href: "/admin/home-videos",
-      color: "purple",
-      isNew: false,
-    },
-    {
-      title: "Material Educacional",
-      description: "Gerencie o Material Educacional",
-      icon: <BookOpen className="h-8 w-8" />,
-      href: "/admin/educational",
-      color: "slate",
-      isNew: false,
-    },
+
     {
       title: "ETFs",
       description: "Gerencie PDFs e Vídeos",
-      icon: <FileText className="h-8 w-8" />,
+      icon: (
+        <div className="flex items-center gap-1">
+          <FileText className="h-6 w-6 sm:h-8 sm:w-8" />
+          <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />
+        </div>
+      ),
       href: "/admin/etf-videos",
       color: "yellow",
       isNew: false,
     },
+
     {
       title: "Low Cost",
       description: "Gerencie PDFs e Vídeos",
-      icon: <FileText className="h-8 w-8" />,
+      icon: (
+        <div className="flex items-center gap-1">
+          <FileText className="h-6 w-6 sm:h-8 sm:w-8" />
+          <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />
+        </div>
+      ),
       href: "/admin/lowcost-videos",
       color: "orange",
       isNew: false,
     },
+
     {
-      title: "Guia do Usuário",
-      description: "Gerencie os Vídeos",
-      icon: <PlayCircle className="h-8 w-8" />,
-      href: "/admin/user-guide-videos",
-      color: "green",
+      title: "Fatos Relevantes",
+      description: "Gerencie os PDFs",
+      icon: <FileText className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/relevant-facts",
+      color: "indigo",
       isNew: false,
     },
+
     {
-      title: "Vídeos Player 2",
+      title: "Relatório Semanal Player 2",
       description: "Gerencie os Vídeos do Relatório Semanal",
-      icon: <PlayCircle className="h-8 w-8" />,
+      icon: <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />,
       href: "/admin/reports-videos-player-2",
       color: "blue",
       isNew: false,
     },
+
+    {
+      title: "Teses de Investimento",
+      description: "Gerencie os Vídeos",
+      icon: <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/home-videos",
+      color: "purple",
+      isNew: false,
+    },
+
+    {
+      title: "Guia do Usuário",
+      description: "Gerencie os Vídeos",
+      icon: <PlayCircle className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/user-guide-videos",
+      color: "green",
+      isNew: false,
+    },
+
+
+    {
+      title: "Material Educacional",
+      description: "Gerencie o Material Educacional",
+      icon: <BookOpen className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/educational",
+      color: "slate",
+      isNew: false,
+    },
+
+
+
+
     {
       title: "Cronograma de Atualizações",
-      description: "Gerencie o cronograma de atualizações (Uso somente pelo desenvolvedor)",
-      icon: <Calendar className="h-8 w-8" />,
+      description: "Gerencie o cronograma de desenvolvimento da plataforma",
+      icon: <Calendar className="h-6 w-6 sm:h-8 sm:w-8" />,
       href: "/admin/update-schedule",
       color: "cyan",
       isNew: false,
     },
     {
       title: "Gerenciar Administradores",
-      description: "Restaurar Autenticação",
-      icon: <User className="h-8 w-8" />,
-      href: "/admin/fix-auth",
+      description: "Adicionar, Editar e Excluir Administradores",
+      icon: <User className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/admins",
       color: "blue-dark",
       isNew: false,
     },
     {
-      title: "Configurações",
-      description: "Gerencie as configurações do sistema ",
-      icon: <Settings className="h-8 w-8" />,
-      href: "#",
-      color: "slate",
-      isNew: true,
+      title: "Restaurar Autenticação",
+      description: "Restaurar Acesso",
+      icon: <Key className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/fix-auth",
+      color: "blue-dark",
+      isNew: false,
     },
+    // {
+    //   title: "Configurações",
+    //   description: "Gerencie as configurações do sistema ",
+    //   icon: <Settings className="h-6 w-6 sm:h-8 sm:w-8" />,
+    //   href: "#",
+    //   color: "slate",
+    //   isNew: true,
+    // },
   ];
 
-  const getGradientClass = (color: string) => {
-    switch (color) {
-      case "blue":
-        return "from-blue-600 to-blue-800";
-      case "indigo":
-        return "from-indigo-600 to-indigo-800";
-      case "purple":
-        return "from-purple-600 to-purple-800";
-      case "cyan":
-        return "from-cyan-600 to-cyan-800";
-      case "red":
-        return "from-red-600 to-red-800";
-      case "green":
-        return "from-green-600 to-green-800";
-      case "yellow":
-        return "from-yellow-600 to-yellow-800";
-      case "orange":
-        return "from-orange-600 to-orange-800";
-      case "blue-dark":
-        return "from-blue-900 to-blue-800";
-      default:
-        return "from-slate-600 to-slate-800";
-    }
-  };
-
-  const getIconClass = (color: string) => {
-    switch (color) {
-      case "blue":
-        return "bg-blue-50 text-blue-600";
-      case "indigo":
-        return "bg-indigo-50 text-indigo-600";
-      case "purple":
-        return "bg-purple-50 text-purple-600";
-      case "cyan":
-        return "bg-cyan-50 text-cyan-600";
-      case "red":
-        return "bg-red-50 text-red-600";
-      case "green":
-        return "bg-green-50 text-green-600";
-      case "yellow":
-        return "bg-yellow-50 text-yellow-600";
-      case "orange":
-        return "bg-orange-50 text-orange-600";
-      case "blue-dark":
-        return "bg-blue-900 text-blue-50";
-      default:
-        return "bg-slate-50 text-slate-600";
-    }
-  };
-
-  const getProgressClass = (color: string) => {
-    switch (color) {
-      case "blue":
-        return "from-blue-500 to-blue-600";
-      case "indigo":
-        return "from-indigo-500 to-indigo-600";
-      case "purple":
-        return "from-purple-500 to-purple-600";
-      case "cyan":
-        return "from-cyan-500 to-cyan-600";
-      case "red":
-        return "from-red-500 to-red-600";
-      case "green":
-        return "from-green-500 to-green-600";
-      case "yellow":
-        return "from-yellow-500 to-yellow-600";
-      case "orange":
-        return "from-orange-500 to-orange-600";
-      default:
-        return "from-slate-500 to-slate-600";
-    }
-  };
-
   return (
-    <div className="space-y-6 p-6">
-      {/* <div className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 p-6 shadow-lg">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold text-white sm:text-3xl">
-              Painel Administrativo
+    <div className="p-3 sm:p-4 md:p-6 lg:p-8">
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
+        {/* === Header Section === */}
+
+        <br />
+
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+          <div className="p-2 sm:p-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+            <Home className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
+          </div>
+          <div>
+            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-white">
+              Dashboard Administrativo
             </h1>
-            <p className="mt-2 text-blue-100">
+            <p className="text-xs sm:text-sm md:text-base text-white/70 mt-1">
               Gerencie todos os aspectos do sistema
             </p>
           </div>
-          <div className="flex items-center justify-end gap-4">
-            <AdminInfo />
-          </div>
         </div>
-      </div> */}
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {adminAreas.map((area) => (
-          <Link
-            key={area.title}
-            href={area.href}
-            className={`group relative overflow-hidden rounded-xl bg-white p-6 transition-all hover:shadow-lg ${area.href === "#"
-              ? "cursor-not-allowed opacity-60"
-              : "hover:scale-[1.02]"
-              }`}
-          >
-            <div
-              className={`absolute inset-0 bg-gradient-to-br opacity-[0.08] ${getGradientClass(
-                area.color
-              )}`}
-            />
+        {/* Admin Info Component */}
+        {/* <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg p-4 sm:p-6">
+          <AdminInfo />
+        </div> */}
 
-            <div className="relative mb-4">
-              <div
-                className={`absolute inset-0 rounded-full blur-xl opacity-20 ${area.color === "blue"
-                  ? "bg-blue-500"
-                  : area.color === "indigo"
-                    ? "bg-indigo-500"
-                    : area.color === "purple"
-                      ? "bg-purple-500"
-                      : area.color === "cyan"
-                        ? "bg-cyan-500"
-                        : area.color === "orange"
-                          ? "bg-orange-500"
-                          : "bg-slate-500"
-                  }`}
-              />
-              <div className={`relative inline-flex rounded-xl p-3 ${getIconClass(area.color)}`}>
-                {area.icon}
+        {/* Cards Grid */}
+        <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {adminAreas.map((area, index) => (
+            <Link
+              key={area.title}
+              href={area.href}
+              className={`group relative overflow-hidden rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 p-4 sm:p-6 transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:shadow-xl ${area.href === "#"
+                ? "cursor-not-allowed opacity-60"
+                : "hover:scale-105"
+                }`}
+              style={{
+                animationDelay: `${index * 50}ms`,
+              }}
+            >
+              {/* Icon Container */}
+              <div className="relative mb-3 sm:mb-4">
+                <div className="relative inline-flex rounded-lg p-2 sm:p-3 bg-white/20 backdrop-blur-sm border border-white/20 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-white">
+                    {area.icon}
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div className="relative">
-              <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
-                {area.title}
-                {area.isNew && (
-                  <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
-                    Em breve
-                  </span>
-                )}
-              </h3>
-              <p className="mt-2 text-sm text-gray-600">{area.description}</p>
-            </div>
-
-            {!area.isNew && (
-              <div className="absolute bottom-0 left-0 h-1 w-full">
-                <div
-                  className={`h-full w-full transform bg-gradient-to-r opacity-80 ${getProgressClass(
-                    area.color
-                  )}`}
-                />
+              {/* Content */}
+              <div className="relative space-y-1 sm:space-y-2">
+                <h3 className="flex items-center gap-2 text-sm sm:text-base md:text-lg font-semibold text-white group-hover:text-white/90 transition-colors duration-300">
+                  <span className="truncate">{area.title}</span>
+                  {area.isNew && (
+                    <span className="inline-flex items-center rounded-full bg-blue-500/20 border border-blue-400/30 px-2 py-1 text-xs font-semibold text-blue-200 flex-shrink-0">
+                      Em breve
+                    </span>
+                  )}
+                </h3>
+                <p className="text-xs sm:text-sm text-white/70 leading-relaxed group-hover:text-white/80 transition-colors duration-300 line-clamp-2">
+                  {area.description}
+                </p>
               </div>
-            )}
-          </Link>
-        ))}
+
+              {/* Bottom Accent */}
+              {!area.isNew && (
+                <div className="absolute bottom-0 left-0 h-0.5 w-full overflow-hidden rounded-b-lg">
+                  <div className="h-full w-full bg-gradient-to-r from-white/40 to-white/60 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              )}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
