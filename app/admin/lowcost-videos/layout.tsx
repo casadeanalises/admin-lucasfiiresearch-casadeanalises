@@ -19,7 +19,7 @@ export default async function LowcostVideosLayout({
 
   return (
     <>
-      <div className="min-h-screen" style={{ backgroundColor: '#1f40af' }}>
+      <div className="min-h-screen" style={{ backgroundColor: '#1e3a8a' }}>
         {/* Header */}
         <div className="bg-white/5 backdrop-blur-xl border-b border-white/10">
           <div className="container mx-auto px-6">
