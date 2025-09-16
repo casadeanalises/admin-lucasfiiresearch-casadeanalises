@@ -46,7 +46,7 @@ export function AdminFooter() {
 
             {/* Center Section - Version */}
             <div className="flex items-center gap-2 text-sm text-white/70">
-              <span className="font-medium">Site: v1.5.2</span>
+              <span className="font-medium">Site: v1.6.2</span>
             </div>
 
             {/* Right Section - Empty for balance */}
