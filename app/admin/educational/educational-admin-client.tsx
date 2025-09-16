@@ -13,7 +13,8 @@ import {
   RefreshCw, 
   Loader2,
   User,
-  Calendar
+  Calendar,
+  X
 } from "lucide-react";
 import type { IEducational } from "@/app/models/Educational";
 
@@ -26,6 +27,8 @@ export default function EducationalAdminClient({ adminEmail }: EducationalAdminC
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<IEducational[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedArticle, setSelectedArticle] = useState<IEducational | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch articles
   const fetchArticles = async () => {
@@ -51,6 +54,17 @@ export default function EducationalAdminClient({ adminEmail }: EducationalAdminC
     fetchArticles();
   }, []);
 
+  // Handle modal
+  const openModal = (article: IEducational) => {
+    setSelectedArticle(article);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedArticle(null);
+    setIsModalOpen(false);
+  };
+
   // Handle delete
   const handleDelete = async (slug: string) => {
     if (!confirm("Tem certeza que deseja excluir este artigo?")) return;
@@ -63,6 +77,7 @@ export default function EducationalAdminClient({ adminEmail }: EducationalAdminC
       if (response.ok) {
         setArticles(articles.filter(article => article.slug !== slug));
         toast.success("Artigo excluído com sucesso!");
+        closeModal();
       } else {
         throw new Error("Erro ao excluir artigo");
       }
@@ -113,6 +128,16 @@ export default function EducationalAdminClient({ adminEmail }: EducationalAdminC
           setSearchTerm={setSearchTerm}
           onDelete={handleDelete}
           onRefresh={fetchArticles}
+          onOpenModal={openModal}
+        />
+      )}
+
+      {/* Modal */}
+      {isModalOpen && selectedArticle && (
+        <ArticleModal
+          article={selectedArticle}
+          onClose={closeModal}
+          onDelete={handleDelete}
         />
       )}
     </div>
@@ -127,6 +152,7 @@ interface EducationalContentManagerProps {
   setSearchTerm: (term: string) => void;
   onDelete: (slug: string) => void;
   onRefresh: () => void;
+  onOpenModal: (article: IEducational) => void;
 }
 
 function EducationalContentManager({
@@ -136,6 +162,7 @@ function EducationalContentManager({
   setSearchTerm,
   onDelete,
   onRefresh,
+  onOpenModal,
 }: EducationalContentManagerProps) {
   if (isLoading) {
     return (
@@ -199,15 +226,12 @@ function EducationalContentManager({
                 <th className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 text-left text-xs font-medium text-white uppercase tracking-wider hidden md:table-cell">
                   Data
                 </th>
-                <th className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 text-right text-xs font-medium text-white uppercase tracking-wider">
-                  Ações
-                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10">
               {articles.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center">
+                  <td colSpan={3} className="px-6 py-8 text-center">
                     <div className="flex flex-col items-center">
                       <BookOpen className="w-8 h-8 text-white/40 mb-2" />
                       <p className="text-white/80 text-sm">Nenhum artigo encontrado</p>
@@ -217,7 +241,11 @@ function EducationalContentManager({
                 </tr>
               ) : (
                 articles.map((article) => (
-                  <tr key={article.slug} className="hover:bg-white/5">
+                  <tr 
+                    key={article.slug} 
+                    className="hover:bg-white/5 cursor-pointer transition-colors duration-200"
+                    onClick={() => onOpenModal(article)}
+                  >
                     <td className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 sm:py-4">
                       <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-3">
                         <div className="h-6 w-6 xs:h-8 xs:w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
@@ -265,29 +293,80 @@ function EducationalContentManager({
                         {new Date(article.publishedAt).toLocaleDateString("pt-BR")}
                       </p>
                     </td>
-                    <td className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 sm:py-4">
-                      <div className="flex items-center justify-end gap-0.5 xs:gap-1 sm:gap-1.5 md:gap-2">
-                        <Link
-                          href={`/admin/educational/edit/${article.slug}`}
-                          className="inline-flex items-center px-1 xs:px-1.5 sm:px-2 md:px-2.5 lg:px-3 py-0.5 xs:py-1 sm:py-1.5 md:py-2 text-xs rounded-lg bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white transition-all duration-200 min-w-0"
-                        >
-                          <Edit2 className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <span className="hidden md:inline ml-1 text-xs">Editar</span>
-                        </Link>
-                        <button
-                          onClick={() => onDelete(article.slug)}
-                          className="inline-flex items-center px-1 xs:px-1.5 sm:px-2 md:px-2.5 lg:px-3 py-0.5 xs:py-1 sm:py-1.5 md:py-2 text-xs rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white transition-all duration-200 min-w-0"
-                        >
-                          <Trash2 className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <span className="hidden md:inline ml-1 text-xs">Excluir</span>
-                        </button>
-                      </div>
-                    </td>
                   </tr>
                 ))
               )}
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Article Modal Component
+interface ArticleModalProps {
+  article: IEducational;
+  onClose: () => void;
+  onDelete: (slug: string) => void;
+}
+
+function ArticleModal({ article, onClose, onDelete }: ArticleModalProps) {
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg max-w-md w-full p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Opções do Artigo</h3>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-white/10 rounded-lg transition-colors duration-200"
+          >
+            <X className="w-5 h-5 text-white" />
+          </button>
+        </div>
+
+        {/* Article Info */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-12 w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+              <Image
+                src={article.image}
+                alt={article.title}
+                width={48}
+                height={48}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-medium text-white truncate">
+                {article.title}
+              </h4>
+              <p className="text-xs text-white/60 truncate">
+                {article.description}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          <Link
+            href={`/admin/educational/edit/${article.slug}`}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white"
+            onClick={onClose}
+          >
+            <Edit2 className="h-4 w-4" />
+            <span>Editar Artigo</span>
+          </Link>
+          
+          <button
+            onClick={() => onDelete(article.slug)}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white"
+          >
+            <Trash2 className="h-4 w-4" />
+            <span>Excluir Artigo</span>
+          </button>
         </div>
       </div>
     </div>
