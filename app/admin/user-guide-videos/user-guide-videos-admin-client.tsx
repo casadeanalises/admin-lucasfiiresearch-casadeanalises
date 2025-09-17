@@ -47,6 +47,7 @@ export default function UserGuideVideosAdminClient({ adminEmail }: UserGuideVide
   });
   const [videos, setVideos] = useState<UserGuideVideo[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState<UserGuideVideo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -167,6 +168,17 @@ export default function UserGuideVideosAdminClient({ adminEmail }: UserGuideVide
     setActiveSection("add");
   };
 
+  // Handle modal
+  const openModal = (video: UserGuideVideo) => {
+    setSelectedVideo(video);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedVideo(null);
+    setIsModalOpen(false);
+  };
+
   // Handle delete
   const handleDelete = async (id: string) => {
     if (!confirm("Tem certeza que deseja excluir este vídeo do guia?")) return;
@@ -182,6 +194,7 @@ export default function UserGuideVideosAdminClient({ adminEmail }: UserGuideVide
 
       toast.success("Vídeo do guia excluído com sucesso!");
       await fetchVideos();
+      closeModal();
     } catch (error) {
       console.error("Erro ao excluir vídeo do guia:", error);
       toast.error("Erro ao excluir vídeo do guia");
@@ -377,6 +390,17 @@ export default function UserGuideVideosAdminClient({ adminEmail }: UserGuideVide
           onEdit={handleEdit}
           onDelete={handleDelete}
           onRefresh={fetchVideos}
+          onOpenModal={openModal}
+        />
+      )}
+
+      {/* Modal */}
+      {isModalOpen && selectedVideo && (
+        <VideoModal
+          video={selectedVideo}
+          onClose={closeModal}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
         />
       )}
     </div>
@@ -392,6 +416,7 @@ interface UserGuideVideosContentManagerProps {
   onEdit: (video: UserGuideVideo) => void;
   onDelete: (id: string) => void;
   onRefresh: () => void;
+  onOpenModal: (video: UserGuideVideo) => void;
 }
 
 function UserGuideVideosContentManager({
@@ -402,6 +427,7 @@ function UserGuideVideosContentManager({
   onEdit,
   onDelete,
   onRefresh,
+  onOpenModal,
 }: UserGuideVideosContentManagerProps) {
   if (isLoading) {
     return (
@@ -465,15 +491,12 @@ function UserGuideVideosContentManager({
                 <th className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 text-left text-xs font-medium text-white uppercase tracking-wider hidden md:table-cell">
                   Data
                 </th>
-                <th className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 text-right text-xs font-medium text-white uppercase tracking-wider">
-                  Ações
-                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10">
               {videos.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center">
+                  <td colSpan={3} className="px-6 py-8 text-center">
                     <div className="flex flex-col items-center">
                       <BookOpen className="w-8 h-8 text-white/40 mb-2" />
                       <p className="text-white/80 text-sm">Nenhum vídeo do guia encontrado</p>
@@ -483,7 +506,11 @@ function UserGuideVideosContentManager({
                 </tr>
               ) : (
                 videos.map((video) => (
-                  <tr key={video._id} className="hover:bg-white/5">
+                  <tr 
+                    key={video._id} 
+                    className="hover:bg-white/5 cursor-pointer transition-colors duration-200"
+                    onClick={() => onOpenModal(video)}
+                  >
                     <td className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 sm:py-4">
                       <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-3">
                         <div className="h-6 w-6 xs:h-8 xs:w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -514,29 +541,80 @@ function UserGuideVideosContentManager({
                         {new Date(video.createdAt).toLocaleDateString("pt-BR")}
                       </p>
                     </td>
-                    <td className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 sm:py-4">
-                      <div className="flex items-center justify-end gap-0.5 xs:gap-1 sm:gap-1.5 md:gap-2">
-                        <button
-                          onClick={() => onEdit(video)}
-                          className="inline-flex items-center px-1 xs:px-1.5 sm:px-2 md:px-2.5 lg:px-3 py-0.5 xs:py-1 sm:py-1.5 md:py-2 text-xs rounded-lg bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white transition-all duration-200 min-w-0"
-                        >
-                          <Edit2 className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <span className="hidden md:inline ml-1 text-xs">Editar</span>
-                        </button>
-                        <button
-                          onClick={() => onDelete(video._id)}
-                          className="inline-flex items-center px-1 xs:px-1.5 sm:px-2 md:px-2.5 lg:px-3 py-0.5 xs:py-1 sm:py-1.5 md:py-2 text-xs rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white transition-all duration-200 min-w-0"
-                        >
-                          <Trash2 className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <span className="hidden md:inline ml-1 text-xs">Excluir</span>
-                        </button>
-                      </div>
-                    </td>
                   </tr>
                 ))
               )}
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Video Modal Component
+interface VideoModalProps {
+  video: UserGuideVideo;
+  onClose: () => void;
+  onDelete: (id: string) => void;
+  onEdit: (video: UserGuideVideo) => void;
+}
+
+function VideoModal({ video, onClose, onDelete, onEdit }: VideoModalProps) {
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg max-w-md w-full p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Opções do Vídeo</h3>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-white/10 rounded-lg transition-colors duration-200"
+          >
+            <X className="w-5 h-5 text-white" />
+          </button>
+        </div>
+
+        {/* Video Info */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-12 w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Video className="h-6 w-6 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-medium text-white truncate">
+                {video.title}
+              </h4>
+              <p className="text-xs text-white/60 truncate">
+                {video.description}
+              </p>
+              <p className="text-xs text-white/50 mt-1">
+                Categoria: {video.category}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={() => {
+              onEdit(video);
+              onClose();
+            }}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white"
+          >
+            <Edit2 className="h-4 w-4" />
+            <span>Editar Vídeo</span>
+          </button>
+          
+          <button
+            onClick={() => onDelete(video._id)}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white"
+          >
+            <Trash2 className="h-4 w-4" />
+            <span>Excluir Vídeo</span>
+          </button>
         </div>
       </div>
     </div>
