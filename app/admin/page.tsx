@@ -39,6 +39,8 @@ export default function AdminDashboard() {
       href: "/admin/etf-videos",
       color: "yellow",
       isNew: false,
+      isSoon: false,
+      isBeta: false,
     },
 
     {
@@ -53,6 +55,8 @@ export default function AdminDashboard() {
       href: "/admin/lowcost-videos",
       color: "orange",
       isNew: false,
+      isSoon: false,
+      isBeta: false,
     },
 
     {
@@ -71,6 +75,8 @@ export default function AdminDashboard() {
       href: "/admin/reports-videos-player-2",
       color: "blue",
       isNew: false,
+      isSoon: false,
+      isBeta: false,
     },
 
     {
@@ -80,6 +86,8 @@ export default function AdminDashboard() {
       href: "/admin/home-videos",
       color: "purple",
       isNew: false,
+      isSoon: false,
+      isBeta: false,
     },
 
     {
@@ -89,6 +97,8 @@ export default function AdminDashboard() {
       href: "/admin/user-guide-videos",
       color: "green",
       isNew: false,
+      isSoon: false,
+      isBeta: false,
     },
 
 
@@ -126,16 +136,18 @@ export default function AdminDashboard() {
       icon: <Key className="h-6 w-6 sm:h-8 sm:w-8" />,
       href: "/admin/fix-auth",
       color: "blue-dark",
-      isNew: false,
+      isBeta: true,
     },
-    // {
-    //   title: "Configurações",
-    //   description: "Gerencie as configurações do sistema ",
-    //   icon: <Settings className="h-6 w-6 sm:h-8 sm:w-8" />,
-    //   href: "#",
-    //   color: "slate",
-    //   isNew: true,
-    // },
+
+    {
+      title: "Configurações avançadas",
+      description: "Gerencie as configurações avançadas do sistema ",
+      icon: <Settings className="h-6 w-6 sm:h-8 sm:w-8" />,
+      href: "/admin/advanced-settings",
+      color: "slate",
+      isNew: false,
+      isBeta: true,
+    },
   ];
 
   return (
@@ -191,9 +203,21 @@ export default function AdminDashboard() {
               <div className="relative space-y-1 sm:space-y-2">
                 <h3 className="flex items-center gap-2 text-sm sm:text-base md:text-lg font-semibold text-white group-hover:text-white/90 transition-colors duration-300">
                   <span className="truncate">{area.title}</span>
-                  {area.isNew && (
+                  {area.isSoon && (
                     <span className="inline-flex items-center rounded-full bg-blue-500/20 border border-blue-400/30 px-2 py-1 text-xs font-semibold text-blue-200 flex-shrink-0">
                       Em breve
+                    </span>
+                  )}
+
+                  {area.isNew && (
+                    <span className="inline-flex items-center rounded-full bg-blue-500/20 border border-blue-400/30 px-2 py-1 text-xs font-semibold text-blue-200 flex-shrink-0">
+                      Novo
+                    </span>
+                  )}
+
+                  {area.isBeta && (
+                    <span className="inline-flex items-center rounded-full bg-blue-500/20 border border-blue-400/30 px-2 py-1 text-xs font-semibold text-blue-200 flex-shrink-0">
+                      Beta
                     </span>
                   )}
                 </h3>

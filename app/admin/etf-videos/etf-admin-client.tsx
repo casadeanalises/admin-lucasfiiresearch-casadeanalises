@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { toast, Toaster } from "react-hot-toast";
+import { Edit2, Trash2, X } from "lucide-react";
 import EtfContentManager from "./_components/etf-content-manager";
 
 type EtfItem = {
@@ -75,6 +76,8 @@ const EtfAdminClient = ({
 
   const [tagInput, setTagInput] = useState("");
   const [videoTagInput, setVideoTagInput] = useState("");
+  const [selectedItem, setSelectedItem] = useState<EtfItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function obterMesAtual(monthIndex?: number) {
     const meses = [
@@ -222,7 +225,7 @@ const EtfAdminClient = ({
 
       // Preparar dados para envio
       const dataToSend = activeTab === "pdf" ? {
-        id: editingItem.id,
+        _id: editingItem.id,
         title: currentData.title,
         description: currentData.description,
         author: currentData.author || "Lucas FII",
@@ -235,7 +238,7 @@ const EtfAdminClient = ({
         pageCount: currentData.pageCount || 1,
         fileUrl: currentData.url 
       } : {
-        id: editingItem.id,
+        _id: editingItem.id,
         title: currentData.title,
         description: currentData.description,
         videoId: currentData.videoId,
@@ -332,6 +335,17 @@ const EtfAdminClient = ({
         url: item.url || "",
       });
     }
+  };
+
+  // Handle modal
+  const openModal = (item: EtfItem) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedItem(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -650,8 +664,18 @@ const EtfAdminClient = ({
       ) : (
         <EtfContentManager
           onEdit={handleEdit}
+          onOpenModal={openModal}
           activeTab={activeTab}
           filterByType={activeTab}
+        />
+      )}
+
+      {/* Modal */}
+      {isModalOpen && selectedItem && (
+        <EtfItemModal
+          item={selectedItem}
+          onClose={closeModal}
+          onEdit={handleEdit}
         />
       )}
     </>
@@ -659,3 +683,100 @@ const EtfAdminClient = ({
 };
 
 export default EtfAdminClient;
+
+// Modal Component
+interface EtfItemModalProps {
+  item: EtfItem;
+  onClose: () => void;
+  onEdit: (item: EtfItem) => void;
+}
+
+function EtfItemModal({ item, onClose, onEdit }: EtfItemModalProps) {
+  const handleDelete = async (id: string, type: string) => {
+    if (!confirm("Tem certeza que deseja excluir este item?")) return;
+
+    try {
+      const apiUrl = type === "pdf" ? "/api/etf-pdfs" : "/api/etf-videos";
+      const response = await fetch(`${apiUrl}?id=${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) throw new Error("Erro ao excluir item");
+
+      toast.success("Item excluído com sucesso!");
+      onClose();
+      // Recarregar a página para atualizar a lista
+      window.location.reload();
+    } catch (error) {
+      console.error("Erro ao excluir item:", error);
+      toast.error("Erro ao excluir item");
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg max-w-md w-full p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Opções do {item.type === "pdf" ? "PDF" : "Vídeo"}</h3>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-white/10 rounded-lg transition-colors duration-200"
+          >
+            <X className="w-5 h-5 text-white" />
+          </button>
+        </div>
+
+        {/* Item Info */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-12 w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              {item.type === "pdf" ? (
+                <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-medium text-white truncate">
+                {item.title}
+              </h4>
+              <p className="text-xs text-white/60 truncate">
+                {item.description}
+              </p>
+              <p className="text-xs text-white/50 mt-1">
+                Criado em: {new Date(item.createdAt).toLocaleDateString("pt-BR")}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={() => {
+              onEdit(item);
+              onClose();
+            }}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white"
+          >
+            <Edit2 className="h-4 w-4" />
+            <span>Editar {item.type === "pdf" ? "PDF" : "Vídeo"}</span>
+          </button>
+          
+          <button
+            onClick={() => handleDelete(item.id, item.type)}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white"
+          >
+            <Trash2 className="h-4 w-4" />
+            <span>Excluir {item.type === "pdf" ? "PDF" : "Vídeo"}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
