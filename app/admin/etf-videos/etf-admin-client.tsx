@@ -238,7 +238,7 @@ const EtfAdminClient = ({
         pageCount: currentData.pageCount || 1,
         fileUrl: currentData.url 
       } : {
-        _id: editingItem.id,
+        id: editingItem.id,
         title: currentData.title,
         description: currentData.description,
         videoId: currentData.videoId,
