@@ -49,6 +49,8 @@ export default function RelevantFactsAdminClient() {
     url: "",
   });
   const [tagInput, setTagInput] = useState("");
+  const [selectedItem, setSelectedItem] = useState<RelevantFact | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const addTag = (tag: string) => {
     if (tag.trim()) {
@@ -176,6 +178,17 @@ export default function RelevantFactsAdminClient() {
       tags: item.tags || [],
       url: item.pdfUrl || "",
     });
+  };
+
+  // Handle modal
+  const openModal = (item: RelevantFact) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedItem(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -402,14 +415,23 @@ export default function RelevantFactsAdminClient() {
 
       {/* Manage Section */}
       {activeSection === "manage" && (
-        <RelevantFactsContentManager onEdit={handleEdit} />
+        <RelevantFactsContentManager onEdit={handleEdit} onOpenModal={openModal} />
+      )}
+
+      {/* Modal */}
+      {isModalOpen && selectedItem && (
+        <RelevantFactModal
+          item={selectedItem}
+          onClose={closeModal}
+          onEdit={handleEdit}
+        />
       )}
     </>
   );
 }
 
 // Componente para gerenciar fatos relevantes existentes
-function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) => void }) {
+function RelevantFactsContentManager({ onEdit, onOpenModal }: { onEdit: (item: RelevantFact) => void; onOpenModal: (item: RelevantFact) => void }) {
   const [items, setItems] = useState<RelevantFact[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -518,15 +540,12 @@ function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) 
                 <th className="px-2 xs:px-3 sm:px-4 md:px-6 py-2 xs:py-3 text-left text-xs font-medium text-white uppercase tracking-wider hidden sm:table-cell">
                   Data
                 </th>
-                <th className="px-2 xs:px-3 sm:px-4 md:px-6 py-2 xs:py-3 text-right text-xs font-medium text-white uppercase tracking-wider">
-                  Ações
-                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10">
               {filteredItems.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-8 text-center">
+                  <td colSpan={2} className="px-6 py-8 text-center">
                     <div className="flex flex-col items-center">
                       <FileText className="w-8 h-8 text-white/40 mb-2" />
                       <p className="text-white/80 text-sm">Nenhum fato relevante encontrado</p>
@@ -536,12 +555,16 @@ function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) 
                 </tr>
               ) : (
                 filteredItems.map((item) => (
-                  <tr key={item.id} className="hover:bg-white/5">
+                  <tr 
+                    key={item.id} 
+                    className="hover:bg-white/5 cursor-pointer transition-colors duration-200"
+                    onClick={() => onOpenModal(item)}
+                  >
                     <td className="px-2 xs:px-3 sm:px-4 md:px-6 py-3 xs:py-4">
                       <div className="flex items-center gap-2 xs:gap-3">
                         <div className="h-8 w-8 xs:h-10 xs:w-10 sm:h-12 sm:w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
                           <FileText className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-white" />
-                </div>
+                        </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-xs xs:text-sm sm:text-base font-medium text-white truncate">
                             {item.title}
@@ -553,32 +576,14 @@ function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) 
                             <p className="text-xs text-white/50">
                               {new Date(item.createdAt).toLocaleDateString("pt-BR")}
                             </p>
-                  </div>
-                </div>
-              </div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td className="px-2 xs:px-3 sm:px-4 md:px-6 py-3 xs:py-4 hidden sm:table-cell">
                       <p className="text-xs xs:text-sm text-white/60">
                         {new Date(item.createdAt).toLocaleDateString("pt-BR")}
                       </p>
-                    </td>
-                    <td className="px-2 xs:px-3 sm:px-4 md:px-6 py-3 xs:py-4">
-                      <div className="flex items-center justify-end gap-1 xs:gap-1.5 sm:gap-2">
-                        <button
-                          onClick={() => onEdit(item)}
-                          className="inline-flex items-center px-1.5 xs:px-2 sm:px-2.5 md:px-3 py-1 xs:py-1.5 sm:py-2 text-xs rounded-lg bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white transition-all duration-200 min-w-0"
-                        >
-                          <Edit2 className="w-3 h-3 xs:w-4 xs:h-4 flex-shrink-0" />
-                          <span className="hidden sm:inline ml-1 text-xs">Editar</span>
-                        </button>
-                        <button
-                          onClick={() => handleDelete(item.id)}
-                          className="inline-flex items-center px-1.5 xs:px-2 sm:px-2.5 md:px-3 py-1 xs:py-1.5 sm:py-2 text-xs rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white transition-all duration-200 min-w-0"
-                        >
-                          <Trash2 className="w-3 h-3 xs:w-4 xs:h-4 flex-shrink-0" />
-                          <span className="hidden sm:inline ml-1 text-xs">Excluir</span>
-                        </button>
-                      </div>
                     </td>
                   </tr>
                 ))
@@ -589,4 +594,94 @@ function RelevantFactsContentManager({ onEdit }: { onEdit: (item: RelevantFact) 
       </div>
             </div>
   );
-} 
+}
+
+// Modal Component
+interface RelevantFactModalProps {
+  item: RelevantFact;
+  onClose: () => void;
+  onEdit: (item: RelevantFact) => void;
+}
+
+function RelevantFactModal({ item, onClose, onEdit }: RelevantFactModalProps) {
+  const handleDelete = async (id: string) => {
+    if (!confirm("Tem certeza que deseja excluir este fato relevante?")) return;
+
+    try {
+      const response = await fetch(`/api/relevant-facts/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        toast.success("Fato relevante excluído com sucesso!");
+        onClose();
+        // Recarregar a página para atualizar a lista
+        window.location.reload();
+      } else {
+        toast.error("Erro ao excluir fato relevante");
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      toast.error("Erro ao excluir fato relevante");
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg max-w-md w-full p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Opções do PDF</h3>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-white/10 rounded-lg transition-colors duration-200"
+          >
+            <X className="w-5 h-5 text-white" />
+          </button>
+        </div>
+
+        {/* Item Info */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-12 w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <FileText className="h-6 w-6 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-medium text-white truncate">
+                {item.title}
+              </h4>
+              <p className="text-xs text-white/60 truncate">
+                {item.description}
+              </p>
+              <p className="text-xs text-white/50 mt-1">
+                Criado em: {new Date(item.createdAt).toLocaleDateString("pt-BR")}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={() => {
+              onEdit(item);
+              onClose();
+            }}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white"
+          >
+            <Edit2 className="h-4 w-4" />
+            <span>Editar PDF</span>
+          </button>
+          
+          <button
+            onClick={() => handleDelete(item.id)}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white"
+          >
+            <Trash2 className="h-4 w-4" />
+            <span>Excluir PDF</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

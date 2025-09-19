@@ -27,11 +27,12 @@ type EtfItem = {
 
 interface EtfContentManagerProps {
   onEdit: (item: EtfItem) => void;
+  onOpenModal: (item: EtfItem) => void;
   activeTab: "pdf" | "video";
   filterByType?: "pdf" | "video";
 }
 
-const EtfContentManager = ({ onEdit, activeTab, filterByType }: EtfContentManagerProps) => {
+const EtfContentManager = ({ onEdit, onOpenModal, activeTab, filterByType }: EtfContentManagerProps) => {
   const [items, setItems] = useState<EtfItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -234,14 +235,15 @@ const EtfContentManager = ({ onEdit, activeTab, filterByType }: EtfContentManage
                   <th className="px-2 xs:px-3 sm:px-6 py-2 xs:py-3 text-left text-xs font-medium text-white uppercase tracking-wider hidden sm:table-cell">
                     Data
                   </th>
-                  <th className="px-2 xs:px-3 sm:px-6 py-2 xs:py-3 text-right text-xs font-medium text-white uppercase tracking-wider">
-                    Ações
-                  </th>
                 </tr>
               </thead>
             <tbody className="divide-y divide-white/10">
               {filteredItems.map((item) => (
-                <tr key={item.id} className="hover:bg-white/5">
+                <tr 
+                  key={item.id} 
+                  className="hover:bg-white/5 cursor-pointer transition-colors duration-200"
+                  onClick={() => onOpenModal(item)}
+                >
                   <td className="px-2 xs:px-3 sm:px-6 py-3 xs:py-4">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-8 w-8 xs:h-10 xs:w-10 sm:h-12 sm:w-12">
@@ -298,28 +300,6 @@ const EtfContentManager = ({ onEdit, activeTab, filterByType }: EtfContentManage
                   </td>
                   <td className="px-2 xs:px-3 sm:px-6 py-3 xs:py-4 whitespace-nowrap text-xs xs:text-sm text-white/60 hidden sm:table-cell">
                     {new Date(item.createdAt).toLocaleDateString("pt-BR")}
-                  </td>
-                  <td className="px-2 xs:px-3 sm:px-6 py-3 xs:py-4 whitespace-nowrap text-right">
-                    <div className="flex items-center justify-end gap-1 xs:gap-2">
-                      <button
-                        onClick={() => onEdit(item)}
-                        className="inline-flex items-center px-1.5 xs:px-2 sm:px-3 py-1 xs:py-1.5 sm:py-2 border border-transparent text-xs font-medium rounded-lg bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white transition-all duration-200"
-                      >
-                        <svg className="w-3 h-3 xs:w-4 xs:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                        <span className="hidden xs:inline ml-1">Editar</span>
-                      </button>
-                      <button
-                        onClick={() => handleDelete(item.id, item.type)}
-                        className="inline-flex items-center px-1.5 xs:px-2 sm:px-3 py-1 xs:py-1.5 sm:py-2 border border-transparent text-xs font-medium rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white transition-all duration-200"
-                      >
-                        <svg className="w-3 h-3 xs:w-4 xs:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        <span className="hidden xs:inline ml-1">Excluir</span>
-                      </button>
-                    </div>
                   </td>
                 </tr>
               ))}
