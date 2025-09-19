@@ -38,12 +38,14 @@ interface ContentManagerProps {
   activeTab: "pdf" | "video";
   onEdit: (item: Report) => void;
   onSetAddMode: () => void;
+  onOpenModal: (item: Report) => void;
 }
 
 export const ContentManager: React.FC<ContentManagerProps> = ({
   activeTab,
   onEdit,
   onSetAddMode,
+  onOpenModal,
 }) => {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState<Report[]>([]);
@@ -369,16 +371,13 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
               <th scope="col" className="hidden sm:table-cell px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-white">
                 Data
               </th>
-              <th scope="col" className="px-3 sm:px-4 py-3 text-left text-xs sm:text-sm font-medium text-white">
-                Ações
-              </th>
             </tr>
           </thead>
 
           <tbody className="divide-y divide-white/10">
             {filteredItems.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-4 sm:px-6 py-8 sm:py-12 text-center text-sm sm:text-base text-white/70">
+                <td colSpan={3} className="px-4 sm:px-6 py-8 sm:py-12 text-center text-sm sm:text-base text-white/70">
                   {loading ? (
                     <div className="flex items-center justify-center">
                       <svg className="mr-2 h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -406,7 +405,11 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
               </tr>
             ) : (
               filteredItems.map((item) => (
-                <tr key={item.id} className="hover:bg-white/5 transition-colors duration-200">
+                <tr 
+                  key={item.id} 
+                  className="hover:bg-white/5 cursor-pointer transition-colors duration-200"
+                  onClick={() => onOpenModal(item)}
+                >
                   <td className="px-3 sm:px-4 py-3">
                     <div className="flex items-center space-x-2 sm:space-x-3">
                       <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10">
@@ -453,50 +456,6 @@ export const ContentManager: React.FC<ContentManagerProps> = ({
                     <div className="flex items-center">
                       <Calendar className="h-4 w-4 text-white/50 mr-2" />
                       {formatDate(item.createdAt)}
-                    </div>
-                  </td>
-                  <td className="px-3 sm:px-4 py-3">
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                      <button
-                        onClick={() => onEdit(item)}
-                        className="inline-flex items-center rounded-lg bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 px-2 sm:px-3 py-1.5 text-xs font-medium text-white transition-all duration-200"
-                        title="Editar"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                        <span className="hidden xs:inline ml-1">Editar</span>
-                      </button>
-                      {item.url && (
-                        <a
-                          href={item.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center rounded-lg bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/30 hover:border-purple-400/50 px-2 sm:px-3 py-1.5 text-xs font-medium text-white transition-all duration-200"
-                          title="Download"
-                        >
-                          <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                          <span className="hidden xs:inline ml-1">Download</span>
-                        </a>
-                      )}
-                      <button
-                        onClick={() => handleDelete(item.id)}
-                        disabled={deletingIds.has(item.id)}
-                        className="inline-flex items-center rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 px-2 sm:px-3 py-1.5 text-xs font-medium text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                        title="Excluir"
-                      >
-                        {deletingIds.has(item.id) ? (
-                          <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                        ) : (
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        )}
-                        <span className="hidden xs:inline ml-1">Excluir</span>
-                      </button>
                     </div>
                   </td>
                 </tr>

@@ -50,6 +50,7 @@ export default function HomeVideosAdminClient({ adminEmail }: HomeVideosAdminCli
   });
   const [videos, setVideos] = useState<HomeVideo[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState<HomeVideo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -165,6 +166,17 @@ export default function HomeVideosAdminClient({ adminEmail }: HomeVideosAdminCli
       videoId: item.videoId,
     });
     setActiveSection("add");
+  };
+
+  // Handle modal
+  const openModal = (video: HomeVideo) => {
+    setSelectedVideo(video);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedVideo(null);
+    setIsModalOpen(false);
   };
 
   // Handle delete
@@ -355,6 +367,17 @@ export default function HomeVideosAdminClient({ adminEmail }: HomeVideosAdminCli
           onEdit={handleEdit}
           onDelete={handleDelete}
           onRefresh={fetchVideos}
+          onOpenModal={openModal}
+        />
+      )}
+
+      {/* Modal */}
+      {isModalOpen && selectedVideo && (
+        <HomeVideoModal
+          video={selectedVideo}
+          onClose={closeModal}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
         />
       )}
     </div>
@@ -370,6 +393,7 @@ interface HomeVideosContentManagerProps {
   onEdit: (video: HomeVideo) => void;
   onDelete: (id: string) => void;
   onRefresh: () => void;
+  onOpenModal: (video: HomeVideo) => void;
 }
 
 function HomeVideosContentManager({
@@ -380,6 +404,7 @@ function HomeVideosContentManager({
   onEdit,
   onDelete,
   onRefresh,
+  onOpenModal,
 }: HomeVideosContentManagerProps) {
   if (isLoading) {
     return (
@@ -440,15 +465,12 @@ function HomeVideosContentManager({
                 <th className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 text-left text-xs font-medium text-white uppercase tracking-wider hidden sm:table-cell">
                   Data
                 </th>
-                <th className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 text-right text-xs font-medium text-white uppercase tracking-wider">
-                  Ações
-                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10">
               {videos.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-8 text-center">
+                  <td colSpan={2} className="px-6 py-8 text-center">
                     <div className="flex flex-col items-center">
                       <Video className="w-8 h-8 text-white/40 mb-2" />
                       <p className="text-white/80 text-sm">Nenhum vídeo encontrado</p>
@@ -458,7 +480,11 @@ function HomeVideosContentManager({
                 </tr>
               ) : (
                 videos.map((video) => (
-                  <tr key={video._id} className="hover:bg-white/5">
+                  <tr 
+                    key={video._id} 
+                    className="hover:bg-white/5 cursor-pointer transition-colors duration-200"
+                    onClick={() => onOpenModal(video)}
+                  >
                     <td className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 sm:py-4">
                       <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-3">
                         <div className="h-6 w-6 xs:h-8 xs:w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -484,29 +510,82 @@ function HomeVideosContentManager({
                         {new Date(video.createdAt).toLocaleDateString("pt-BR")}
                       </p>
                     </td>
-                    <td className="px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-2 xs:py-3 sm:py-4">
-                      <div className="flex items-center justify-end gap-0.5 xs:gap-1 sm:gap-1.5 md:gap-2">
-                        <button
-                          onClick={() => onEdit(video)}
-                          className="inline-flex items-center px-1 xs:px-1.5 sm:px-2 md:px-2.5 lg:px-3 py-0.5 xs:py-1 sm:py-1.5 md:py-2 text-xs rounded-lg bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white transition-all duration-200 min-w-0"
-                        >
-                          <Edit2 className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <span className="hidden md:inline ml-1 text-xs">Editar</span>
-                        </button>
-                        <button
-                          onClick={() => onDelete(video._id)}
-                          className="inline-flex items-center px-1 xs:px-1.5 sm:px-2 md:px-2.5 lg:px-3 py-0.5 xs:py-1 sm:py-1.5 md:py-2 text-xs rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white transition-all duration-200 min-w-0"
-                        >
-                          <Trash2 className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <span className="hidden md:inline ml-1 text-xs">Excluir</span>
-                        </button>
-                      </div>
-                    </td>
                   </tr>
                 ))
               )}
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Modal Component
+interface HomeVideoModalProps {
+  video: HomeVideo;
+  onClose: () => void;
+  onDelete: (id: string) => void;
+  onEdit: (video: HomeVideo) => void;
+}
+
+function HomeVideoModal({ video, onClose, onDelete, onEdit }: HomeVideoModalProps) {
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg max-w-md w-full p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Opções do Vídeo</h3>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-white/10 rounded-lg transition-colors duration-200"
+          >
+            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Video Info */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-12 w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Video className="h-6 w-6 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-medium text-white truncate">
+                {video.title}
+              </h4>
+              <p className="text-xs text-white/60 truncate">
+                {video.description}
+              </p>
+              <p className="text-xs text-white/50 mt-1">
+                Criado em: {new Date(video.createdAt).toLocaleDateString("pt-BR")}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={() => {
+              onEdit(video);
+              onClose();
+            }}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white"
+          >
+            <Edit2 className="h-4 w-4" />
+            <span>Editar Vídeo</span>
+          </button>
+          
+          <button
+            onClick={() => onDelete(video._id)}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white"
+          >
+            <Trash2 className="h-4 w-4" />
+            <span>Excluir Vídeo</span>
+          </button>
         </div>
       </div>
     </div>
