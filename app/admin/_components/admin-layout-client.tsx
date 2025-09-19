@@ -281,6 +281,10 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                       Restaurar Autenticação
                     </Link>
 
+                    <Link href="/admin/advanced-settings" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Configurações Avançadas
+                    </Link>
+
                     {/* <Link href="/admin/update-schedule" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                         Cronograma de Atualizações
                       </Link> */}
@@ -412,6 +416,14 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Restaurar Autenticação
+                </Link>
+
+                <Link
+                  href="/admin/advanced-settings"
+                  className="block px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Configurações Avançadas
                 </Link>
 
                 {!isLoading && adminEmail && (

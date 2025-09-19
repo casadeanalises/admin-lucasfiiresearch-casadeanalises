@@ -74,6 +74,8 @@ export default function AdminNotificationsPage() {
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [deletingAll, setDeletingAll] = useState(false);
+  const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -111,6 +113,17 @@ export default function AdminNotificationsPage() {
     } finally {
       setDeletingAll(false);
     }
+  };
+
+  // Handle modal
+  const openModal = (notification: Notification) => {
+    setSelectedNotification(notification);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedNotification(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -235,7 +248,8 @@ export default function AdminNotificationsPage() {
                 {notifications.map((notification, index) => (
                   <div
                     key={notification._id}
-                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 sm:p-6 hover:bg-white/10 transition-all duration-200"
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 sm:p-6 hover:bg-white/10 transition-all duration-200 cursor-pointer"
+                    onClick={() => openModal(notification)}
                   >
                     <div className="flex items-start gap-4 sm:gap-6">
                       {/* Icon and Image */}
@@ -296,32 +310,100 @@ export default function AdminNotificationsPage() {
                           )}
                         </div>
                       </div>
-
-                      {/* Actions */}
-                      <div className="flex-shrink-0">
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => handleDelete(notification._id)}
-                          disabled={deleting === notification._id}
-                          className="bg-red-500/20 hover:bg-red-500/30 text-white border border-red-400/30 hover:border-red-400/40 transition-all duration-200"
-                        >
-                          {deleting === notification._id ? (
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                          ) : (
-                            <Trash2 className="w-4 h-4" />
-                          )}
-                          <span className="ml-2 hidden sm:inline">
-                            {deleting === notification._id ? 'Excluindo...' : 'Excluir'}
-                          </span>
-                        </Button>
-                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && selectedNotification && (
+        <NotificationModal
+          notification={selectedNotification}
+          onClose={closeModal}
+          onDelete={handleDelete}
+        />
+      )}
+    </div>
+  );
+}
+
+// Modal Component
+interface NotificationModalProps {
+  notification: Notification;
+  onClose: () => void;
+  onDelete: (id: string) => void;
+}
+
+function NotificationModal({ notification, onClose, onDelete }: NotificationModalProps) {
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg max-w-md w-full p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Opções da Notificação</h3>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-white/10 rounded-lg transition-colors duration-200"
+          >
+            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Notification Info */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-12 w-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              {notification.imageUrl ? (
+                <img
+                  src={notification.imageUrl}
+                  alt={notification.title}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              ) : (
+                getNotificationIcon(notification.type)
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-medium text-white truncate">
+                {notification.title}
+              </h4>
+              <p className="text-xs text-white/60 truncate">
+                {notification.description}
+              </p>
+              <p className="text-xs text-white/50 mt-1">
+                Criado em: {new Date(notification.createdAt).toLocaleDateString("pt-BR")}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          {notification.link && (
+            <a
+              href={notification.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white"
+            >
+              <ExternalLink className="h-4 w-4" />
+              <span>Ver Link</span>
+            </a>
+          )}
+
+          <button
+            onClick={() => onDelete(notification._id)}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-200 bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 text-white"
+          >
+            <Trash2 className="h-4 w-4" />
+            <span>Excluir Notificação</span>
+          </button>
         </div>
       </div>
     </div>
